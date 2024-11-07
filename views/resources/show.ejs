@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BVP</title>
+  </head>
+  <body>
+    <h1>Resource Details</h1>
+
+    <h2><%= resource.subjectName %></h2>
+    <p><strong>Department:</strong> <%= resource.department %></p>
+    <p><strong>Semester:</strong> <%= resource.semester %></p>
+    <p><strong>Subject Code:</strong> <%= resource.subjectCode %></p>
+
+    <h3>Materials</h3>
+    <% resource.materials.forEach(material => { %>
+
+    <h4><%= material.textbookTitle %></h4>
+    <p>
+      <strong>Textbook URL:</strong>
+      <a href="<%= material.textbookURL.url %>" target="_blank"
+        >View Textbook</a
+      >
+    </p>
+    <p>
+      <strong>Upload Date:</strong> <%= material.uploadDate.toDateString() %>
+    </p>
+
+    <h5>Paper Links:</h5>
+    <ul>
+      <% material.paperLinks.forEach(link => { %>
+      <li><a href="<%= link.url %>" target="_blank">View Paper</a></li>
+      <% }); %>
+    </ul>
+
+    <% }); %>
+    <br />
+    <hr />
+    <form
+      action="/admin/resources/<%= resource._id %>?_method=DELETE"
+      method="post"
+    >
+      <button>Delete Resource</button>
+    </form>
+  </body>
+</html>

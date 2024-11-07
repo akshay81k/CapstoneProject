@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Examinations</title>
+    <style>
+      .div1 {
+        border: 2px solid black;
+        margin: 4rem;
+        padding: 1.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <% for (exam of allExams) { %>
+    <div>
+      <h2><%= exam.examName %></h2>
+      <p><b>Exam Type:</b><%= exam.examType%></p>
+      <p><b>Department</b><%= exam.department%></p>
+      <p><b>Semester</b> <%= exam.semester%></p>
+      <p><b>Exam Start Date:</b><%= exam.startDate.toDateString()%></p>
+      <p><b>Exam End Date:</b><%= exam.endDate.toDateString()%></p>
+      <a href="<%= exam.timetable.url %>" target="_blank">View Timetable</a>
+    </div>
+    <% } %>
+  </body>
+</html>

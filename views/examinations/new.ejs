@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BVP</title>
+  </head>
+  <body>
+    <h3>Add Examination</h3>
+    <br />
+    <form
+      action="/admin/examinations/<%= id %>"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      <input
+        type="text"
+        name="exam[examName]"
+        placeholder="Enter exam name"
+        required
+      /><br />
+      <input
+        type="text"
+        name="exam[examType]"
+        placeholder="Enter exam type"
+        required
+      /><br />
+      <select name="exam[department]" required>
+        <option value="Computer Engineering">Computer Engineering</option>
+        <option value="Civil Engineering">Civil Engineering</option>
+        <option value="Mechanical Engineering">Mechanical Engineering</option>
+        <option value="Big Data">Big Data</option>
+        <option value="Artificial Intelligence">
+          Artificial Intelligence
+        </option></select
+      ><br />
+      <input
+        type="number"
+        name="exam[semester]"
+        placeholder="Enter semester"
+        required
+      /><br />
+      <input
+        type="date"
+        name="exam[startDate]"
+        placeholder="Enter startDate"
+        required
+      /><br />
+      <input
+        type="date"
+        name="exam[endDate]"
+        placeholder="Enter endDate"
+        required
+      /><br />
+      <input
+        type="file"
+        name="exam[timetable]"
+        placeholder="Upload Timetable"
+        required
+      /><br />
+      <button>Add Examination</button>
+    </form>
+  </body>
+</html>

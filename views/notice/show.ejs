@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BVP</title>
+  </head>
+  <body>
+    <li><%= notice.title %></li>
+    <li><%= notice.description %></li>
+    <li><%= notice.datePosted %></li>
+    <li><%= notice.category %></li>
+    <li><%= notice.postedBy %></li>
+
+    <a href="/admin/notices/<%= notice._id %>/edit">Edit</a><br />
+
+    <form
+      action="/admin/notices/<%= notice._id %>?_method=DELETE"
+      method="post"
+    >
+      <button>Delete</button>
+    </form>
+  </body>
+</html>

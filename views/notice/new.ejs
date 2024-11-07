@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BVP</title>
+  </head>
+  <body>
+    <h3>Create Notice</h3>
+
+    <form action="/admin/notices" method="POST">
+      <input
+        type="text"
+        name="notice[title]"
+        placeholder="Enter title"
+        required
+      /><br />
+      <textarea
+        type="text"
+        name="notice[description]"
+        placeholder="Enter description"
+        required
+      ></textarea
+      ><br />
+      <input
+        type="text"
+        name="notice[postedBy]"
+        placeholder="Enter author"
+        required
+      /><br />
+      <input
+        type="text"
+        name="notice[category]"
+        placeholder="Enter category"
+        required
+      /><br />
+      <button>Add Notice</button>
+    </form>
+  </body>
+</html>

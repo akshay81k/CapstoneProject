@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BVP</title>
+</head>
+<body>
+    <h3>Update Project</h3>
+
+    <form action="/admin/projects/<%= project._id %>?_method=PUT" method="POST">
+        <input
+            type="text"
+            name="project[studentName]"
+            value="<%= project.studentName.join(', ') %>" 
+            placeholder="Enter student names (comma separated)"
+            required
+        /><br />
+        
+        <input
+            type="text"
+            name="project[graduationYear]"
+            value="<%= project.graduationYear %>"
+            placeholder="Enter graduation year"
+            required
+        /><br />
+        
+    <select name="project[department]" required>
+        <option value="Computer Engineering" <%=project.department==='Computer Engineering' ? 'selected' : '' %>>
+            Computer Engineering
+        </option>
+        <option value="Civil Engineering" <%=project.department==='Civil Engineering' ? 'selected' : '' %>>
+            Civil Engineering
+        </option>
+        <option value="Mechanical Engineering" <%=project.department==='Mechanical Engineering' ? 'selected' : '' %>>
+            Mechanical Engineering
+        </option>
+        <option value="Big Data" <%=project.department==='Big Data' ? 'selected' : '' %>>
+            Big Data
+        </option>
+        <option value="Artificial Intelligence" <%=project.department==='Artificial Intelligence' ? 'selected' : '' %>>
+            Artificial Intelligence
+        </option>
+    </select><br />
+
+        <h4>Project Details</h4>
+        
+        <input
+            type="text"
+            name="project[projectDetails][projectName]"
+            value="<%= project.projectDetails.projectName %>"
+            placeholder="Enter project name"
+            required
+        /><br />
+        
+        <textarea
+            name="project[projectDetails][description]"
+            placeholder="Enter project description"
+            required
+        ><%= project.projectDetails.description %></textarea><br />
+        
+        <input
+            type="text"
+            name="project[projectDetails][githubLink]"
+            value="<%= project.projectDetails.githubLink %>"
+            placeholder="Enter GitHub link"
+            required
+        /><br />
+
+        <h4>Status</h4>
+        <select name="project[projectDetails][status]" required>
+            <option value="completed" <%= project.projectDetails.status === 'completed' ? 'selected' : '' %>>Completed</option>
+            <option value="in progress" <%= project.projectDetails.status === 'in progress' ? 'selected' : '' %>>In Progress</option>
+            <option value="archived" <%= project.projectDetails.status === 'archived' ? 'selected' : '' %>>Archived</option>
+        </select><br />
+        
+        
+        <button>Update Project</button>
+    </form>
+</body>
+</html>

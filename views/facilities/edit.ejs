@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BVP - Update Facility</title>
+  </head>
+  <body>
+    <form
+      action="/admin/facilities/<%= facility._id %>?_method=PUT"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      <input
+        type="text"
+        name="facility[facilityName]"
+        value="<%= facility.facilityName %>"
+        placeholder="Enter facility name"
+        required
+      /><br />
+
+      <textarea
+        name="facility[description]"
+        placeholder="Enter description"
+        required
+      >
+<%= facility.description %></textarea
+      ><br />
+
+      <input
+        type="text"
+        name="facility[location]"
+        value="<%= facility.location %>"
+        placeholder="Enter location"
+        required
+      /><br />
+
+      <input
+        type="text"
+        name="facility[timing]"
+        value="<%= facility.timing %>"
+        placeholder="Enter timing (e.g., 9:00 AM - 5:00 PM)"
+        required
+      /><br />
+
+      <h4>Contact Information</h4>
+      <input
+        type="text"
+        name="facility[contact][name]"
+        value="<%= facility.contact.name %>"
+        placeholder="Enter contact name"
+        required
+      /><br />
+      <input
+        type="email"
+        name="facility[contact][email]"
+        value="<%= facility.contact.email %>"
+        placeholder="Enter contact email"
+        required
+      /><br />
+      <input
+        type="tel"
+        name="facility[contact][phone]"
+        value="<%= facility.contact.phone %>"
+        placeholder="Enter contact phone"
+        required
+      /><br />
+
+      <input
+        type="file"
+        name="facility[img]"
+        value="<%= facility.img %>"
+        placeholder="Upload Image"
+        required
+      /><br />
+
+      <button type="submit">Update Facility</button>
+    </form>
+  </body>
+</html>

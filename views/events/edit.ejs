@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BVP</title>
+  </head>
+  <body>
+    <form
+      action="/admin/events/<%= event._id %>?_method=PUT"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      <input
+        type="text"
+        name="event[name]"
+        value="<%= event.name %>"
+        required
+      /><br />
+      <textarea type="text" name="event[description]" required>
+<%= event.description %></textarea
+      ><br />
+      <input
+        type="date"
+        name="event[date]"
+        value="<%= event.date.toISOString().slice(0, 10) %>"
+        required
+      /><br />
+      <input
+        type="text"
+        name="event[organizer]"
+        value="<%= event.organizer %>"
+        required
+      /><br />
+      <input
+        type="text"
+        name="event[category]"
+        value="<%= event.category %>"
+        required
+      /><br />
+      <input
+        type="text"
+        name="event[venue]"
+        value="<%= event.venue %>"
+        required
+      /><br />
+
+      <!-- Display existing images with a checkbox to delete each one -->
+      <% event.imgs.url.forEach((imgUrl, index) => { %>
+      <div>
+        <img
+          src="<%= imgUrl %>"
+          alt="Event Image <%= index + 1 %>"
+          height="100px"
+        />
+        <label>
+          <input
+            type="checkbox"
+            name="deleteImgs[]"
+            value="<%= event.imgs.fileName[index] %>"
+          />
+          Delete this image
+        </label>
+        <!-- Hidden field to retain existing images if they are not selected for deletion -->
+        <input
+          type="hidden"
+          name="event[existingImgs][]"
+          value="<%= imgUrl %>"
+        />
+        <input
+          type="hidden"
+          name="event[existingFileNames][]"
+          value="<%= event.imgs.fileName[index] %>"
+        />
+      </div>
+      <% }) %>
+
+      <!-- Upload new images -->
+      <input type="file" name="event[newImgs]" multiple /><br />
+
+      <button>Update Event</button>
+    </form>
+  </body>
+</html>

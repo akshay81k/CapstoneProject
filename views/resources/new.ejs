@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BVP</title>
+  </head>
+  <body>
+    <h3>Add Resource</h3>
+
+    <br />
+    <form
+      action="/admin/resources/<%= id %>"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      <input
+        type="text"
+        name="resource[subjectName]"
+        placeholder="Enter Subject Name"
+        required
+      /><br />
+      <select name="resource[department]" required>
+        <option value="Computer Engineering">Computer Engineering</option>
+        <option value="Civil Engineering">Civil Engineering</option>
+        <option value="Mechanical Engineering">Mechanical Engineering</option>
+        <option value="Big Data">Big Data</option>
+        <option value="Artificial Intelligence">
+          Artificial Intelligence
+        </option></select
+      ><br />
+      <input
+        type="number"
+        name="resource[semester]"
+        placeholder="Enter Semester"
+        required
+      /><br />
+      <input
+        type="text"
+        name="resource[subjectCode]"
+        placeholder="Enter subjectCode"
+        required
+      /><br />
+      <input
+        type="text"
+        name="resource[materials][0][textbookTitle]"
+        placeholder="Enter textbook title"
+        required
+      /><br />
+      <input
+        type="file"
+        name="resource[materials][0][textbookURL]"
+        placeholder="Enter textbook URL"
+        required
+      /><br />
+      <label for="paperLinks">Upload Paper Links:</label>
+      <input
+        type="file"
+        name="resource[materials][0][paperLinks][]"
+        id="paperLinks"
+        multiple
+        required
+      /><br />
+      <button>Add Resource</button>
+    </form>
+  </body>
+</html>

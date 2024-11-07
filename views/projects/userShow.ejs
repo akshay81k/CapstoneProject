@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projects</title>
+    <style>
+      .div1 {
+        border: 2px solid black;
+        margin: 4rem;
+        padding: 1.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Loop through all departments -->
+    <% for (const department in allProjects) { %>
+    <h2><%= department %> Department</h2>
+    <ul>
+      <!-- Loop through all projects in the current department -->
+      <% allProjects[department].forEach(project => { %>
+      <li>
+        <strong>Project Name:</strong> <%= project.projectDetails.projectName
+        %><br />
+        <strong>Description:</strong> <%= project.projectDetails.description
+        %><br />
+        <strong>GitHub Link:</strong>
+        <a href="<%= project.projectDetails.githubLink %>">View Project</a
+        ><br />
+        <strong>Submission Date:</strong> <%=
+        project.projectDetails.submissionDate.toDateString() %><br />
+        <strong>Status:</strong> <%= project.projectDetails.status %><br />
+        <strong>Student Names:</strong>
+        <ul>
+          <% project.studentName.forEach(name => { %>
+          <li><%= name %></li>
+          <% }) %>
+        </ul>
+        <strong>Graduation Year:</strong> <%= project.graduationYear %>
+      </li>
+      <br />
+      <% }) %>
+    </ul>
+    <hr />
+    <% } %>
+  </body>
+</html>

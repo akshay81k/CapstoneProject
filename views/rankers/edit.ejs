@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BVP</title>
+  </head>
+
+  <body>
+    <h3>Add Rankers</h3>
+
+    <form
+      action="/admin/rankers/<%=ranker._id%>?_method=PUT"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      <input
+        type="text"
+        name="ranker[name]"
+        value="<%=ranker.name%>"
+        required
+      /><br />
+
+      <input
+        type="text"
+        name="ranker[year]"
+        value="<%=ranker.year%>"
+        required
+      /><br />
+
+      <select name="ranker[department]" required>
+        <option value="Computer Engineering" <%= ranker.department === 'Computer Engineering' ? 'selected' : '' %>>
+          Computer Engineering
+        </option>
+        <option value="Civil Engineering" <%= ranker.department === 'Civil Engineering' ? 'selected' : '' %>>
+          Civil Engineering
+        </option>
+        <option value="Mechanical Engineering" <%= ranker.department === 'Mechanical Engineering' ? 'selected' : '' %>>
+          Mechanical Engineering
+        </option>
+        <option value="Big Data" <%= ranker.department === 'Big Data' ? 'selected' : '' %>>
+          Big Data
+        </option>
+        <option value="Artificial Intelligence" <%= ranker.department === 'Artificial Intelligence' ? 'selected' : '' %>>
+          Artificial Intelligence
+        </option>
+      </select><br />
+
+      <input
+        type="number"
+        name="ranker[percentage]"
+        value="<%=ranker.percentage%>"
+        step="0.1"
+        required
+      /><br />
+      <input
+        type="file"
+        name="ranker[photo]"
+        value="<%=ranker.photo%>"
+        required
+      /><br />
+      <button>Add Ranker</button>
+    </form>
+  </body>
+</html>

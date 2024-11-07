@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BVP</title>
+  </head>
+  <body>
+    <h3>Add Rankers</h3>
+
+    <form action="/admin/rankers" method="POST" enctype="multipart/form-data">
+      <input
+        type="text"
+        name="ranker[name]"
+        placeholder="Enter name"
+        required
+      /><br />
+
+      <input
+        type="text"
+        name="ranker[year]"
+        placeholder="Enter Year"
+        required
+      /><br />
+
+      <select name="ranker[department]" required>
+        <option value="Computer Engineering">Computer Engineering</option>
+        <option value="Civil Engineering">Civil Engineering</option>
+        <option value="Mechanical Engineering">Mechanical Engineering</option>
+        <option value="Big Data">Big Data</option>
+        <option value="Artificial Intelligence">Artificial Intelligence</option>
+      </select>
+      <br />
+      <input
+        type="number"
+        name="ranker[percentage]"
+        placeholder="Enter percentage"
+        required
+      /><br />
+      <input
+        type="file"
+        name="ranker[photo]"
+        placeholder="Upload image"
+        required
+      /><br />
+      <button>Add Ranker</button>
+    </form>
+  </body>
+</html>

@@ -1,0 +1,108 @@
+const faculties = [
+  {
+    name: "Dr. Sunita Rao",
+    department: "Computer Engineering",
+    designation: "Professor",
+    email: "sunita.rao@vbvp.edu.in",
+    phone: "9876541234",
+    specialization: "Artificial Intelligence",
+    experience: "12 years",
+    date_of_joining: new Date("2012-06-15"),
+    photo: {
+      url: "https://vbvp.edu.in/wp-content/uploads/2023/02/VIDYAVARDHINI-logo.png",
+    },
+  },
+  {
+    name: "Prof. Vikas Sharma",
+    department: "Civil Engineering",
+    designation: "Assistant Professor",
+    email: "vikas.sharma@vbvp.edu.in",
+    phone: "9987123456",
+    specialization: "Environmental Engineering",
+    experience: "7 years",
+    date_of_joining: new Date("2016-01-05"),
+    photo: {
+      url: "https://vbvp.edu.in/wp-content/uploads/2023/02/VIDYAVARDHINI-logo.png",
+    },
+  },
+  {
+    name: "Dr. Pooja Patil",
+    department: "Mechanical Engineering",
+    designation: "Associate Professor",
+    email: "pooja.patil@vbvp.edu.in",
+    phone: "9988345678",
+    specialization: "Fluid Mechanics",
+    experience: "9 years",
+    date_of_joining: new Date("2015-04-20"),
+    photo: {
+      url: "https://vbvp.edu.in/wp-content/uploads/2023/02/VIDYAVARDHINI-logo.png",
+    },
+  },
+  {
+    name: "Prof. Suresh Kumar",
+    department: "Big Data",
+    designation: "Lecturer",
+    email: "suresh.kumar@vbvp.edu.in",
+    phone: "9988223344",
+    specialization: "Big Data Analytics",
+    experience: "5 years",
+    date_of_joining: new Date("2018-07-30"),
+    photo: {
+      url: "https://vbvp.edu.in/wp-content/uploads/2023/02/VIDYAVARDHINI-logo.png",
+    },
+  },
+  {
+    name: "Dr. Neelam Desai",
+    department: "Computer Engineering",
+    designation: "Associate Professor",
+    email: "neelam.desai@vbvp.edu.in",
+    phone: "9123456789",
+    specialization: "Cloud Computing",
+    experience: "10 years",
+    date_of_joining: new Date("2013-10-05"),
+    photo: {
+      url: "https://vbvp.edu.in/wp-content/uploads/2023/02/VIDYAVARDHINI-logo.png",
+    },
+  },
+  {
+    name: "Prof. Akshay Verma",
+    department: "Civil Engineering",
+    designation: "Lecturer",
+    email: "akshay.verma@vbvp.edu.in",
+    phone: "9898989890",
+    specialization: "Structural Engineering",
+    experience: "6 years",
+    date_of_joining: new Date("2017-03-25"),
+    photo: {
+      url: "https://vbvp.edu.in/wp-content/uploads/2023/02/VIDYAVARDHINI-logo.png",
+    },
+  },
+  {
+    name: "Dr. Nidhi Kapoor",
+    department: "Mechanical Engineering",
+    designation: "Professor",
+    email: "nidhi.kapoor@vbvp.edu.in",
+    phone: "9977554433",
+    specialization: "Thermodynamics",
+    experience: "14 years",
+    date_of_joining: new Date("2010-02-10"),
+    photo: {
+      url: "https://vbvp.edu.in/wp-content/uploads/2023/02/VIDYAVARDHINI-logo.png",
+    },
+  },
+  {
+    name: "Prof. Ajay Gupta",
+    department: "Artificial Intelligence",
+    designation: "Assistant Professor",
+    email: "ajay.gupta@vbvp.edu.in",
+    phone: "9876543231",
+    specialization: "Machine Learning",
+    experience: "8 years",
+    date_of_joining: new Date("2016-09-14"),
+    photo: {
+      url: "https://vbvp.edu.in/wp-content/uploads/2023/02/VIDYAVARDHINI-logo.png",
+    },
+  },
+];
+
+module.exports = { data: faculties };

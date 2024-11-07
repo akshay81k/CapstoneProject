@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BVP</title>
+  </head>
+  <body>
+    <h3>Project Details</h3>
+    <ul>
+      <li>
+        <strong>Project Name:</strong> <%= project.projectDetails.projectName %>
+      </li>
+      <li>
+        <strong>Description:</strong> <%= project.projectDetails.description %>
+      </li>
+      <li>
+        <strong>GitHub Link:</strong>
+        <a href="<%= project.projectDetails.githubLink %>" target="_blank"
+          ><%= project.projectDetails.githubLink %></a
+        >
+      </li>
+      <li>
+        <strong>Submission Date:</strong> <%=
+        project.projectDetails.submissionDate.toDateString() %>
+      </li>
+      <li><strong>Status:</strong> <%= project.projectDetails.status %></li>
+      <li><strong>Graduation Year:</strong> <%= project.graduationYear %></li>
+      <li><strong>Department:</strong> <%= project.department %></li>
+      <li><strong>Students:</strong> <%= project.studentName.join(", ") %></li>
+    </ul>
+
+    <a href="/admin/projects/<%= project._id %>/edit">Edit</a><br />
+
+    <form
+      action="/admin/projects/<%= project._id %>?_method=DELETE"
+      method="post"
+    >
+      <button>Delete</button>
+    </form>
+  </body>
+</html>

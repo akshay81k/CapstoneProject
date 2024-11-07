@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, content-scale=1.0" />
+    <title>BVP</title>
+  </head>
+  <body>
+    <h1><%= committee.committeeName %></h1>
+
+    <h4>Members:</h4>
+    <ul>
+      <% committee.members.forEach((member) => { %>
+      <li>
+        <strong>Name:</strong> <%= member.name %> <br />
+        <strong>Role:</strong> <%= member.role %>
+      </li>
+      <% }) %>
+    </ul>
+
+    <li><%= committee.description %></li>
+
+    <a href="/admin/committees/<%= committee._id %>/edit">Edit</a><br /><br />
+    <a href="/admin/committees/<%= committee._id %>/members">Add Members</a
+    ><br />
+
+    <h3>Delete Member</h3>
+    <form
+      action="/admin/committees/<%= committee._id %>/members?_method=DELETE"
+      method="POST"
+    >
+      <input
+        type="text"
+        name="memberName"
+        placeholder="Enter member name to delete"
+        required
+      /><br />
+      <button type="submit">Delete Member</button>
+    </form>
+
+    <form
+      action="/admin/committees/<%= committee._id %>?_method=DELETE"
+      method="post"
+    >
+      <button>Delete Committee</button>
+    </form>
+  </body>
+</html>

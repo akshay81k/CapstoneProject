@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BVP</title>
+  </head>
+  <body>
+    <h3>Create Event</h3>
+
+    <form action="/admin/events" method="POST" enctype="multipart/form-data">
+      <input type="text" name="event[name]" placeholder="Enter name" /><br />
+      <textarea
+        type="text"
+        name="event[description]"
+        placeholder="Enter description"
+        required
+      ></textarea
+      ><br />
+      <input
+        type="date"
+        name="event[date]"
+        placeholder="Enter Date"
+        required
+      /><br />
+      <input
+        type="text"
+        name="event[organizer]"
+        placeholder="Enter organizers"
+        required
+      /><br />
+      <input
+        type="text"
+        name="event[category]"
+        placeholder="Enter category"
+        required
+      /><br />
+      <input
+        type="text"
+        name="event[venue]"
+        placeholder="Enter venue"
+        required
+      /><br />
+      <input
+        type="file"
+        name="event[imgs]"
+        placeholder="Upload Images"
+        required
+        multiple
+      /><br />
+      <button>Add Event</button>
+    </form>
+  </body>
+</html>

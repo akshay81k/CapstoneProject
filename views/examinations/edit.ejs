@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BVP</title>
+  </head>
+  <body>
+    <form
+      action="/admin/examinations/<%= exam._id %>?_method=PUT"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      <input
+        type="text"
+        name="exam[examName]"
+        value="<%= exam.examName %>"
+      /><br />
+      <input type="text" name="exam[examType]" value="<%= exam.examType %>" />
+      <br />
+      <select name="exam[department]" required>
+        <option value="Computer Engineering" <%= exam.department === 'Computer Engineering' ? 'selected' : '' %>>
+          Computer Engineering
+        </option>
+        <option value="Civil Engineering" <%= exam.department === 'Civil Engineering' ? 'selected' : '' %>>
+          Civil Engineering
+        </option>
+        <option value="Mechanical Engineering" <%= exam.department === 'Mechanical Engineering' ? 'selected' : '' %>>
+          Mechanical Engineering
+        </option>
+        <option value="Big Data" <%= exam.department === 'Big Data' ? 'selected' : '' %>>
+          Big Data
+        </option>
+        <option value="Artificial Intelligence" <%= exam.department === 'Artificial Intelligence' ? 'selected' : '' %>>
+          Artificial Intelligence
+        </option>
+      </select><br />
+      <input
+        type="text"
+        name="exam[department]"
+        value="<%= exam.department %>"
+        required
+      />
+      <br />
+      <input
+        type="number"
+        name="exam[semester]"
+        value="<%= exam.semester %>"
+        required
+      />
+      <br />
+      <input
+        type="date"
+        name="exam[startDate]"
+        value="<%= exam.startDate.toISOString().slice(0, 10)%>"
+        required
+      /><br />
+      <input
+        type="date"
+        name="exam[endDate]"
+        value="<%= exam.endDate.toISOString().slice(0, 10) %>"
+        required
+      /><br />
+      <input
+        type="file"
+        name="exam[timetable]"
+        value="<%= exam.timetable %>"
+        required
+      /><br />
+
+      <button>Update Examination</button>
+    </form>
+  </body>
+</html>

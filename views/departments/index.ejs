@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BVP</title>
+  </head>
+
+  <body>
+    <h3>Departments</h3>
+
+    <form action="/admin/departments/new" method="GET">
+      <button>Add Department</button>
+    </form>
+    <ul>
+      <% for(let department of allDepartments){%>
+      <li>
+        <a href="/admin/departments/<%= department._id %>">
+          <%= department.departmentName %>
+        </a>
+      </li>
+
+      <% } %>
+    </ul>
+  </body>
+</html>

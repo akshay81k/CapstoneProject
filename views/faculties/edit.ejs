@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BVP</title>
+  </head>
+  <body>
+    <form
+      action="/admin/faculties/<%= faculty._id %>?_method=PUT"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      <input
+        type="text"
+        name="faculty[name]"
+        value="<%= faculty.name %>"
+        required
+      /><br />
+      <select name="faculty[department]" required>
+        <option value="Computer Engineering" <%= exam.department === 'Computer Engineering' ? 'selected' : '' %>>
+          Computer Engineering
+        </option>
+        <option value="Civil Engineering" <%= exam.department === 'Civil Engineering' ? 'selected' : '' %>>
+          Civil Engineering
+        </option>
+        <option value="Mechanical Engineering" <%= exam.department === 'Mechanical Engineering' ? 'selected' : '' %>>
+          Mechanical Engineering
+        </option>
+        <option value="Big Data" <%= exam.department === 'Big Data' ? 'selected' : '' %>>
+          Big Data
+        </option>
+        <option value="Artificial Intelligence" <%= exam.department === 'Artificial Intelligence' ? 'selected' : '' %>>
+          Artificial Intelligence
+        </option>
+      </select><br />
+      <input
+        type="text"
+        name="faculty[designation]"
+        value="<%= faculty.designation%>"
+        required
+      /><br />
+      <input
+        type="email"
+        name="faculty[email]"
+        value="<%= faculty.email %>"
+        required
+      /><br />
+      <input
+        type="tel"
+        name="faculty[phone]"
+        value="<%= faculty.phone %>"
+        required
+      /><br />
+      <input
+        type="text"
+        name="faculty[specialization]"
+        value="<%= faculty.specialization %>"
+        required
+      /><br />
+      <input
+        type="text"
+        name="faculty[experience]"
+        value="<%= faculty.experience %>"
+        required
+      /><br />
+      <input
+        type="date"
+        name="faculty[date_of_joining]"
+        value="<%= faculty.date_of_joining.toISOString().slice(0, 10)  %>"
+        required
+      /><br />
+      <input
+        type="file"
+        name="faculty[photo]"
+        value="<%= faculty.photo %>"
+        required
+      /><br />
+
+      <button>Update Faculty</button>
+    </form>
+  </body>
+</html>

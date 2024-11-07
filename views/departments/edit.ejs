@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BVP</title>
+  </head>
+
+  <body>
+    <form
+      action="/admin/departments/<%= department._id %>?_method=PUT"
+      method="POST"
+    >
+      <input
+        type="text"
+        name="department[departmentName]"
+        value="<%= department.departmentName %>"
+        required
+      /><br />
+      <input
+        type="text"
+        name="department[hod]"
+        value="<%= department.hod %>"
+        required
+      /><br />
+      <input
+        type="email"
+        name="department[contactEmail]"
+        value="<%= department.contactEmail %>"
+        required
+      /><br />
+      <textarea type="text" name="department[courses]" required>
+      <%= department.courses %>
+      </textarea
+      ><br />
+      <button>Update Department</button>
+    </form>
+  </body>
+</html>

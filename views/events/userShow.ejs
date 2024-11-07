@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BVP</title>
+    <style>
+      .div1 {
+        border: 2px solid black;
+        margin: 6rem;
+        padding: 3rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <% for(event of allEvents) { %>
+    <div class="div1">
+      <h1><%= event.name %></h1>
+      <p><b>Description:</b> <%= event.description %></p>
+      <p><b>Date:</b> <%= event.date.toDateString() %></p>
+      <p><b>Organizer:</b> <%= event.organizer %></p>
+      <p><b>Category:</b> <%= event.category %></p>
+      <p><b>Venue:</b> <%= event.venue %></p>
+      <hr />
+      <% event.imgs.url.forEach(link => { %>
+      <img
+        src="<%=link %>"
+        alt="img"
+        height="200px"
+        width="200px"
+      />&nbsp;&nbsp;&nbsp; <%}); %>
+    </div>
+    <% } %>
+  </body>
+</html>

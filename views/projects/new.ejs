@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BVP</title>
+  </head>
+  <body>
+    <h3>Add Project</h3>
+
+    <form action="/admin/projects" method="POST">
+      <input
+        type="text"
+        name="project[studentName]"
+        placeholder="Enter student names (comma separated)"
+        required
+      /><br />
+
+      <input
+        type="text"
+        name="project[graduationYear]"
+        placeholder="Enter graduation year"
+        required
+      /><br />
+
+      <select name="project[department]" required>
+        <option value="Computer Engineering">Computer Engineering</option>
+        <option value="Civil Engineering">Civil Engineering</option>
+        <option value="Mechanical Engineering">Mechanical Engineering</option>
+        <option value="Big Data">Big Data</option>
+        <option value="Artificial Intelligence">Artificial Intelligence</option>
+      </select>
+      <br />
+
+      <h4>Project Details</h4>
+
+      <input
+        type="text"
+        name="project[projectDetails][projectName]"
+        placeholder="Enter project name"
+        required
+      /><br />
+
+      <textarea
+        name="project[projectDetails][description]"
+        placeholder="Enter project description"
+        required
+      ></textarea
+      ><br />
+
+      <input
+        type="text"
+        name="project[projectDetails][githubLink]"
+        placeholder="Enter GitHub link"
+        required
+      /><br />
+
+      <h4>Status</h4>
+      <select name="project[projectDetails][status]" required>
+        <option value="completed">Completed</option>
+        <option value="in progress">In Progress</option>
+        <option value="archived">Archived</option></select
+      ><br />
+
+      <button>Add Project</button>
+    </form>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BVP</title>
+    <style>
+      .div1 {
+        border: 2px solid black;
+        margin: 6rem;
+        padding: 3rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <%for(notice of allNotices){%>
+    <div class="div1">
+      <h1><%=notice.title%></h1>
+      <p><b>Description:</b><%=notice.description%></p>
+      <p><b>Date:</b> <%=notice.datePosted.toDateString()%></p>
+      <p><b>Posted by:</b> <%=notice.postedBy%></p>
+      <p><b>Category:</b> <%=notice.category%></p>
+    </div>
+    <%}%>
+  </body>
+</html>

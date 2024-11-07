@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BVP</title>
+  </head>
+
+  <body>
+    <h3>Add Department</h3>
+
+    <form action="/admin/departments" method="POST">
+      <input
+        type="text"
+        name="department[departmentName]"
+        placeholder="Enter name"
+        required
+      /><br />
+      <input
+        type="text"
+        name="department[hod]"
+        placeholder="Enter name of Hod "
+        required
+      /><br />
+      <input
+        type="email"
+        name="department[contactEmail]"
+        placeholder="Enter email of hod "
+        required
+      /><br />
+      <textarea
+        type="text"
+        name="department[courses]"
+        placeholder="Enter courses"
+        required
+      >
+      </textarea
+      ><br />
+      <button>Add Department</button>
+    </form>
+  </body>
+</html>

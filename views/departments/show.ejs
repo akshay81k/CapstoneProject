@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BVP</title>
+  </head>
+
+  <body>
+    <li><%= department.departmentName %></li>
+    <li><%= department.hod %></li>
+    <li><%= department.contactEmail %></li>
+    <li><%= department.courses %></li>
+    <h2>Faculty Member</h2>
+    <ul>
+      <% for(faculty of department.faculty){ %>
+      <li>
+        <a href="/admin/faculties/<%= faculty._id %>"><%= faculty.name %></a>
+      </li>
+      <% } %>
+    </ul>
+    <br />
+    <hr />
+    <a href="/admin/departments/<%= department._id %>/edit">Edit Department</a
+    ><br />
+
+    <form
+      action="/admin/departments/<%= department._id %>?_method=DELETE"
+      method="post"
+    >
+      <button>Delete Department</button>
+    </form>
+    <br /><br />
+    <hr />
+    <a href="/admin/faculties/<%= department._id%>/new">Add Faculty Member</a>
+    <br /><br />
+    <hr />
+    <a href="/admin/examinations/<%= department._id %>/new">Add Examination</a>
+    <br />
+    <hr />
+    <ul>
+      <% for(exam of department.examination){ %>
+      <li><%= exam.examName %></li>
+      <li><%= exam.examType %></li>
+      <li><%= exam.startDate.toDateString() %></li>
+      <li><%= exam.endDate.toDateString() %></li>
+      <li>
+        <a href="<%= exam.timetable.url %>" target="_blank">Show timetable</a>
+      </li>
+      <br />
+      <a href="/admin/examinations/<%= exam._id %>">Edit</a
+      ><br />
+      <form
+        action="/admin/examinations/<%= exam._id %>?_method=DELETE"
+        method="post"
+      >
+        <button>Delete Exam</button>
+      </form>
+      <% } %>
+    </ul>
+    <br />
+    <hr />
+    <a href="/admin/resources/<%= department._id %>/new">Add Resource</a>
+  </body>
+</html>

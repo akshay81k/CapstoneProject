@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BVP</title>
+  </head>
+  <body>
+    <li>
+      <img
+        src="<%= faculty.photo.url %>"
+        alt="img"
+        height="100px"
+        width="40px"
+      />
+    </li>
+    <li><%= faculty.name %></li>
+    <li><%= faculty.department %></li>
+    <li><%= faculty.designation %></li>
+    <li><%= faculty.email %></li>
+    <li><%= faculty.phone %></li>
+    <li><%= faculty.specialization %></li>
+    <li><%= faculty.experience %></li>
+    <li><%= faculty.date_of_joining.toDateString() %></li>
+
+    <a href="/admin/faculties/<%= faculty._id %>/edit">Edit</a><br />
+
+    <form
+      action="/admin/faculties/<%= faculty._id %>?_method=DELETE"
+      method="post"
+    >
+      <button>Delete</button>
+    </form>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BVP</title>
+  </head>
+  <body>
+    <li><%= event.name %></li>
+    <li><%= event.description %></li>
+    <li><%= event.date %></li>
+    <li><%= event.organizer %></li>
+    <li><%= event.category %></li>
+    <li><%= event.venue %></li>
+    <br><hr>
+    <% event.imgs.url.forEach(img => { %>
+      <img src="<%= img %>" alt="img1" height="200px" width="100px">
+   <% }); %>
+    
+<br><hr>
+    <a href="/admin/events/<%= event._id %>/edit">Edit</a><br />
+
+    <form action="/admin/events/<%= event._id %>?_method=DELETE" method="post">
+      <button>Delete</button>
+    </form>
+  </body>
+</html>

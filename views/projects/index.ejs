@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BVP</title>
+  </head>
+  <body>
+    <h3>All Projects</h3>
+
+    <form action="/admin/projects/new" method="GET">
+      <button>Add Project</button>
+    </form>
+
+    <% for (let department in allProjects) { %>
+    <h4><%= department %></h4>
+    <ul>
+      <% allProjects[department].forEach(project => { %>
+      <li>
+        <a href="/admin/projects/<%= project._id %>"
+          ><%= project.projectDetails.projectName %></a
+        >
+      </li>
+      <% }); %>
+    </ul>
+    <% } %>
+  </body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BVP</title>
+  </head>
+  <body>
+    <form action="/admin/notices/<%= notice._id %>?_method=PUT" method="POST">
+      <input
+        type="text"
+        name="notice[title]"
+        value="<%= notice.title %>"
+        required
+      /><br />
+      <textarea type="text" name="notice[description]">
+        <%= notice.description %>"</textarea
+      ><br />
+      <input
+        type="text"
+        name="notice[postedBy]"
+        value="<%= notice.postedBy %>"
+        required
+      /><br />
+      <input
+        type="text"
+        name="notice[category]"
+        value="<%= notice.category %>"
+        required
+      /><br />
+      <button>Update Notice</button>
+    </form>
+  </body>
+</html>

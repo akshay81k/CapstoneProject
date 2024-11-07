@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BVP</title>
+  </head>
+  <body>
+    <li>
+      <img
+        src="<%= facility.img.url %>"
+        alt="img"
+        height="150px"
+        width="50px"
+      />
+    </li>
+    <li><%= facility.facilityName %></li>
+    <li><%= facility.description %></li>
+    <li><%= facility.location %></li>
+    <li><%= facility.timing %></li>
+    <li>Contact:</li>
+    <li><%= facility.contact.name %></li>
+    <li><%= facility.contact.email %></li>
+    <li><%= facility.contact.phone %></li>
+
+    <a href="/admin/facilities/<%= facility._id %>/edit">Edit</a><br />
+
+    <form
+      action="/admin/facilities/<%= facility._id %>?_method=DELETE"
+      method="post"
+    >
+      <button>Delete</button>
+    </form>
+  </body>
+</html>
