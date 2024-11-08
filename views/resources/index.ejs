@@ -9,16 +9,16 @@
     <h1>Resources</h1>
 
     <% for (let semester in groupedResources) { %>
-      
-          <h2>Semester <%= semester %></h2>
-          <ul>
-              <% groupedResources[semester].forEach(resource => { %>
-                  <li class="subject">
+
+    <h2>Semester <%= semester %></h2>
+    <ul>
+      <% groupedResources[semester].forEach(resource => { %>
+      <li class="subject">
                       <a href="/admin/resources/<%= resource._id %>"><%= resource.subjectName %></a>
-                  </li>
-              <% }); %>
-          </ul>
- 
-  <% } %>
+      </li>
+      <% }); %>
+    </ul>
+
+    <% } %>
   </body>
 </html>

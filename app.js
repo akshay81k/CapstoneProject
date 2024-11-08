@@ -802,11 +802,11 @@ app.post(
 
 // Show Route
 app.get(
-  "/admin/faculties/:id",
+  "/admin/department/:depId/faculties/:id",
   wrapAsync(async (req, res) => {
-    let { id } = req.params;
+    let { depId, id } = req.params;
     let faculty = await Faculty.findById(id);
-    res.render("faculties/show.ejs", { faculty });
+    res.render("faculties/show.ejs", { faculty, depId });
   })
 );
 
@@ -845,13 +845,15 @@ app.put(
 
 // Delete Route
 app.delete(
-  "/admin/faculties/:id",
+  "/admin/department/:depId/faculties/:id",
   wrapAsync(async (req, res) => {
-    let { id } = req.params;
+    let { depId, id } = req.params;
+    await Department.findByIdAndUpdate(depId, { $pull: { faculty: id } });
     const faculty = await Faculty.findById(id);
     if (faculty && faculty.photo.fileName) {
       await cloudinary.uploader.destroy(faculty.photo.fileName);
     }
+
     await Faculty.findByIdAndDelete(id);
     res.redirect("/admin/departments");
   })
@@ -957,14 +959,16 @@ app.put(
 
 // Delete Route
 app.delete(
-  "/admin/examinations/:id",
+  "/admin/department/:depId/examinations/:id",
   wrapAsync(async (req, res) => {
-    let { id } = req.params;
+    let { depId, id } = req.params;
+    await Department.findByIdAndUpdate(depId, { $pull: { examination: id } });
     const examination = await Examination.findById(id);
     if (examination && examination.timetable && examination.timetable.url) {
       const fileId = examination.timetable.url.split("/d/")[1].split("/")[0];
       await drive.files.delete({ fileId });
     }
+
     await Examination.findByIdAndDelete(id);
     res.redirect(`/admin/departments`);
   })
@@ -1103,27 +1107,29 @@ app.get(
 app.delete(
   "/admin/resources/:id",
   wrapAsync(async (req, res) => {
-    const resource = await Resource.findById(req.params.id);
+    let { id } = req.params;
+    const resource = await Resource.findById(id);
+    let { department } = resource;
+    const dept = await Department.findOne({ departmentName: department });
+    await dept.updateOne({ $pull: { resource: id } });
 
     // Loop through materials and delete files from Google Drive
     for (let material of resource.materials) {
       if (material.textbookURL && material.textbookURL.url) {
         const fileId = material.textbookURL.url.split("/d/")[1].split("/")[0]; // Extracting file ID correctly
         await drive.files.delete({ fileId });
-        console.log(`Deleted file with ID: ${fileId}`);
       }
 
       for (let paper of material.paperLinks) {
         if (paper.url) {
           const fileId = paper.url.split("/d/")[1].split("/")[0]; // Extracting file ID correctly
           await drive.files.delete({ fileId });
-          console.log(`Deleted file with ID: ${fileId}`);
         }
       }
     }
 
     // Delete the resource from the MongoDB database
-    await Resource.findByIdAndDelete(req.params.id);
+    await Resource.findByIdAndDelete(id);
     res.redirect("/admin/resources");
   })
 );

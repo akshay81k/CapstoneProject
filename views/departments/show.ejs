@@ -15,7 +15,10 @@
     <ul>
       <% for(faculty of department.faculty){ %>
       <li>
-        <a href="/admin/faculties/<%= faculty._id %>"><%= faculty.name %></a>
+        <a
+          href="/admin/department/<%=department._id%>/faculties/<%= faculty._id %>"
+          ><%= faculty.name %></a
+        >
       </li>
       <% } %>
     </ul>
@@ -51,7 +54,7 @@
       <a href="/admin/examinations/<%= exam._id %>">Edit</a
       ><br />
       <form
-        action="/admin/examinations/<%= exam._id %>?_method=DELETE"
+        action="/admin/department/<%= department._id %>/examinations/<%= exam._id %>?_method=DELETE"
         method="post"
       >
         <button>Delete Exam</button>

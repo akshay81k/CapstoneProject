@@ -23,9 +23,21 @@ const departmentSchema = new mongoose.Schema({
   resource: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref:"Resource",
-    }
-  ]
+      ref: "Resource",
+    },
+  ],
+});
+
+departmentSchema.post("findOneAndDelete", async (department) => {
+  if (department.faculty.length) {
+    await Faculty.deleteMany({ _id: { $in: department.faculty } });
+  }
+  if (department.examination.length) {
+    await Examination.deleteMany({ _id: { $in: department.examination } });
+  }
+  if (department.resource.length) {
+    await Resource.deleteMany({ _id: { $in: department.resource } });
+  }
 });
 
 const Department = mongoose.model("Department", departmentSchema);

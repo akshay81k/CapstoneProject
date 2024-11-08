@@ -156,7 +156,23 @@ module.exports.resourceSchema = Joi.object({
     department: Joi.string().required(),
     semester: Joi.number().required().min(1).max(6),
     subjectCode: Joi.string().required(),
-    materials: Joi.string().allow("", null),
+    materials: Joi.array()
+      .items(
+        Joi.object({
+          textbookTitle: Joi.string().allow("", null),
+          textbookURL: Joi.string().allow("", null),
+          paperLinks: Joi.array()
+            .items(
+              Joi.object({
+                url: Joi.string().uri().allow("", null),
+                fileName: Joi.string().allow("", null),
+              })
+            )
+            .optional(),
+          uploadDate: Joi.date().default(Date.now),
+        })
+      )
+      .optional(),
   }).required(),
 });
 
