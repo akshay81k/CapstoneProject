@@ -1,36 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BVP - Add Member to Committee</title>
-  </head>
-  <body>
-    <h3>Add Member to Committee</h3>
+<% layout("/layouts/boilerplate.ejs") %>
+<body>
+  <h3>Add Member to Committee</h3>
 
-    <form
-      action="/admin/committees/<%= committee._id %>/members?_method=PUT"
-      method="POST"
-    >
-      <input
-        type="text"
-        name="member[name]"
-        placeholder="Enter member name"
-        required
-      /><br />
+  <form
+    action="/admin/committees/<%= committee._id %>/members?_method=PUT"
+    method="POST"
+  >
+    <input
+      type="text"
+      name="member[name]"
+      placeholder="Enter member name"
+      required
+    /><br />
 
-      <!-- Member Role -->
-      <input
-        type="text"
-        name="member[role]"
-        placeholder="Enter member role"
-        required
-      /><br />
+    <!-- Member Role -->
+    <input
+      type="text"
+      name="member[role]"
+      placeholder="Enter member role"
+      required
+    /><br />
 
-      <!-- Submit Button -->
-      <button type="submit">Add Member</button>
-    </form>
+    <!-- Submit Button -->
+    <button type="submit">Add Member</button>
+  </form>
 
-    <a href="/admin/committees/<%= committee._id %>">Back to Committee</a>
-  </body>
-</html>
+  <a href="/admin/committees/<%= committee._id %>">Back to Committee</a>
+</body>

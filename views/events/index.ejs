@@ -1,23 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BVP</title>
-  </head>
-  <body>
-    <h3>Events</h3>
+<% layout("/layouts/boilerplate.ejs") %>
+<body>
+  <h3>Events</h3>
 
-    <form action="/admin/events/new" method="GET">
-      <button>Add Event</button>
-    </form>
-    <ul>
-      <% for(let event of allEvents){%>
-      <li>
-        <a href="/admin/events/<%= event._id %>"><%= event.name %></a>
-      </li>
+  <form action="/admin/events/new" method="GET">
+    <button>Add Event</button>
+  </form>
+  <ul>
+    <% for(let event of allEvents){%>
+    <li>
+      <a href="/admin/events/<%= event._id %>"><%= event.name %></a>
+    </li>
 
-      <% } %>
-    </ul>
-  </body>
-</html>
+    <% } %>
+  </ul>
+</body>

@@ -1,0 +1,32 @@
+<% layout("/layouts/boilerplate.ejs") %>
+<body>
+  <h3>Signup Form</h3>
+
+  <form action="/admin/signup" method="POST">
+    <label for="username"
+      >Username:
+      <input type="text" name="username" required />
+    </label>
+    <br />
+    <br />
+
+    <label for="email"
+      >Email:
+      <input type="email" name="email" required />
+    </label>
+    <br />
+    <br />
+
+    <label for="password">
+      Password:
+      <input type="password" name="password" required />
+    </label>
+    <br />
+
+    <a href="/admin/login">Already have registered? Log In </a>
+    <br />
+    <br />
+
+    <button>Sign Up</button>
+  </form>
+</body>

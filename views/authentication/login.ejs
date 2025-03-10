@@ -1,0 +1,26 @@
+<% layout("/layouts/boilerplate.ejs") %>
+  <body>
+    <h3>Login Form</h3>
+
+    <form action="/admin/login" method="POST">
+      <label for="username">
+        Username:
+        <input type="text" name="username" required />
+      </label>
+      <br />
+      <br />
+
+      <label for="password">
+        Password:
+        <input type="password" name="password" required />
+      </label>
+
+      <br />
+      <a href="/admin/signup">Haven't registered yet? Sign In </a>
+      <br />
+      <br />
+
+      <button>Login</button>
+    </form>
+  </body>
+

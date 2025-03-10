@@ -191,3 +191,7 @@ module.exports.projectSchema = Joi.object({
     }).required(),
   }).required(),
 });
+
+module.exports.adminSchema = Joi.object({
+  email: Joi.string().required(),
+});

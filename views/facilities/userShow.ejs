@@ -1,34 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BVP</title>
-    <style>
-      .div1 {
-        border: 2px solid black;
-        margin: 4rem;
-        padding: 1.5rem;
-      }
-    </style>
-  </head>
+<% layout("/layouts/boilerplate.ejs") %>
 
-  <body>
-    <% for(facility of allFacilities) { %>
-    <div class="div1">
-      <h1><%= facility.facilityName %></h1>
-      <p><b>Description:</b> <%= facility.description %></p>
-      <p><b>Location:</b> <%= facility.location %></p>
-      <p><b>Timing:</b> <%= facility.timing %></p>
-      <p>
-        <b>Contact:</b><br />
-        Name:<%= facility.contact.name %>
-      </p>
-      <p>Email: <%= facility.contact.email %></p>
-      <p>Phone: <%= facility.contact.phone %></p>
-      <img src="<%=facility.img.url%>" height="200px" width="300px" />
-      <hr />
-    </div>
-    <% } %>
-  </body>
-</html>
+<body>
+  <% for(facility of allFacilities) { %>
+  <div
+    class="div1"
+    style="border: 2px solid black; margin: 4rem; padding: 1.5rem"
+  >
+    <h1><%= facility.facilityName %></h1>
+    <p><b>Description:</b> <%= facility.description %></p>
+    <p><b>Location:</b> <%= facility.location %></p>
+    <p><b>Timing:</b> <%= facility.timing %></p>
+    <p>
+      <b>Contact:</b><br />
+      Name:<%= facility.contact.name %>
+    </p>
+    <p>Email: <%= facility.contact.email %></p>
+    <p>Phone: <%= facility.contact.phone %></p>
+    <img src="<%=facility.img.url%>" height="200px" width="300px" />
+    <hr />
+  </div>
+  <% } %>
+</body>

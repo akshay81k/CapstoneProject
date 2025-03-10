@@ -1,23 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BVP</title>
-  </head>
-  <body>
-    <h3>Events</h3>
+<% layout("/layouts/boilerplate.ejs") %>
+<body>
+  <h3>Events</h3>
 
-    <form action="/admin/faculties/new" method="GET">
-      <button>Add Faculty</button>
-    </form>
-    <ul>
-      <% for(let faculty of allFaculties){%>
-      <li>
-        <a href="/admin/faculties/<%= faculty._id %>"><%= faculty.name %></a>
-      </li>
+  <form action="/admin/faculties/new" method="GET">
+    <button>Add Faculty</button>
+  </form>
+  <ul>
+    <% for(let faculty of allFaculties){%>
+    <li>
+      <a href="/admin/faculties/<%= faculty._id %>"><%= faculty.name %></a>
+    </li>
 
-      <% } %>
-    </ul>
-  </body>
-</html>
+    <% } %>
+  </ul>
+</body>

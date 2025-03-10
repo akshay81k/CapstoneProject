@@ -1,51 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Resources</title>
-    <style>
-      .div1 {
-        border: 2px solid black;
-        margin: 4rem;
-        padding: 1.5rem;
-      }
-    </style>
-  </head>
-  <body>
-    <% for (const department in resourcesByDepartment) { %>
-    <h2><%= department %> Department</h2>
-    <ul>
-      <% resourcesByDepartment[department].forEach(resource => { %>
-      <li>
-        <strong>Subject Name:</strong> <%= resource.subjectName %><br />
-        <strong>Code:</strong> <%= resource.subjectCode %><br />
-        <strong>Semester:</strong> <%= resource.semester %><br />
-        <strong>Materials:</strong>
-        <ul>
-          <% resource.materials.forEach((material) => { %>
-          <li>
-            <strong>Textbook Title:</strong> <%= material.textbookTitle %><br />
-            <strong>Textbook URL:</strong>
-            <a href="<%= material.textbookURL.url %>"
-              ><%= material.textbookURL.fileName %></a
-            ><br />
-            <strong>Paper Links:</strong>
-            <ul>
-              <% material.paperLinks.forEach((link) => { %>
-              <li><a href="<%= link.url %>"><%= link.fileName %></a></li>
-              <% }) %>
-            </ul>
-            <strong>Upload Date:</strong> <%= material.uploadDate.toDateString()
-            %><br />
-          </li>
-          <% }) %>
-        </ul>
-      </li>
-      <br />
-      <% }) %>
-    </ul>
-    <hr />
-    <% } %>
-  </body>
-</html>
+<% layout("/layouts/boilerplate.ejs") %>
+<body>
+  <% for (const department in resourcesByDepartment) { %>
+  <h2><%= department %> Department</h2>
+  <ul>
+    <% resourcesByDepartment[department].forEach(resource => { %>
+    <li>
+      <strong>Subject Name:</strong> <%= resource.subjectName %><br />
+      <strong>Code:</strong> <%= resource.subjectCode %><br />
+      <strong>Semester:</strong> <%= resource.semester %><br />
+      <strong>Materials:</strong>
+      <ul>
+        <% resource.materials.forEach((material) => { %>
+        <li>
+          <strong>Textbook Title:</strong> <%= material.textbookTitle %><br />
+          <strong>Textbook URL:</strong>
+          <a href="<%= material.textbookURL.url %>"
+            ><%= material.textbookURL.fileName %></a
+          ><br />
+          <strong>Paper Links:</strong>
+          <ul>
+            <% material.paperLinks.forEach((link) => { %>
+            <li><a href="<%= link.url %>"><%= link.fileName %></a></li>
+            <% }) %>
+          </ul>
+          <strong>Upload Date:</strong> <%= material.uploadDate.toDateString()
+          %><br />
+        </li>
+        <% }) %>
+      </ul>
+    </li>
+    <br />
+    <% }) %>
+  </ul>
+  <hr />
+  <% } %>
+</body>

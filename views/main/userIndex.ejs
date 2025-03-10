@@ -1,78 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BVP</title>
-  </head>
-  <body>
-    <div>
-      <span><a href="/user/notices">Notice</a></span
-      >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <span
-        ><form
-          action="/user/departments"
-          method="get"
-          style="display: inline"
-          name="form1"
+<% layout("/layouts/boilerplate.ejs") %>
+<body>
+  <div>
+    <span><a href="/user/notices">Notice</a></span
+    >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <span
+      ><form
+        action="/user/departments"
+        method="get"
+        style="display: inline"
+        name="form1"
+      >
+        <select
+          name="departmentName"
+          onchange="javascript:document.forms.form1.submit()"
         >
-          <select
-            name="departmentName"
-            onchange="javascript:document.forms.form1.submit()"
-          >
-            <option value="null">Department</option>
-            <option value="Computer Engineering">Computer Engineering</option>
-            <option value="Civil Engineering">Civil Engineering</option>
-            <option value="Mechanical Engineering">
-              Mechanical Engineering
-            </option>
-            <option value="Big Data">Big Data</option>
-            <option value="Artificial Intelligence">
-              Artificial Intelligence
-            </option>
-          </select>
-        </form></span
-      >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <span><a href="/user/admissions">Admission</a></span
-      >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <span
-        ><form
-          action="/user/examinations"
-          method="get"
-          style="display: inline"
-          name="form2"
+          <option value="null">Department</option>
+          <option value="Computer Engineering">Computer Engineering</option>
+          <option value="Civil Engineering">Civil Engineering</option>
+          <option value="Mechanical Engineering">Mechanical Engineering</option>
+          <option value="Big Data">Big Data</option>
+          <option value="Artificial Intelligence">
+            Artificial Intelligence
+          </option>
+        </select>
+      </form></span
+    >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <span><a href="/user/admissions">Admission</a></span
+    >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <span
+      ><form
+        action="/user/examinations"
+        method="get"
+        style="display: inline"
+        name="form2"
+      >
+        <select
+          name="departmentName"
+          onchange="javascript:document.forms.form2.submit()"
         >
-          <select
-            name="departmentName"
-            onchange="javascript:document.forms.form2.submit()"
-          >
-            <option value="null">Examinations</option>
-            <option value="Computer Engineering">Computer Engineering</option>
-            <option value="Civil Engineering">Civil Engineering</option>
-            <option value="Mechanical Engineering">
-              Mechanical Engineering
-            </option>
-            <option value="Big Data">Big Data</option>
-            <option value="Artificial Intelligence">
-              Artificial Intelligence
-            </option>
-          </select>
-        </form></span
-      >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <span><a href="/user/facilities">Facility</a></span
-      >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <span><a href="/user/faculties">Faculty</a></span
-      >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <span><a href="/user/committees">Committee</a></span
-      >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <span><a href="/user/events">Events</a></span
-      >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <span><a href="/user/projects">Project</a></span
-      >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <span><a href="/user/resources">Resources</a></span
-      >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <span><a href="/user/rankers">Rankers</a></span
-      >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    </div>
-  </body>
-</html>
+          <option value="null">Examinations</option>
+          <option value="Computer Engineering">Computer Engineering</option>
+          <option value="Civil Engineering">Civil Engineering</option>
+          <option value="Mechanical Engineering">Mechanical Engineering</option>
+          <option value="Big Data">Big Data</option>
+          <option value="Artificial Intelligence">
+            Artificial Intelligence
+          </option>
+        </select>
+      </form></span
+    >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <span><a href="/user/facilities">Facility</a></span
+    >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <span><a href="/user/faculties">Faculty</a></span
+    >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <span><a href="/user/committees">Committee</a></span
+    >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <span><a href="/user/events">Events</a></span
+    >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <span><a href="/user/projects">Project</a></span
+    >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <span><a href="/user/resources">Resources</a></span
+    >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <span><a href="/user/rankers">Rankers</a></span
+    >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </div>
+</body>

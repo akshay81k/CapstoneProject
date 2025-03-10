@@ -1,21 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BVP</title>
-    <style>
-      .div1 {
-        border: 2px solid black;
-        margin: 6rem;
-        padding: 3rem;
-      }
-    </style>
-  </head>
-
+<% layout("/layouts/boilerplate.ejs") %>
+     
   <body>
     <% for(event of allEvents) { %>
-    <div class="div1">
+    <div class="div1" style=" border: 2px solid black;
+    margin: 6rem;
+    padding: 3rem;">
       <h1><%= event.name %></h1>
       <p><b>Description:</b> <%= event.description %></p>
       <p><b>Date:</b> <%= event.date.toDateString() %></p>

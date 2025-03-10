@@ -1,33 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BVP</title>
-    <style>
-      .div1 {
-        border: 2px solid black;
-        margin: 4rem;
-        padding: 1.5rem;
-      }
-    </style>
-  </head>
+<% layout("/layouts/boilerplate.ejs") %>
 
-  <body>
-    <h1>Committees</h1>
-    <% for(committee of committees){ %>
-    <div class="div1">
-      <h4><%=committee.committeeName%></h4>
-      <p><b>Description:</b><%=committee.description %></p>
-      <p>
-        <b>Members:</b><% committee.members.forEach((member)=>{ %>
-        <li>
-          <b>Name:</b><%=member.name %>
-          &nbsp;&nbsp;&nbsp;&nbsp;<b>Role:</b><%=member.role %>
-        </li>
-        <% }) %>
-      </p>
-    </div>
-    <% } %>
-  </body>
-</html>
+<body>
+  <h1>Committees</h1>
+  <% for(committee of committees){ %>
+  <div
+    class="div1"
+    style="border: 2px solid black; margin: 4rem; padding: 1.5rem"
+  >
+    <h4><%=committee.committeeName%></h4>
+    <p><b>Description:</b><%=committee.description %></p>
+    <p>
+      <b>Members:</b><% committee.members.forEach((member)=>{ %>
+      <li>
+        <b>Name:</b><%=member.name %>
+        &nbsp;&nbsp;&nbsp;&nbsp;<b>Role:</b><%=member.role %>
+      </li>
+      <% }) %>
+    </p>
+  </div>
+  <% } %>
+</body>

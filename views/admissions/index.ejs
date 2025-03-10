@@ -1,40 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BVP</title>
-  </head>
-  <body>
-    <h1>Admission Details</h1>
-    <li><%= admissionDetails[0].eligibilityCriteria %></li>
-    <li><%= admissionDetails[0].applicationDeadline.toDateString() %></li>
-    <li><%= admissionDetails[0].admissionProcedure %></li>
-    <h2>Fee Structure</h2>
-    <table border="1">
-      <thead>
-        <tr>
-          <th>Category</th>
-          <th>Fee (in INR)</th>
-          <th>Payment Mode</th>
-          <th>Remarks</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% admissionDetails[0].feeStructure.categories.forEach(category => { %>
-        <tr>
-          <td><%= category.category %></td>
-          <td><%= category.fee %></td>
-          <td><%= category.paymentMode %></td>
-          <td><%= category.remarks %></td>
-        </tr>
-        <% }) %>
-      </tbody>
-    </table>
-    <h2>Contact Information</h2>
-    <li><%= admissionDetails[0].contact.name %></li>
-    <li><%= admissionDetails[0].contact.email %></li>
-    <li><%= admissionDetails[0].contact.phone %></li>
-    <a href="/admin/admissions/<%= admissionDetails[0]._id %>/edit">Edit</a>
-  </body>
-</html>
+<% layout("/layouts/boilerplate.ejs") %>
+<body>
+  <h1>Admission Details</h1>
+  <li><%= admissionDetails[0].eligibilityCriteria %></li>
+  <li><%= admissionDetails[0].applicationDeadline.toDateString() %></li>
+  <li><%= admissionDetails[0].admissionProcedure %></li>
+  <h2>Fee Structure</h2>
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Fee (in INR)</th>
+        <th>Payment Mode</th>
+        <th>Remarks</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% admissionDetails[0].feeStructure.categories.forEach(category => { %>
+      <tr>
+        <td><%= category.category %></td>
+        <td><%= category.fee %></td>
+        <td><%= category.paymentMode %></td>
+        <td><%= category.remarks %></td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+  <h2>Contact Information</h2>
+  <li><%= admissionDetails[0].contact.name %></li>
+  <li><%= admissionDetails[0].contact.email %></li>
+  <li><%= admissionDetails[0].contact.phone %></li>
+  <a href="/admin/admissions/<%= admissionDetails[0]._id %>/edit">Edit</a>
+</body>

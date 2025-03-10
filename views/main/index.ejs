@@ -1,21 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BVP</title>
-  </head>
-  <body>
-    <ul>
-      <li><a href="/admin/notices">Notices</a></li>
-      <li><a href="/admin/events">Events</a></li>
-      <li><a href="/admin/rankers">Rankers</a></li>
-      <li><a href="/admin/departments">Departments</a></li>
-      <li><a href="/admin/facilities">Facilities</a></li>
-      <li><a href="/admin/committees">Committees</a></li>
-      <li><a href="/admin/admissions">Admissions</a></li>
-      <li><a href="/admin/resources">Resources</a></li>
-      <li><a href="/admin/projects">Projects</a></li>
-    </ul>
-  </body>
-</html>
+<% layout("/layouts/boilerplate.ejs") %>
+<body>
+  <ul>
+    <li><a href="/admin/notices">Notices</a></li>
+    <li><a href="/admin/events">Events</a></li>
+    <li><a href="/admin/rankers">Rankers</a></li>
+    <li><a href="/admin/departments">Departments</a></li>
+    <li><a href="/admin/facilities">Facilities</a></li>
+    <li><a href="/admin/committees">Committees</a></li>
+    <li><a href="/admin/admissions">Admissions</a></li>
+    <li><a href="/admin/resources">Resources</a></li>
+    <li><a href="/admin/projects">Projects</a></li>
+
+    <% if(!currUser) { %>
+    <li><a href="/admin/signup">Signup</a></li>
+    <li><a href="/admin/login">Login</a></li>
+
+    <% } %> <% if(currUser) {%>
+    <li><a href="/admin/logout">Logout</a></li>
+    <% } %>
+  </ul>
+</body>

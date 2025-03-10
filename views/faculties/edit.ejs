@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BVP</title>
-  </head>
+<% layout("/layouts/boilerplate.ejs") %>
   <body>
     <form
       action="/admin/faculties/<%= faculty._id %>?_method=PUT"
@@ -80,4 +74,4 @@
       <button>Update Faculty</button>
     </form>
   </body>
-</html>
+

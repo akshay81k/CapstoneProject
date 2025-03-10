@@ -26,24 +26,61 @@ const Project = require("./models/project.js");
 const stream = require("stream");
 const { google } = require("googleapis");
 const uploadDrive = multer({ storage: multer.memoryStorage() });
+const ejsMate = require("ejs-mate");
+app.engine("ejs", ejsMate);
 
 const { wrapAsync } = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
+
 const {
-  noticeSchema,
-  eventSchema,
-  rankerSchema,
-  departmentSchema,
-  facilitySchema,
-  committeeSchemaEdit,
-  committeeSchema,
-  memberSchema,
-  admissionSchema,
-  facultySchema,
-  examinationSchema,
-  resourceSchema,
-  projectSchema,
-} = require("./schema.js");
+  validateNotice,
+  validateEvent,
+  validateRanker,
+  validateDepartment,
+  validateFacility,
+  validateCommittee,
+  validateCommitteeEdit,
+  validateCommitteeMember,
+  validateAdmission,
+  validateFaculty,
+  validateExamination,
+  validateResource,
+  validateProject,
+  isLoggedIn,
+} = require("./middleware.js");
+
+const session = require("express-session");
+const flash = require("connect-flash");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const Admin = require("./models/admin.js");
+
+const sessionOptions = {
+  secret: "mysecretcode",
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    expires: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
+    maxAge: 365 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+  },
+};
+
+app.use(session(sessionOptions));
+app.use(flash());
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(Admin.authenticate()));
+passport.serializeUser(Admin.serializeUser());
+passport.deserializeUser(Admin.deserializeUser());
+
+app.use((req, res, next) => {
+  res.locals.success = req.flash("success");
+  res.locals.failure = req.flash("failure");
+  res.locals.currUser = req.user || null;
+  next();
+});
 
 main()
   .then((res) => console.log("Connected to database"))
@@ -64,16 +101,6 @@ app.get("/admin", (req, res) => {
 
 // TODO: Notices Routes
 
-// MIDDLEWARE: to validate noticeSchema
-const validateNotice = (req, res, next) => {
-  let { error } = noticeSchema.validate(req.body);
-  if (error) {
-    throw new ExpressError(400, error);
-  } else {
-    next();
-  }
-};
-
 // Index route
 app.get(
   "/admin/notices",
@@ -84,7 +111,7 @@ app.get(
 );
 
 // New Route
-app.get("/admin/notices/new", (req, res) => {
+app.get("/admin/notices/new", isLoggedIn, (req, res) => {
   res.render("notice/new.ejs");
 });
 
@@ -95,6 +122,7 @@ app.post(
   wrapAsync(async (req, res) => {
     const newNotice = new Notice(req.body.notice);
     await newNotice.save();
+    req.flash("success", "Notice created!");
     res.redirect("/admin/notices");
   })
 );
@@ -112,6 +140,7 @@ app.get(
 // Edit Route
 app.get(
   "/admin/notices/:id/edit",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     let notice = await Notice.findById(id);
@@ -126,6 +155,7 @@ app.put(
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     await Notice.findByIdAndUpdate(id, { ...req.body.notice });
+    req.flash("success", "Notice updated!");
     res.redirect("/admin/notices");
   })
 );
@@ -133,25 +163,17 @@ app.put(
 // Delete Route
 app.delete(
   "/admin/notices/:id",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     await Notice.findByIdAndDelete(id);
+    req.flash("success", "Notice deleted!");
     res.redirect("/admin/notices");
   })
 );
 // --------------------------------------------------
 
 // TODO: Events Routes
-
-// MIDDLEWARE: to validate eventSchema
-const validateEvent = (req, res, next) => {
-  let { error } = eventSchema.validate(req.body);
-  if (error) {
-    throw new ExpressError(400, error);
-  } else {
-    next();
-  }
-};
 
 // Index route
 app.get(
@@ -163,7 +185,7 @@ app.get(
 );
 
 // New Route
-app.get("/admin/events/new", (req, res) => {
+app.get("/admin/events/new", isLoggedIn, (req, res) => {
   res.render("events/new.ejs");
 });
 
@@ -181,6 +203,7 @@ app.post(
       imgs: { url, fileName },
     });
     await newEvent.save();
+    req.flash("success", "event added!");
     res.redirect("/admin/events");
   })
 );
@@ -198,6 +221,7 @@ app.get(
 // Edit Route
 app.get(
   "/admin/events/:id/edit",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     let event = await Event.findById(id);
@@ -247,6 +271,7 @@ app.put(
     for (const oldImg of deleteImgs) {
       await cloudinary.uploader.destroy(oldImg);
     }
+    req.flash("success", "event edited!");
     res.redirect("/admin/events");
   })
 );
@@ -254,6 +279,7 @@ app.put(
 // Delete Route
 app.delete(
   "/admin/events/:id",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     const event = await Event.findById(id);
@@ -263,22 +289,13 @@ app.delete(
       }
     }
     await Event.findByIdAndDelete(id);
+    req.flash("success", "event deleted!");
     res.redirect("/admin/events");
   })
 );
 
 //---------------------------------------------------
 //TODO: Rankers Route
-
-// MIDDLEWARE: to validate rankerSchema
-const validateRanker = (req, res, next) => {
-  let { error } = rankerSchema.validate(req.body);
-  if (error) {
-    throw new ExpressError(400, error);
-  } else {
-    next();
-  }
-};
 
 // Index Route
 app.get(
@@ -321,7 +338,7 @@ app.get(
 );
 
 //New Route
-app.get("/admin/rankers/new", (req, res) => {
+app.get("/admin/rankers/new", isLoggedIn, (req, res) => {
   res.render("rankers/new.ejs");
 });
 
@@ -336,6 +353,7 @@ app.post(
     let fileName = req.file.filename;
     newRanker.photo = { url, fileName };
     await newRanker.save();
+    req.flash("success", "rankers added successfully!");
     res.redirect("/admin/rankers");
   })
 );
@@ -343,6 +361,7 @@ app.post(
 // Edit Route
 app.get(
   "/admin/rankers/:id/edit",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     let ranker = await Ranker.findById(id);
@@ -369,6 +388,7 @@ app.put(
       };
     }
     await ranker.save();
+    req.flash("success", "rankers edited!");
     res.redirect("/admin/rankers");
   })
 );
@@ -376,6 +396,7 @@ app.put(
 // Delete Route
 app.delete(
   "/admin/rankers/delete",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     const { department } = req.query;
     const rankers = await Ranker.find({ department: department });
@@ -386,22 +407,13 @@ app.delete(
       }
     }
     await Ranker.deleteMany({ department: department });
+    req.flash("success", "rankers deleted!");
     res.redirect("/admin/rankers");
   })
 );
 
 // --------------------------------------------------
 // TODO: Department Routes
-
-// MIDDLEWARE: to validate departmentSchema
-const validateDepartment = (req, res, next) => {
-  let { error } = departmentSchema.validate(req.body);
-  if (error) {
-    throw new ExpressError(400, error);
-  } else {
-    next();
-  }
-};
 
 // Index route
 app.get(
@@ -413,7 +425,7 @@ app.get(
 );
 
 // New Route
-app.get("/admin/departments/new", (req, res) => {
+app.get("/admin/departments/new", isLoggedIn, (req, res) => {
   res.render("departments/new.ejs");
 });
 
@@ -424,6 +436,7 @@ app.post(
   wrapAsync(async (req, res) => {
     const newDepartment = new Department(req.body.department);
     await newDepartment.save();
+    req.flash("success", "department added!");
     res.redirect("/admin/departments");
   })
 );
@@ -443,6 +456,7 @@ app.get(
 // Edit Route
 app.get(
   "/admin/departments/:id/edit",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     let department = await Department.findById(id);
@@ -457,6 +471,7 @@ app.put(
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     await Department.findByIdAndUpdate(id, { ...req.body.department });
+    req.flash("success", "department updated!");
     res.redirect("/admin/departments");
   })
 );
@@ -464,9 +479,11 @@ app.put(
 // Delete Route
 app.delete(
   "/admin/departments/:id",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     await Department.findByIdAndDelete(id);
+    req.flash("success", "Department deleted!");
     res.redirect("/admin/departments");
   })
 );
@@ -474,16 +491,6 @@ app.delete(
 // ----------------------------------------------------------------
 
 // TODO: Facility Routes
-
-// MIDDLEWARE: to validate facilitySchema
-const validateFacility = (req, res, next) => {
-  let { error } = facilitySchema.validate(req.body);
-  if (error) {
-    throw new ExpressError(400, error);
-  } else {
-    next();
-  }
-};
 
 // Index route
 app.get(
@@ -495,7 +502,7 @@ app.get(
 );
 
 // New Route
-app.get("/admin/facilities/new", (req, res) => {
+app.get("/admin/facilities/new", isLoggedIn, (req, res) => {
   res.render("facilities/new.ejs");
 });
 
@@ -510,6 +517,7 @@ app.post(
     let fileName = req.file.filename;
     newFacility.img = { url, fileName };
     await newFacility.save();
+    req.flash("success", "Facility added!");
     res.redirect("/admin/facilities");
   })
 );
@@ -527,6 +535,7 @@ app.get(
 // Edit Route
 app.get(
   "/admin/facilities/:id/edit",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     let facility = await Facility.findById(id);
@@ -553,6 +562,7 @@ app.put(
       };
     }
     await facility.save();
+    req.flash("success", "Facility updated!");
     res.redirect("/admin/facilities");
   })
 );
@@ -560,6 +570,7 @@ app.put(
 // Delete Route
 app.delete(
   "/admin/facilities/:id",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     let facility = await Facility.findById(id);
@@ -567,6 +578,7 @@ app.delete(
       await cloudinary.uploader.destroy(facility.img.fileName);
     }
     await Facility.findByIdAndDelete(id);
+    req.flash("success", "Facility deleted!");
     res.redirect("/admin/facilities");
   })
 );
@@ -574,36 +586,6 @@ app.delete(
 // ----------------------------------------------------------------
 
 // TODO: Committee Routes
-
-// MIDDLEWARE: to validate committeeSchema
-const validateCommittee = (req, res, next) => {
-  let { error } = committeeSchema.validate(req.body);
-  if (error) {
-    throw new ExpressError(400, error);
-  } else {
-    next();
-  }
-};
-
-// MIDDLEWARE: to validate committeeSchemaEdit
-const validateCommitteeEdit = (req, res, next) => {
-  let { error } = committeeSchemaEdit.validate(req.body);
-  if (error) {
-    throw new ExpressError(400, error);
-  } else {
-    next();
-  }
-};
-
-// MIDDLEWARE: to validate memberSchema
-const validateCommitteeMember = (req, res, next) => {
-  let { error } = memberSchema.validate(req.body);
-  if (error) {
-    throw new ExpressError(400, error);
-  } else {
-    next();
-  }
-};
 
 // Index route
 app.get(
@@ -615,7 +597,7 @@ app.get(
 );
 
 // New Route
-app.get("/admin/committees/new", (req, res) => {
+app.get("/admin/committees/new", isLoggedIn, (req, res) => {
   res.render("committees/newCommittee.ejs");
 });
 
@@ -626,6 +608,7 @@ app.post(
   wrapAsync(async (req, res) => {
     const newCommittee = new Committee(req.body.committee);
     await newCommittee.save();
+    req.flash("success", "Committee added!");
     res.redirect("/admin/committees");
   })
 );
@@ -643,6 +626,7 @@ app.get(
 // new member route
 app.get(
   "/admin/committees/:id/members",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     let committee = await Committee.findById(id);
@@ -662,6 +646,7 @@ app.put(
       { $push: { members: newMember } },
       { new: true }
     );
+    req.flash("success", "New member added!");
     res.redirect("/admin/committees");
   })
 );
@@ -669,6 +654,7 @@ app.put(
 // Edit Route
 app.get(
   "/admin/committees/:id/edit",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     let committee = await Committee.findById(id);
@@ -688,6 +674,7 @@ app.put(
       description,
       members,
     });
+    req.flash("success", "Committee updated!");
     res.redirect("/admin/committees");
   })
 );
@@ -695,9 +682,11 @@ app.put(
 // Delete Route
 app.delete(
   "/admin/committees/:id",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     await Committee.findByIdAndDelete(id);
+    req.flash("success", "Committee deleted!");
     res.redirect("/admin/committees");
   })
 );
@@ -705,6 +694,7 @@ app.delete(
 // delete member
 app.delete(
   "/admin/committees/:id/members",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     let { memberName } = req.body;
@@ -713,22 +703,13 @@ app.delete(
       { $pull: { members: { name: memberName } } }, // Use $pull to remove the member with the specified name
       { new: true }
     );
+    req.flash("success", "Member deleted!");
     res.redirect(`/admin/committees/${id}`);
   })
 );
 //----------------------------------------------------------------------------------
 
 //TODO: Admission Details Route
-
-// MIDDLEWARE: to validate admissionSchema
-const validateAdmission = (req, res, next) => {
-  let { error } = admissionSchema.validate(req.body);
-  if (error) {
-    throw new ExpressError(400, error);
-  } else {
-    next();
-  }
-};
 
 // Index Route
 app.get(
@@ -742,6 +723,7 @@ app.get(
 // Edit Route
 app.get(
   "/admin/admissions/:id/edit",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     let admissionDetails = await AdmissionDetail.findById(id);
@@ -758,6 +740,7 @@ app.put(
     await AdmissionDetail.findByIdAndUpdate(id, {
       ...req.body.admissionDetails,
     });
+    req.flash("success", "Data updated!");
     res.redirect("/admin/admissions");
   })
 );
@@ -765,18 +748,8 @@ app.put(
 
 //TODO: Faculty Route
 
-// MIDDLEWARE: to validate facultySchema
-const validateFaculty = (req, res, next) => {
-  let { error } = facultySchema.validate(req.body);
-  if (error) {
-    throw new ExpressError(400, error);
-  } else {
-    next();
-  }
-};
-
 // to add new faculty
-app.get("/admin/faculties/:id/new", (req, res) => {
+app.get("/admin/faculties/:id/new", isLoggedIn, (req, res) => {
   let { id } = req.params;
   res.render("faculties/new.ejs", { id });
 });
@@ -796,6 +769,7 @@ app.post(
     department.faculty.push(newFaculty);
     newFaculty.save();
     department.save();
+    req.flash("success", "Faculty added!");
     res.redirect("/admin/departments");
   })
 );
@@ -813,6 +787,7 @@ app.get(
 // Edit Route
 app.get(
   "/admin/faculties/:id/edit",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     let faculty = await Faculty.findById(id);
@@ -839,6 +814,7 @@ app.put(
       };
     }
     await faculty.save();
+    req.flash("success", "Faculty updated!");
     res.redirect(`/admin/faculties/${id}`);
   })
 );
@@ -846,6 +822,7 @@ app.put(
 // Delete Route
 app.delete(
   "/admin/department/:depId/faculties/:id",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     let { depId, id } = req.params;
     await Department.findByIdAndUpdate(depId, { $pull: { faculty: id } });
@@ -853,8 +830,8 @@ app.delete(
     if (faculty && faculty.photo.fileName) {
       await cloudinary.uploader.destroy(faculty.photo.fileName);
     }
-
     await Faculty.findByIdAndDelete(id);
+    req.flash("success", "Faculty deleted!");
     res.redirect("/admin/departments");
   })
 );
@@ -863,18 +840,8 @@ app.delete(
 
 //TODO: Examination Route
 
-// MIDDLEWARE: to validate examinationSchema
-const validateExamination = (req, res, next) => {
-  let { error } = examinationSchema.validate(req.body);
-  if (error) {
-    throw new ExpressError(400, error);
-  } else {
-    next();
-  }
-};
-
 // to add new faculty
-app.get("/admin/examinations/:id/new", (req, res) => {
+app.get("/admin/examinations/:id/new", isLoggedIn, (req, res) => {
   let { id } = req.params;
   res.render("examinations/new.ejs", { id });
 });
@@ -900,6 +867,7 @@ app.post(
     department.examination.push(newExam);
     await newExam.save();
     await department.save();
+    req.flash("success", "Examination created!");
     res.redirect(`/admin/departments/${id}`);
   })
 );
@@ -907,6 +875,7 @@ app.post(
 // Edit Route
 app.get(
   "/admin/examinations/:id",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     let exam = await Examination.findById(id);
@@ -952,6 +921,7 @@ app.put(
     // Update the examination document in MongoDB
     await Examination.findByIdAndUpdate(id, examData, { new: true });
 
+    req.flash("success", "Examination updated!");
     // Redirect to the department page after successful update
     res.redirect(`/admin/departments`);
   })
@@ -960,6 +930,7 @@ app.put(
 // Delete Route
 app.delete(
   "/admin/department/:depId/examinations/:id",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     let { depId, id } = req.params;
     await Department.findByIdAndUpdate(depId, { $pull: { examination: id } });
@@ -970,6 +941,7 @@ app.delete(
     }
 
     await Examination.findByIdAndDelete(id);
+    req.flash("success", "Examination deleted!");
     res.redirect(`/admin/departments`);
   })
 );
@@ -977,16 +949,6 @@ app.delete(
 //-------------------------------------------------------------------------
 
 //TODO: Resources Route
-
-// MIDDLEWARE: to validate resourceSchema
-const validateResource = (req, res, next) => {
-  let { error } = resourceSchema.validate(req.body);
-  if (error) {
-    throw new ExpressError(400, error);
-  } else {
-    next();
-  }
-};
 
 // Google Drive setup
 const KEYFILEPATH = path.join(__dirname, "apikey.json");
@@ -1035,7 +997,7 @@ app.get(
 );
 
 // New Route
-app.get("/admin/resources/:id/new", (req, res) => {
+app.get("/admin/resources/:id/new", isLoggedIn, (req, res) => {
   let { id } = req.params;
   res.render("resources/new.ejs", { id });
 });
@@ -1090,6 +1052,8 @@ app.post(
     await newResource.save();
     await department.save();
 
+    req.flash("success", "Resources uploaded successfully!");
+
     res.status(200).redirect("/admin/resources");
   })
 );
@@ -1106,6 +1070,7 @@ app.get(
 // Delete Route
 app.delete(
   "/admin/resources/:id",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     const resource = await Resource.findById(id);
@@ -1130,21 +1095,12 @@ app.delete(
 
     // Delete the resource from the MongoDB database
     await Resource.findByIdAndDelete(id);
+    req.flash("success", "Resources deleted!");
     res.redirect("/admin/resources");
   })
 );
 
 // TODO:Project Repository Route
-
-// MIDDLEWARE: to validate projectSchema
-const validateProject = (req, res, next) => {
-  let { error } = projectSchema.validate(req.body);
-  if (error) {
-    throw new ExpressError(400, error);
-  } else {
-    next();
-  }
-};
 
 // Index route
 app.get(
@@ -1167,7 +1123,7 @@ app.get(
 );
 
 // New Route
-app.get("/admin/projects/new", (req, res) => {
+app.get("/admin/projects/new", isLoggedIn, (req, res) => {
   res.render("projects/new.ejs");
 });
 
@@ -1195,6 +1151,7 @@ app.get(
 // Edit Route
 app.get(
   "/admin/projects/:id/edit",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     let project = await Project.findById(id);
@@ -1216,12 +1173,88 @@ app.put(
 // Delete Route
 app.delete(
   "/admin/projects/:id",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     await Project.findByIdAndDelete(id);
     res.redirect("/admin/projects");
   })
 );
+
+// TODO: Authentication routes
+
+app.get("/admin/signup", (req, res) => {
+  res.render("authentication/signup.ejs");
+});
+
+app.post("/admin/signup", async (req, res) => {
+  try {
+    let { username, email, password } = req.body;
+    let newAdmin = new Admin({ email, username });
+    const registeredAdmin = await Admin.register(newAdmin, password);
+    //  console.log(registeredAdmin);
+    req.login(registeredAdmin, (err) => {
+      if (err) {
+        req.flash("failure", "Login error during registration");
+        return res.redirect("/admin/signup");
+      }
+      req.flash("success", "You are registered!");
+      res.redirect("/admin");
+    });
+  } catch (e) {
+    req.flash("failure", "Some error occurred");
+    res.redirect("/admin/signup");
+  }
+});
+
+app.get("/admin/login", (req, res) => {
+  res.render("authentication/login.ejs");
+});
+
+app.post(
+  "/admin/login",
+  passport.authenticate("local", {
+    failureRedirect: "/admin/login",
+    failureFlash: true,
+  }),
+  async (req, res) => {
+    req.flash("success", "Logged in successfully!");
+    res.redirect("/admin");
+  }
+);
+
+// user accessing used in login feature
+// app.post("/admin/login", (req, res, next) => {
+//   passport.authenticate("local", (err, user, info) => {
+//     if (err) {
+//       return next(err); // Handle errors
+//     }
+//     if (!user) {
+//       req.flash("error", "Invalid credentials");
+//       return res.redirect("/admin/login");
+//     }
+//     req.login(user, (err) => {
+//       if (err) {
+//         return next(err);
+//       }
+//       // Access the authenticated user document
+//       console.log("Authenticated User:", user);
+//       req.flash("success", "Logged in successfully!");
+//       return res.redirect("/admin");
+//     });
+//   })(req, res, next);
+// });
+
+app.get("/admin/logout", (req, res) => {
+  req.logout((err) => {
+    if (err) {
+      req.flash("failure", "Error occurred in logging out!");
+      return res.redirect("/admin");
+    }
+  });
+  req.flash("success", "Logged out successfully!");
+  res.redirect("/admin");
+});
 
 // -----------------------------------------------------------------------
 // TODO: User Routes
@@ -1231,7 +1264,7 @@ app.get("/user", (req, res) => {
   res.render("main/userIndex.ejs");
 });
 
-// Notice Routee
+// Notice Route
 app.get(
   "/user/notices",
   wrapAsync(async (req, res) => {
@@ -1377,7 +1410,7 @@ app.get(
 // error handling method
 
 app.use((err, req, res, next) => {
-  let { status = 500, message = "Some error occured!" } = err;
+  let { status = 500, message = "Some error occurred!" } = err;
   res.status(status).render("error.ejs", { message });
 });
 

@@ -1,25 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BVP</title>
-  </head>
-  <body>
-    <h3>Committee</h3>
+<% layout("/layouts/boilerplate.ejs") %>
+<body>
+  <h3>Committee</h3>
 
-    <form action="/admin/committees/new" method="GET">
-      <button>Add Committee</button>
-    </form>
-    <ul>
-      <% for(let committee of allCommittees){%>
-      <li>
-        <a href="/admin/committees/<%= committee._id %>"
-          ><%= committee.committeeName %></a
-        >
-      </li>
+  <form action="/admin/committees/new" method="GET">
+    <button>Add Committee</button>
+  </form>
+  <ul>
+    <% for(let committee of allCommittees){%>
+    <li>
+      <a href="/admin/committees/<%= committee._id %>"
+        ><%= committee.committeeName %></a
+      >
+    </li>
 
-      <% } %>
-    </ul>
-  </body>
-</html>
+    <% } %>
+  </ul>
+</body>

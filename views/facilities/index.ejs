@@ -1,25 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BVP</title>
-  </head>
-  <body>
-    <h3>Facilities</h3>
+<% layout("/layouts/boilerplate.ejs") %>
+<body>
+  <h3>Facilities</h3>
 
-    <form action="/admin/facilities/new" method="GET">
-      <button>Add Facility</button>
-    </form>
-    <ul>
-      <% for(let facility of allFacilities){%>
-      <li>
-        <a href="/admin/facilities/<%= facility._id %>"
-          ><%= facility.facilityName %></a
-        >
-      </li>
+  <form action="/admin/facilities/new" method="GET">
+    <button>Add Facility</button>
+  </form>
+  <ul>
+    <% for(let facility of allFacilities){%>
+    <li>
+      <a href="/admin/facilities/<%= facility._id %>"
+        ><%= facility.facilityName %></a
+      >
+    </li>
 
-      <% } %>
-    </ul>
-  </body>
-</html>
+    <% } %>
+  </ul>
+</body>

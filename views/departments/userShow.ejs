@@ -1,30 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BVP</title>
-    <style>
-      .div1 {
-        border: 2px solid black;
-        margin: 4rem;
-        padding: 1.5rem;
-      }
-    </style>
-  </head>
+<% layout("/layouts/boilerplate.ejs") %>
 
-  <body>
-    <% for(department of allDepartments) { %>
-    <div class="div1">
-      <h1><%= department.departmentName %></h1>
-      <p><b>HOD:</b> <%= department.hod %></p>
-      <p><b>Contact:</b> <%= department.contactEmail %></p>
-      <p>
-        <b>Courses:</b> <% department.courses.forEach(course => { %>
-        <li><%=course%></li>
-        <%}); %>
-      </p>
-    </div>
-    <% } %>
-  </body>
-</html>
+<body>
+  <% for(department of allDepartments) { %>
+  <div
+    class="div1"
+    style="border: 2px solid black; margin: 4rem; padding: 1.5rem"
+  >
+    <h1><%= department.departmentName %></h1>
+    <p><b>HOD:</b> <%= department.hod %></p>
+    <p><b>Contact:</b> <%= department.contactEmail %></p>
+    <p>
+      <b>Courses:</b> <% department.courses.forEach(course => { %>
+      <li><%=course%></li>
+      <%}); %>
+    </p>
+  </div>
+  <% } %>
+</body>
