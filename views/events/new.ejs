@@ -1,48 +1,48 @@
-<% layout("/layouts/boilerplate.ejs") %>
-  <body>
-    <h3>Create Event</h3>
+<% layout("/layouts/admin_boilerplate.ejs") %>
+<head>
+  <link rel="stylesheet" href="/styles/admin/addevent.css">
+</head> 
+        <img src="/images/blob1.png" class="blob1">
+        <div class="event-container">
+            <h3>Create Event</h3>
+            <form action="/admin/events" method="POST">
+                <label for="title">
+                    Title:
+                    <input type="text" id="title" name="event[title]" placeholder="Enter event title" required />
+                </label>
 
-    <form action="/admin/events" method="POST" enctype="multipart/form-data">
-      <input type="text" name="event[name]" placeholder="Enter name" /><br />
-      <textarea
-        type="text"
-        name="event[description]"
-        placeholder="Enter description"
-        required
-      ></textarea
-      ><br />
-      <input
-        type="date"
-        name="event[date]"
-        placeholder="Enter Date"
-        required
-      /><br />
-      <input
-        type="text"
-        name="event[organizer]"
-        placeholder="Enter organizers"
-        required
-      /><br />
-      <input
-        type="text"
-        name="event[category]"
-        placeholder="Enter category"
-        required
-      /><br />
-      <input
-        type="text"
-        name="event[venue]"
-        placeholder="Enter venue"
-        required
-      /><br />
-      <input
-        type="file"
-        name="event[imgs]"
-        placeholder="Upload Images"
-        required
-        multiple
-      /><br />
-      <button>Add Event</button>
-    </form>
-  </body>
+                <label for="description">
+                    Description:
+                    <textarea id="description" name="event[description]" placeholder="Enter event description" required></textarea>
+                </label>
+
+                <label for="date">
+                    Date:
+                    <input type="date" id="date" name="event[date]" required />
+                </label>
+
+                <label for="time">
+                    Time:
+                    <input type="time" id="time" name="event[time]" required />
+                </label>
+
+                <label for="venue">
+                    Venue:
+                    <input type="text" id="venue" name="event[venue]" placeholder="Enter event venue" required />
+                </label>
+
+                <label for="organizer">
+                    Organizer:
+                    <input type="text" id="organizer" name="event[organizer]" placeholder="Enter organizer name" required />
+                </label>
+
+                <label for="category">
+                    Category:
+                    <input type="text" id="category" name="event[category]" placeholder="Enter event category" required />
+                </label>
+
+                <button type="submit">Add Event</button>
+            </form>
+        </div>
+        <img src="/images/blob2.png" class="blob2">
 

@@ -1,68 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BVP</title>
-  </head>
-  <body>
-    <h3>Add Project</h3>
+<% layout("/layouts/admin_boilerplate.ejs") %>
+<head>
+  <link rel="stylesheet" href="/styles/admin/addproject.css">
+</head>
+        <img src="/images/blob1.png" class="blob1">
+        <div class="project-container">
+            <h3>Add Project</h3>
+            <form action="/admin/projects" method="POST">
+                <label for="studentName">
+                    Student Names:
+                    <input type="text" id="studentName" name="project[studentName]" placeholder="Enter student names (comma separated)" required />
+                </label>
 
-    <form action="/admin/projects" method="POST">
-      <input
-        type="text"
-        name="project[studentName]"
-        placeholder="Enter student names (comma separated)"
-        required
-      /><br />
+                <label for="graduationYear">
+                    Graduation Year:
+                    <input type="text" id="graduationYear" name="project[graduationYear]" placeholder="Enter graduation year" required />
+                </label>
 
-      <input
-        type="text"
-        name="project[graduationYear]"
-        placeholder="Enter graduation year"
-        required
-      /><br />
+                <label for="department">
+                    Department:
+                    <select id="department" name="project[department]" required>
+                        <option value="" disabled selected>Select Department</option>
+                        <option value="Computer Engineering">Computer Engineering</option>
+                        <option value="Civil Engineering">Civil Engineering</option>
+                        <option value="Mechanical Engineering">Mechanical Engineering</option>
+                        <option value="Big Data">Big Data</option>
+                        <option value="Artificial Intelligence">Artificial Intelligence</option>
+                    </select>
+                </label>
 
-      <select name="project[department]" required>
-        <option value="Computer Engineering">Computer Engineering</option>
-        <option value="Civil Engineering">Civil Engineering</option>
-        <option value="Mechanical Engineering">Mechanical Engineering</option>
-        <option value="Big Data">Big Data</option>
-        <option value="Artificial Intelligence">Artificial Intelligence</option>
-      </select>
-      <br />
+                <div class="project-details">
+                    <h4>Project Details</h4>
+                    
+                    <label for="projectName">
+                        Project Name:
+                        <input type="text" id="projectName" name="project[projectDetails][projectName]" placeholder="Enter project name" required />
+                    </label>
 
-      <h4>Project Details</h4>
+                    <label for="description">
+                        Description:
+                        <textarea id="description" name="project[projectDetails][description]" placeholder="Enter project description" required></textarea>
+                    </label>
 
-      <input
-        type="text"
-        name="project[projectDetails][projectName]"
-        placeholder="Enter project name"
-        required
-      /><br />
+                    <label for="githubLink">
+                        GitHub Link:
+                        <input type="text" id="githubLink" name="project[projectDetails][githubLink]" placeholder="Enter GitHub link" required />
+                    </label>
 
-      <textarea
-        name="project[projectDetails][description]"
-        placeholder="Enter project description"
-        required
-      ></textarea
-      ><br />
+                    <label for="status">
+                        Status:
+                        <select id="status" name="project[projectDetails][status]" required>
+                            <option value="" disabled selected>Select Project Status</option>
+                            <option value="completed">Completed</option>
+                            <option value="in progress">In Progress</option>
+                            <option value="archived">Archived</option>
+                        </select>
+                    </label>
+                </div>
 
-      <input
-        type="text"
-        name="project[projectDetails][githubLink]"
-        placeholder="Enter GitHub link"
-        required
-      /><br />
-
-      <h4>Status</h4>
-      <select name="project[projectDetails][status]" required>
-        <option value="completed">Completed</option>
-        <option value="in progress">In Progress</option>
-        <option value="archived">Archived</option></select
-      ><br />
-
-      <button>Add Project</button>
-    </form>
-  </body>
-</html>
+                <button type="submit">Add Project</button>
+            </form>
+        </div>
+        <img src="/images/blob2.png" class="blob2">

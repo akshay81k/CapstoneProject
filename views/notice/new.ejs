@@ -1,40 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BVP</title>
-  </head>
-  <body>
-    <h3>Create Notice</h3>
+<% layout("/layouts/admin_boilerplate.ejs") %>
+<head>
+  <link rel="stylesheet" href="/styles/admin/addnotice.css">
+</head> 
+        <img src="/images/blob1.png" class="blob1">
+        <div class="notice-container">
+            <h3>Create Notice</h3>
+            <form action="/admin/notices" method="POST">
+                <label for="title">
+                    Title:
+                    <input type="text" id="title" name="notice[title]" placeholder="Enter title" required />
+                </label>
 
-    <form action="/admin/notices" method="POST">
-      <input
-        type="text"
-        name="notice[title]"
-        placeholder="Enter title"
-        required
-      /><br />
-      <textarea
-        type="text"
-        name="notice[description]"
-        placeholder="Enter description"
-        required
-      ></textarea
-      ><br />
-      <input
-        type="text"
-        name="notice[postedBy]"
-        placeholder="Enter author"
-        required
-      /><br />
-      <input
-        type="text"
-        name="notice[category]"
-        placeholder="Enter category"
-        required
-      /><br />
-      <button>Add Notice</button>
-    </form>
-  </body>
-</html>
+                <label for="description">
+                    Description:
+                    <textarea id="description" name="notice[description]" placeholder="Enter description" required></textarea>
+                </label>
+
+                <label for="postedBy">
+                    Author:
+                    <input type="text" id="postedBy" name="notice[postedBy]" placeholder="Enter author" required />
+                </label>
+
+                <label for="category">
+                    Category:
+                    <input type="text" id="category" name="notice[category]" placeholder="Enter category" required />
+                </label>
+
+                <button type="submit">Add Notice</button>
+            </form>
+        </div>
+        <img src="/images/blob2.png" class="blob2">

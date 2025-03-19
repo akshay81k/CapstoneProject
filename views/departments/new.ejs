@@ -1,35 +1,33 @@
-<% layout("/layouts/boilerplate.ejs") %>
-  <body>
-    <h3>Add Department</h3>
+<% layout("/layouts/admin_boilerplate.ejs") %>
+<head>
+  <link rel="stylesheet" href="/styles/admin/adddepartment.css">
+</head> 
+        <img src="/images/blob1.png" class="blob1">
+        <div class="department-container">
+            <h3>Add Department</h3>
+            <form action="/admin/departments" method="POST">
+                <label for="departmentName">
+                    Department Name:
+                    <input type="text" id="departmentName" name="department[departmentName]" placeholder="Enter department name" required />
+                </label>
 
-    <form action="/admin/departments" method="POST">
-      <input
-        type="text"
-        name="department[departmentName]"
-        placeholder="Enter name"
-        required
-      /><br />
-      <input
-        type="text"
-        name="department[hod]"
-        placeholder="Enter name of Hod "
-        required
-      /><br />
-      <input
-        type="email"
-        name="department[contactEmail]"
-        placeholder="Enter email of hod "
-        required
-      /><br />
-      <textarea
-        type="text"
-        name="department[courses]"
-        placeholder="Enter courses"
-        required
-      >
-      </textarea
-      ><br />
-      <button>Add Department</button>
-    </form>
-  </body>
+                <label for="hod">
+                    Head of Department:
+                    <input type="text" id="hod" name="department[hod]" placeholder="Enter name of HOD" required />
+                </label>
+
+                <label for="contactEmail">
+                    Contact Email:
+                    <input type="email" id="contactEmail" name="department[contactEmail]" placeholder="Enter HOD's email address" required />
+                </label>
+
+                <label for="courses">
+                    Courses Offered:
+                    <textarea id="courses" name="department[courses]" placeholder="Enter courses offered by the department (one per line)" required></textarea>
+                </label>
+
+                <button type="submit">Add Department</button>
+            </form>
+        </div>
+        <img src="/images/blob2.png" class="blob2">
 

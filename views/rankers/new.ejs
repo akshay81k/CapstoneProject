@@ -1,43 +1,45 @@
-<% layout("/layouts/boilerplate.ejs") %>
-  <body>
-    <h3>Add Rankers</h3>
+<% layout("/layouts/admin_boilerplate.ejs") %>
+<head>
+  <link rel="stylesheet" href="/styles/admin/addranker.css">
+</head> 
+        <img src="/images/blob1.png" class="blob1">
+        <div class="ranker-container">
+            <h3>Add Ranker</h3>
+            <form action="/admin/rankers" method="POST" enctype="multipart/form-data">
+                <label for="name">
+                    Name:
+                    <input type="text" id="name" name="ranker[name]" placeholder="Enter student name" required />
+                </label>
 
-    <form action="/admin/rankers" method="POST" enctype="multipart/form-data">
-      <input
-        type="text"
-        name="ranker[name]"
-        placeholder="Enter name"
-        required
-      /><br />
+                <label for="year">
+                    Year:
+                    <input type="text" id="year" name="ranker[year]" placeholder="Enter academic year" required />
+                </label>
 
-      <input
-        type="text"
-        name="ranker[year]"
-        placeholder="Enter Year"
-        required
-      /><br />
+                <label for="department">
+                    Department:
+                    <select id="department" name="ranker[department]" required>
+                        <option value="" disabled selected>Select department</option>
+                        <option value="Computer Engineering">Computer Engineering</option>
+                        <option value="Civil Engineering">Civil Engineering</option>
+                        <option value="Mechanical Engineering">Mechanical Engineering</option>
+                        <option value="Big Data">Big Data</option>
+                        <option value="Artificial Intelligence">Artificial Intelligence</option>
+                    </select>
+                </label>
 
-      <select name="ranker[department]" required>
-        <option value="Computer Engineering">Computer Engineering</option>
-        <option value="Civil Engineering">Civil Engineering</option>
-        <option value="Mechanical Engineering">Mechanical Engineering</option>
-        <option value="Big Data">Big Data</option>
-        <option value="Artificial Intelligence">Artificial Intelligence</option>
-      </select>
-      <br />
-      <input
-        type="number"
-        name="ranker[percentage]"
-        placeholder="Enter percentage"
-        required
-      /><br />
-      <input
-        type="file"
-        name="ranker[photo]"
-        placeholder="Upload image"
-        required
-      /><br />
-      <button>Add Ranker</button>
-    </form>
-  </body>
+                <label for="percentage">
+                    Percentage:
+                    <input type="number" id="percentage" name="ranker[percentage]" placeholder="Enter percentage" step="0.01" min="0" max="100" required />
+                </label>
+
+                <label for="photo">
+                    Photo:
+                    <input type="file" id="photo" name="ranker[photo]" accept="image/*" required />
+                </label>
+
+                <button type="submit">Add Ranker</button>
+            </form>
+        </div>
+        <img src="/images/blob2.png" class="blob2">
 

@@ -1,68 +1,57 @@
-<% layout("/layouts/boilerplate.ejs") %>
-  <body>
-    <h3>Add Facility</h3>
+<% layout("/layouts/admin_boilerplate.ejs") %>
+<head>
+  <link rel="stylesheet" href="/styles/admin/addfacility.css">
+</head> 
+        <img src="/images/blob1.png" class="blob1">
+        <div class="facility-container">
+            <h3>Add Facility</h3>
+            <form action="/admin/facilities" method="POST" enctype="multipart/form-data">
+                <label for="facilityName">
+                    Facility Name:
+                    <input type="text" id="facilityName" name="facility[facilityName]" placeholder="Enter facility name" required />
+                </label>
 
-    <form
-      action="/admin/facilities"
-      method="POST"
-      enctype="multipart/form-data"
-    >
-      <input
-        type="text"
-        name="facility[facilityName]"
-        placeholder="Enter facility name"
-        required
-      /><br />
+                <label for="description">
+                    Description:
+                    <textarea id="description" name="facility[description]" placeholder="Enter detailed description of the facility" required></textarea>
+                </label>
 
-      <textarea
-        name="facility[description]"
-        placeholder="Enter description"
-        required
-      ></textarea
-      ><br />
+                <label for="location">
+                    Location:
+                    <input type="text" id="location" name="facility[location]" placeholder="Enter facility location" required />
+                </label>
 
-      <input
-        type="text"
-        name="facility[location]"
-        placeholder="Enter location"
-        required
-      /><br />
+                <label for="timing">
+                    Timing:
+                    <input type="text" id="timing" name="facility[timing]" placeholder="Enter timing (e.g., 9:00 AM - 5:00 PM)" required />
+                </label>
 
-      <input
-        type="text"
-        name="facility[timing]"
-        placeholder="Enter timing (e.g., 9:00 AM - 5:00 PM)"
-        required
-      /><br />
+                <div class="contact-section">
+                    <h4>Contact Information</h4>
+                    
+                    <label for="contactName">
+                        Contact Name:
+                        <input type="text" id="contactName" name="facility[contact][name]" placeholder="Enter contact person's name" required />
+                    </label>
 
-      <h4>Contact Information</h4>
-      <input
-        type="text"
-        name="facility[contact][name]"
-        placeholder="Enter contact name"
-        required
-      /><br />
-      <input
-        type="email"
-        name="facility[contact][email]"
-        placeholder="Enter contact email"
-        required
-      /><br />
-      <input
-        type="tel"
-        name="facility[contact][phone]"
-        placeholder="Enter contact phone"
-        required
-      /><br />
+                    <label for="contactEmail">
+                        Contact Email:
+                        <input type="email" id="contactEmail" name="facility[contact][email]" placeholder="Enter contact email address" required />
+                    </label>
 
-      <input
-        type="file"
-        name="facility[img]"
-        placeholder="Upload Image"
-        required
-      /><br />
+                    <label for="contactPhone">
+                        Contact Phone:
+                        <input type="tel" id="contactPhone" name="facility[contact][phone]" placeholder="Enter contact phone number" required />
+                    </label>
+                </div>
 
-      <button type="submit">Add Facility</button>
-    </form>
-  </body>
+                <label for="facilityImage">
+                    Facility Image:
+                    <input type="file" id="facilityImage" name="facility[img]" accept="image/*" required />
+                </label>
+
+                <button type="submit">Add Facility</button>
+            </form>
+        </div>
+        <img src="/images/blob2.png" class="blob2">
 
