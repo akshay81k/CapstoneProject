@@ -1261,8 +1261,13 @@ app.get("/admin/logout", (req, res) => {
 // TODO: User Routes
 
 // Root User
-app.get("/user", (req, res) => {
-  res.render("main/userIndex.ejs");
+app.get("/user",async (req, res) => {
+  const allNotices = await Notice.find({});
+  const formattedNotices = allNotices.map(notice => ({
+    ...notice._doc, // Spread existing document fields
+    datePosted: notice.datePosted ? new Date(notice.datePosted) : null
+  }));
+  res.render("main/userIndex.ejs",{formattedNotices});
 });
 
 // Notice Route
@@ -1332,43 +1337,83 @@ app.get(
 app.get(
   "/user/faculties",
   wrapAsync(async (req, res) => {
-    const faculties = await Faculty.find({});
+    const { department } = req.query; // Get department from query params
+    let filter = {};
+
+    if (department) {
+      filter.department = department; // Apply filter if department is specified
+    }
+
+    const faculties = await Faculty.find(filter);
     res.render("faculties/userShow.ejs", { faculties });
   })
 );
 
 // Resources Routes
+// app.get(
+//   "/user/resources",
+//   wrapAsync(async (req, res) => {
+//     const allResources = await Resource.find({});
+
+//     const resourcesByDepartment = allResources.reduce((acc, resource) => {
+//       const department = resource.department;
+//       if (!acc[department]) {
+//         acc[department] = [];
+//       }
+//       acc[department].push(resource);
+//       return acc;
+//     }, {});
+//     res.render("resources/userShow.ejs", { resourcesByDepartment });
+//   })
+// );
 app.get(
   "/user/resources",
   wrapAsync(async (req, res) => {
-    const allResources = await Resource.find({});
+    const { department } = req.query; // Get the department filter from query params
 
+    let filter = {}; // Default: Show all resources
+    if (department && department !== "") {
+      filter.department = department; // Apply department filter if selected
+    }
+
+    const allResources = await Resource.find(filter);
+
+    // Group resources by department
     const resourcesByDepartment = allResources.reduce((acc, resource) => {
-      const department = resource.department;
-      if (!acc[department]) {
-        acc[department] = [];
+      if (!acc[resource.department]) {
+        acc[resource.department] = [];
       }
-      acc[department].push(resource);
+      acc[resource.department].push(resource);
       return acc;
     }, {});
-    res.render("resources/userShow.ejs", { resourcesByDepartment });
+
+    res.render("resources/userShow.ejs", { resourcesByDepartment, selectedDepartment: department || "" });
   })
 );
+
+
 
 // Projects Route
 app.get(
   "/user/projects",
   wrapAsync(async (req, res) => {
-    const projects = await Project.find({});
+    const { department } = req.query;
+
+    let filter = {};
+    if (department) filter.department = department;
+
+    const projects = await Project.find(filter);
     const allProjects = {};
+
     projects.forEach((project) => {
-      const department = project.department;
-      if (!allProjects[department]) {
-        allProjects[department] = [];
+      const dept = project.department;
+      if (!allProjects[dept]) {
+        allProjects[dept] = [];
       }
-      allProjects[department].push(project);
+      allProjects[dept].push(project);
     });
-    res.render("projects/userShow.ejs", { allProjects });
+
+    res.render("projects/userShow.ejs", { allProjects, selectedDepartment: department });
   })
 );
 

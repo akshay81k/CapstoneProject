@@ -56,6 +56,17 @@
           <li class="nav"><a href="/user/rankers">Rankers</a></li>
         </ul>
       </nav>
+      <div class="filters">
+        <label for="department">Filter by Department:</label>
+        <select id="department" onchange="filterProjects()">
+          <option value="">All Departments</option>
+          <option value="Computer Engineering" <%= selectedDepartment === 'Computer Engineering' ? 'selected' : '' %>>Computer Engineering</option>
+          <option value="Civil Engineering" <%= selectedDepartment === 'Civil Engineering' ? 'selected' : '' %>>Civil Engineering</option>
+          <option value="Mechanical Engineering" <%= selectedDepartment === 'Mechanical Engineering' ? 'selected' : '' %>>Mechanical Engineering</option>
+          <option value="Big Data" <%= selectedDepartment === 'Big Data' ? 'selected' : '' %>>Big Data</option>
+          <option value="Artificial Intelligence" <%= selectedDepartment === 'Artificial Intelligence' ? 'selected' : '' %>>Artificial Intelligence</option>
+        </select>
+      </div>
 
       <!-- Projects Content -->
       <% for (const department in allProjects) { %>
@@ -144,5 +155,13 @@
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="/scripts/script.js"></script>
+    <script>
+      function filterProjects() {
+        const department = document.getElementById("department").value;
+        const queryString = department ? `?department=${department}` : "";
+        window.location.href = `/user/projects${queryString}`;
+      }
+    </script>    
+    
   </body>
 </html>

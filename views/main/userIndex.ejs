@@ -83,7 +83,7 @@
                             <div class="card-content">
                                 <h2 class="name">Computer Engineering</h2>
                                 <p class="description">The Diploma programme in Computer Engineering started from the academic year 2021 with intake of 60...</p>
-                                <a href="/user/departments/computer" class="button card-button">Read More</a>
+                                <a href="/user/departments?departmentName=Computer Engineering" class="button card-button">Read More</a>
                             </div>
                         </div>
                         <div class="card swiper-slide">
@@ -96,7 +96,7 @@
                             <div class="card-content">
                                 <h2 class="name">Civil Engineering</h2>
                                 <p class="description">The Diploma programme in Civil Engineering provides comprehensive education in structural design...</p>
-                                <a href="/user/departments/civil" class="button card-button">Read More</a>
+                                <a href="/user/departments?departmentName=Civil Engineering" class="button card-button">Read More</a>
                             </div>
                         </div>
                         <div class="card swiper-slide">
@@ -109,7 +109,7 @@
                             <div class="card-content">
                                 <h2 class="name">Mechanical Engineering</h2>
                                 <p class="description">The Mechanical Engineering department offers state-of-the-art facilities and practical training...</p>
-                                <a href="/user/departments/mechanical" class="button card-button">Read More</a>
+                                <a href="/user/departments?departmentName=Mechanical Engineering" class="button card-button">Read More</a>
                             </div>
                         </div>
                         <div class="card swiper-slide">
@@ -122,7 +122,7 @@
                             <div class="card-content">
                                 <h2 class="name">AI and Networking</h2>
                                 <p class="description">The AI and Networking program focuses on cutting-edge artificial intelligence and network technologies...</p>
-                                <a href="/user/departments/ai" class="button card-button">Read More</a>
+                                <a href="/user/departments?departmentName=Artificial Intelligence" class="button card-button">Read More</a>
                             </div>
                         </div>
                         <div class="card swiper-slide">
@@ -135,7 +135,7 @@
                             <div class="card-content">
                                 <h2 class="name">Big Data</h2>
                                 <p class="description">The Big Data program prepares students for handling and analyzing large-scale data systems...</p>
-                                <a href="/user/departments/bigdata" class="button card-button">Read More</a>
+                                <a href="/user/departments?departmentName=Big Data" class="button card-button">Read More</a>
                             </div>
                         </div>
                     </div>
@@ -153,26 +153,16 @@
             <div class="wrapper">
                 <i id="left" class="fa-solid fa-angle-left"></i>
                 <ul class="carousel">
-                    <li class="ecard" id="event1">
-                        <h3>Faculty Development Program</h3>
-                        <span>27 Sep to 1 Oct 2024</span>
-                    </li>
-                    <li class="ecard" id="event1">
-                        <h3>New Academic Calendar Released</h3>
-                        <span>25 Sep 2024</span>
-                    </li>
-                    <li class="ecard" id="event1">
-                        <h3>Campus Placement Drive</h3>
-                        <span>20 Sep 2024</span>
-                    </li>
-                    <li class="ecard" id="event1">
-                        <h3>Technical Symposium</h3>
-                        <span>15 Sep 2024</span>
-                    </li>
-                    <li class="ecard" id="event1">
-                        <h3>Annual Sports Meet</h3>
-                        <span>10 Sep 2024</span>
-                    </li>
+                    <% if (formattedNotices.length > 0) { %>
+                        <% formattedNotices.forEach(notice => { %>
+                            <li class="ecard">
+                                <h3><%= notice.title %></h3>
+                                <span><%= notice.datePosted ? notice.datePosted.toDateString() : 'No Date' %></span>
+                            </li>
+                        <% }) %>
+                    <% } else { %>
+                        <li class="ecard">No latest news available</li>
+                    <% } %>
                 </ul>
                 <i id="right" class="fa-solid fa-angle-right"></i>
             </div>

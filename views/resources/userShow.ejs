@@ -57,37 +57,53 @@
         </ul>
       </nav>
 
+      <form action="/user/resources" method="GET">
+        <label for="department">Select Department:</label>
+        <select name="department" id="department" onchange="this.form.submit()">
+          <option value="" <%= selectedDepartment === "" ? "selected" : "" %>>All Departments</option>
+          <option value="Computer Engineering" <%= selectedDepartment === "Computer Engineering" ? "selected" : "" %>>Computer Engineering</option>
+          <option value="Civil Engineering" <%= selectedDepartment === "Civil Engineering" ? "selected" : "" %>>Civil Engineering</option>
+          <option value="Mechanical Engineering" <%= selectedDepartment === "Mechanical Engineering" ? "selected" : "" %>>Mechanical Engineering</option>
+          <option value="Big Data" <%= selectedDepartment === "Big Data" ? "selected" : "" %>>Big Data</option>
+          <option value="Artificial Intelligence" <%= selectedDepartment === "Artificial Intelligence" ? "selected" : "" %>>Artificial Intelligence</option>
+        </select>
+      </form>
+      
       <!-- Resources Content -->
-      <% for (const department in resourcesByDepartment) { %>
-        <h2><%= department %> Department</h2>
-        <ul>
-          <% resourcesByDepartment[department].forEach(resource => { %>
-            <li>
-              <strong>Subject Name:</strong> <%= resource.subjectName %><br />
-              <strong>Code:</strong> <%= resource.subjectCode %><br />
-              <strong>Semester:</strong> <%= resource.semester %><br />
-              <strong>Materials:</strong>
-              <ul>
-                <% resource.materials.forEach((material) => { %>
-                  <li>
-                    <strong>Textbook Title:</strong> <%= material.textbookTitle %><br />
-                    <strong>Textbook URL:</strong>
-                    <a href="<%= material.textbookURL.url %>"><%= material.textbookURL.fileName %></a><br />
-                    <strong>Paper Links:</strong>
-                    <ul>
-                      <% material.paperLinks.forEach((link) => { %>
-                        <li><a href="<%= link.url %>"><%= link.fileName %></a></li>
-                      <% }) %>
-                    </ul>
-                    <strong>Upload Date:</strong> <%= material.uploadDate.toDateString() %><br />
-                  </li>
-                <% }) %>
-              </ul>
-            </li>
-            <br />
-          <% }) %>
-        </ul>
-        <hr />
+      <% if (Object.keys(resourcesByDepartment).length === 0) { %>
+        <p>No resources found for the selected department.</p>
+      <% } else { %>
+        <% for (const department in resourcesByDepartment) { %>
+          <h2><%= department %> Department</h2>
+          <ul>
+            <% resourcesByDepartment[department].forEach(resource => { %>
+              <li>
+                <strong>Subject Name:</strong> <%= resource.subjectName %><br />
+                <strong>Code:</strong> <%= resource.subjectCode %><br />
+                <strong>Semester:</strong> <%= resource.semester %><br />
+                <strong>Materials:</strong>
+                <ul>
+                  <% resource.materials.forEach((material) => { %>
+                    <li>
+                      <strong>Textbook Title:</strong> <%= material.textbookTitle %><br />
+                      <strong>Textbook URL:</strong>
+                      <a href="<%= material.textbookURL.url %>"><%= material.textbookURL.fileName %></a><br />
+                      <strong>Paper Links:</strong>
+                      <ul>
+                        <% material.paperLinks.forEach((link) => { %>
+                          <li><a href="<%= link.url %>"><%= link.fileName %></a></li>
+                        <% }) %>
+                      </ul>
+                      <strong>Upload Date:</strong> <%= material.uploadDate.toDateString() %><br />
+                    </li>
+                  <% }) %>
+                </ul>
+              </li>
+              <br />
+            <% }) %>
+          </ul>
+          <hr />
+        <% } %>
       <% } %>
     </div>
 

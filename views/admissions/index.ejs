@@ -1,33 +1,50 @@
 <% layout("/layouts/boilerplate.ejs") %>
 <body>
   <h1>Admission Details</h1>
-  <li><%= admissionDetails[0].eligibilityCriteria %></li>
-  <li><%= admissionDetails[0].applicationDeadline.toDateString() %></li>
-  <li><%= admissionDetails[0].admissionProcedure %></li>
+  <ul>
+    <li><strong>Eligibility Criteria:</strong> <%= admissionDetails[0].eligibilityCriteria %></li>
+    <li><strong>Application Deadline:</strong> <%= admissionDetails[0].applicationDeadline.toDateString() %></li>
+    <li><strong>Admission Procedure:</strong> <%= admissionDetails[0].admissionProcedure %></li>
+  </ul>
+  
   <h2>Fee Structure</h2>
-  <table border="1">
+  <table>
     <thead>
       <tr>
+        <th>Year</th>
         <th>Category</th>
-        <th>Fee (in INR)</th>
-        <th>Payment Mode</th>
-        <th>Remarks</th>
+        <th>Applicability</th>
+        <th>Tuition Fee (INR)</th>
+        <th>Development Fee (INR)</th>
+        <th>Lab Fee (INR)</th>
+        <th>Exam Fee (INR)</th>
+        <th>Enrollment Fee (INR)</th>
+        <th>Actual Fee (INR)</th>
       </tr>
     </thead>
     <tbody>
-      <% admissionDetails[0].feeStructure.categories.forEach(category => { %>
+      <% admissionDetails[0].feeStructure.forEach(fee => { %>
       <tr>
-        <td><%= category.category %></td>
-        <td><%= category.fee %></td>
-        <td><%= category.paymentMode %></td>
-        <td><%= category.remarks %></td>
+        <td><%= fee.year %></td>
+        <td><%= fee.category %></td>
+        <td><%= fee.applicability %></td>
+        <td><%= fee.tuitionFee %></td>
+        <td><%= fee.developmentFee %></td>
+        <td><%= fee.labFee %></td>
+        <td><%= fee.examFee %></td>
+        <td><%= fee.enrollmentFee %></td>
+        <td><%= fee.actualFee %></td>
       </tr>
       <% }) %>
     </tbody>
   </table>
+  
   <h2>Contact Information</h2>
-  <li><%= admissionDetails[0].contact.name %></li>
-  <li><%= admissionDetails[0].contact.email %></li>
-  <li><%= admissionDetails[0].contact.phone %></li>
+  <ul>
+    <li><strong>Name:</strong> <%= admissionDetails[0].contact.name %></li>
+    <li><strong>Email:</strong> <%= admissionDetails[0].contact.email %></li>
+    <li><strong>Phone:</strong> <%= admissionDetails[0].contact.phone %></li>
+  </ul>
+  
   <a href="/admin/admissions/<%= admissionDetails[0]._id %>/edit">Edit</a>
 </body>

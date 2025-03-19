@@ -13,8 +13,6 @@ const admissionDetailsSchema = new mongoose.Schema({
       labFee: Number,
       examFee: Number,
       enrollmentFee: Number,
-      convocationFee: Number,
-      manualFee: Number,
       actualFee: Number
     }
   ],

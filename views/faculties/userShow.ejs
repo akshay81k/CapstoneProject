@@ -57,6 +57,18 @@
         </ul>
       </nav>
 
+      <form action="/user/faculties" method="GET">
+        <label for="department">Select Department:</label>
+        <select name="department" id="department" onchange="this.form.submit()">
+          <option value="">All Departments</option>
+          <option value="Computer Engineering">Computer Engineering</option>
+          <option value="Civil Engineering">Civil Engineering</option>
+          <option value="Mechanical Engineering">Mechanical Engineering</option>
+          <option value="Big Data">Big Data</option>
+          <option value="Artificial Intelligence">Artificial Intelligence</option>
+        </select>
+      </form>
+
       <!-- Faculty Content -->
       <% for(faculty of faculties) { %>
       <div class="faculty-card">
