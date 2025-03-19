@@ -9,7 +9,7 @@ const noticeSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  //datePosted: { type: Date, default: Date.now },
+  datePosted: { type: Date, default: Date.now },
   postedBy: {
     type: String,
     default: "Admin",

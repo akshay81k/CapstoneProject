@@ -18,7 +18,8 @@
     <div class="div1">
       <h1><%=notice.title%></h1>
       <p><b>Description:</b><%=notice.description%></p>
-      <p><b>Date:</b> <%=notice.datePosted.toDateString()%></p>
+      <p><b>Date:</b> <%= notice.datePosted ? new Date(notice.datePosted).toLocaleDateString() : "N/A" %></p>
+
       <p><b>Posted by:</b> <%=notice.postedBy%></p>
       <p><b>Category:</b> <%=notice.category%></p>
     </div>
