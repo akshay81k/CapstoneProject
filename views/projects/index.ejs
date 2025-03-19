@@ -1,21 +1,28 @@
-<% layout("/layouts/boilerplate.ejs") %>
-<body>
-  <h3>All Projects</h3>
+<% layout("/layouts/admin_boilerplate.ejs") %>
+<head>
+    <link rel="stylesheet" href="/styles/admin/projects.css">
+</head> 
+<div class="projects-container">
+    <h1 class="projects-title">Projects</h1>
+    
+    <div class="projects-grid">
+        <% for (let department in allProjects) { %>
+            <div class="department-section">
+                <h2 class="department-title"><%= department %></h2>
+                <div class="projects-list">
+                    <% allProjects[department].forEach(project => { %>
+                        <a href="/admin/projects/<%= project._id %>" class="project-card">
+                            <i class="fas fa-project-diagram" style="margin-right: 12px;"></i>
+                            <%= project.projectDetails.projectName %>
+                        </a>
+                    <% }); %>
+                </div>
+            </div>
+        <% } %>
+    </div>
 
-  <form action="/admin/projects/new" method="GET">
-    <button>Add Project</button>
-  </form>
-
-  <% for (let department in allProjects) { %>
-  <h4><%= department %></h4>
-  <ul>
-    <% allProjects[department].forEach(project => { %>
-    <li>
-      <a href="/admin/projects/<%= project._id %>"
-        ><%= project.projectDetails.projectName %></a
-      >
-    </li>
-    <% }); %>
-  </ul>
-  <% } %>
-</body>
+    <button class="add-project-btn" onclick="window.location.href='/admin/projects/new'">
+        <i class="fas fa-plus" style="margin-right: 8px;"></i>
+        Add Project
+    </button>
+</div>

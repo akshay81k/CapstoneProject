@@ -96,30 +96,31 @@ module.exports.memberSchema = Joi.object({
 // admission schema
 module.exports.admissionSchema = Joi.object({
   admissionDetails: Joi.object({
-    eligibilityCriteria: Joi.string().required(),
+    eligibilityCriteria: Joi.string().required().trim(),
     applicationDeadline: Joi.date().required(),
-    admissionProcedure: Joi.string().required(),
-    feeStructure: Joi.object({
-      categories: Joi.array()
-        .items(
-          Joi.object({
-            category: Joi.string().required(),
-            fee: Joi.number().positive().required(),
-            paymentMode: Joi.string().required(),
-            remarks: Joi.string().optional().allow(null, ""),
-          })
-        )
-        .required(),
-    }).required(),
+    admissionProcedure: Joi.string().required().trim(),
+    feeStructure: Joi.array()
+      .items(
+        Joi.object({
+          year: Joi.string().required().trim(),
+          category: Joi.string().required().trim(),
+          applicability: Joi.string().required().trim(),
+          tuitionFee: Joi.number().min(0).required(),
+          developmentFee: Joi.number().min(0).default(0),
+          labFee: Joi.number().min(0).default(0),
+          examFee: Joi.number().min(0).default(0),
+          enrollmentFee: Joi.number().min(0).default(0),
+          actualFee: Joi.number().min(0).required(),
+        })
+      )
+      .required(),
     contact: Joi.object({
-      name: Joi.string().required(),
-      email: Joi.string().email().required(),
-      phone: Joi.string()
-        .pattern(/^[0-9]{10,15}$/)
-        .required(),
+      name: Joi.string().required().trim(),
+      email: Joi.string().email().required().trim(),
+      phone: Joi.string().pattern(/^\+?[0-9]{10,15}$/).required(), // Updated regex
     }).required(),
-  }),
-});
+  }).required(),
+}).unknown(true);
 
 // faculty schema
 module.exports.facultySchema = Joi.object({

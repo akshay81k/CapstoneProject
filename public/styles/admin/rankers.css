@@ -1,0 +1,176 @@
+.rankers-container {
+    width: 100%;
+    max-width: 100%;
+    margin: 30px 20px;
+    padding: 40px 20px;
+    position: relative;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.rankers-title {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 28px;
+    font-weight: 500;
+    font-family: 'Lexend Deca', sans-serif;
+    text-align: center;
+    padding: 8px 25px;
+    background: linear-gradient(to bottom, #05527E, #1864E0);
+    border-radius: 10px;
+    z-index: 10;
+    display: block;
+    visibility: visible;
+}
+
+.rankers-grid {
+    width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding: 20px;
+}
+
+.department-section {
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.department-title {
+    color: #05527E;
+    font-size: 20px;
+    font-weight: 500;
+    font-family: 'Lexend Deca', sans-serif;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #1864E0;
+}
+
+.year-section {
+    margin-bottom: 20px;
+}
+
+.year-title {
+    color: #05527E;
+    font-size: 18px;
+    font-weight: 500;
+    font-family: 'Lexend Deca', sans-serif;
+    margin: 15px 0 10px;
+}
+
+.rankers-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.rankers-table th {
+    background-color: #05527E;
+    color: white;
+    font-family: 'Lexend Deca', sans-serif;
+    font-weight: 500;
+    padding: 12px;
+    text-align: left;
+}
+
+.rankers-table td {
+    padding: 12px;
+    border-bottom: 1px solid #e0e0e0;
+    font-family: 'Lexend Deca', sans-serif;
+    color: #333;
+}
+
+.rankers-table tr:last-child td {
+    border-bottom: none;
+}
+
+.rankers-table img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.edit-link {
+    color: #0d6efd;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.edit-link:hover {
+    color: #0a58ca;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Lexend Deca', sans-serif;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.delete-btn:hover {
+    background-color: #bb2d3b;
+}
+
+.add-ranker-btn {
+    background-color: #0d6efd;
+    font-family: 'Lexend Deca', sans-serif;
+    color: white;
+    border: none;
+    padding: 8px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 16px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.add-ranker-btn:hover {
+    background-color: #0b5ed7;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .rankers-container {
+        padding: 15px;
+        margin: 30px 10px;
+    }
+
+    .rankers-grid {
+        padding: 15px;
+        width: 100%;
+    }
+
+    .department-section {
+        padding: 15px;
+    }
+
+    .rankers-table {
+        font-size: 14px;
+    }
+
+    .rankers-table th,
+    .rankers-table td {
+        padding: 8px;
+    }
+}

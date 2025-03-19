@@ -1,0 +1,112 @@
+.add-committee-container {
+    width: 100%;
+    max-width: 100%;
+    margin: 30px 20px;
+    padding: 40px 20px;
+    position: relative;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.add-committee-title {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 28px;
+    font-weight: 500;
+    font-family: 'Lexend Deca', sans-serif;
+    text-align: center;
+    padding: 8px 25px;
+    background: linear-gradient(to bottom, #05527E, #1864E0);
+    border-radius: 10px;
+    z-index: 10;
+    display: block;
+    visibility: visible;
+}
+
+.add-committee-form {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 40px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 450px;
+    position: relative;
+    z-index: 2;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+}
+
+.add-committee-form h3 {
+    color: #05527E;
+    font-family: 'Lexend Deca', sans-serif;
+    font-size: 24px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.add-committee-form label {
+    display: block;
+    color: #182848;
+    font-family: 'Lexend Deca', sans-serif;
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+
+.add-committee-form input[type="text"],
+.add-committee-form textarea {
+    width: 90%;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    font-size: 14px;
+    color: #333;
+    margin-top: 10px;
+    margin-left: 5%;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.add-committee-form input:focus,
+.add-committee-form textarea:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(75, 108, 183, 0.8);
+    box-shadow: 0 0 15px 5px rgba(75, 108, 183, 0.6);
+    transform: translateY(-2px);
+}
+
+.add-committee-form button {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #4b6cb7 0%, #1864E0 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Lexend Deca', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.add-committee-form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(135deg, #1864E0 0%, #4b6cb7 100%);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .add-committee-form {
+        margin: 10px;
+        padding: 30px;
+    }
+}

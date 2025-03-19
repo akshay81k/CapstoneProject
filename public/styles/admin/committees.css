@@ -1,4 +1,4 @@
-.facilities-container {
+.committees-container {
     width: 100%;
     max-width: 100%;
     margin: 30px 20px;
@@ -12,7 +12,7 @@
     align-items: center;
 }
 
-.facilities-title {
+.committees-title {
     position: absolute;
     top: -15px;
     left: 50%;
@@ -30,7 +30,7 @@
     visibility: visible;
 }
 
-.facilities-grid {
+.committees-grid {
     width: 800px;
     display: flex;
     flex-wrap: wrap;
@@ -40,7 +40,7 @@
     border-radius: 8px;
 }
 
-.facility-card {
+.committee-card {
     padding: 10px 15px;
     background-color: white;
     border-radius: 6px;
@@ -55,12 +55,12 @@
     min-width: 200px;
 }
 
-.facility-card:hover {
+.committee-card:hover {
     background-color: #1864E0;
     color: white;
 }
 
-.add-facility-btn {
+.add-committee-btn {
     background-color: #0d6efd;
     font-family: 'Lexend Deca', sans-serif;
     color: white;
@@ -73,23 +73,23 @@
     margin-top: 20px;
 }
 
-.add-facility-btn:hover {
+.add-committee-btn:hover {
     background-color: #0b5ed7;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .facilities-container {
+    .committees-container {
         padding: 15px;
         margin: 30px 10px;
     }
 
-    .facilities-grid {
+    .committees-grid {
         padding: 15px;
         width: 100%;
     }
 
-    .facility-card {
+    .committee-card {
         min-width: 100%;
     }
 }

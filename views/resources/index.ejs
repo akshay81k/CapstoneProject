@@ -1,19 +1,28 @@
-<% layout("/layouts/boilerplate.ejs") %>
-<body>
-  <h1>Resources</h1>
+<% layout("/layouts/admin_boilerplate.ejs") %>
+<head>
+    <link rel="stylesheet" href="/styles/admin/resources.css">
+</head> 
+<div class="resources-container">
+    <h1 class="resources-title">Resources</h1>
+    
+    <div class="resources-grid">
+        <% for (let semester in groupedResources) { %>
+            <div class="semester-section">
+                <h2 class="semester-title">Semester <%= semester %></h2>
+                <div class="subjects-grid">
+                    <% groupedResources[semester].forEach(resource => { %>
+                        <a href="/admin/resources/<%= resource._id %>" class="subject-card">
+                            <i class="fas fa-book" style="margin-right: 12px;"></i>
+                            <%= resource.subjectName %>
+                        </a>
+                    <% }); %>
+                </div>
+            </div>
+        <% } %>
+    </div>
 
-  <% for (let semester in groupedResources) { %>
-
-  <h2>Semester <%= semester %></h2>
-  <ul>
-    <% groupedResources[semester].forEach(resource => { %>
-    <li class="subject">
-      <a href="/admin/resources/<%= resource._id %>"
-        ><%= resource.subjectName %></a
-      >
-    </li>
-    <% }); %>
-  </ul>
-
-  <% } %>
-</body>
+    <button class="add-resource-btn" onclick="window.location.href='/admin/resources/new'">
+        <i class="fas fa-plus" style="margin-right: 8px;"></i>
+        Add Resource
+    </button>
+</div>

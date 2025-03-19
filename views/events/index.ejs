@@ -1,16 +1,21 @@
-<% layout("/layouts/boilerplate.ejs") %>
-<body>
-  <h3>Events</h3>
+<% layout("/layouts/admin_boilerplate.ejs") %>
+<head>
+    <link rel="stylesheet" href="/styles/admin/events.css">
+</head> 
+<div class="events-container">
+    <h1 class="events-title">Events</h1>
+    
+    <div class="events-grid">
+        <% for(let event of allEvents){ %>
+            <a href="/admin/events/<%= event._id %>" class="event-card">
+                <i class="fas fa-calendar-alt" style="margin-right: 12px;"></i>
+                <%= event.name %>
+            </a>
+        <% } %>
+    </div>
 
-  <form action="/admin/events/new" method="GET">
-    <button>Add Event</button>
-  </form>
-  <ul>
-    <% for(let event of allEvents){%>
-    <li>
-      <a href="/admin/events/<%= event._id %>"><%= event.name %></a>
-    </li>
-
-    <% } %>
-  </ul>
-</body>
+    <button class="add-event-btn" onclick="window.location.href='/admin/events/new'">
+        <i class="fas fa-plus" style="margin-right: 8px;"></i>
+        Add Event
+    </button>
+</div>

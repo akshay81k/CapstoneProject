@@ -1,18 +1,21 @@
-<% layout("/layouts/boilerplate.ejs") %>
-<body>
-  <h3>Facilities</h3>
+<% layout("/layouts/admin_boilerplate.ejs") %>
+<head>
+    <link rel="stylesheet" href="/styles/admin/facilities.css">
+</head> 
+<div class="facilities-container">
+    <h1 class="facilities-title">Facilities</h1>
+    
+    <div class="facilities-grid">
+        <% for(let facility of allFacilities){ %>
+            <a href="/admin/facilities/<%= facility._id %>" class="facility-card">
+                <i class="fas fa-building" style="margin-right: 12px;"></i>
+                <%= facility.facilityName %>
+            </a>
+        <% } %>
+    </div>
 
-  <form action="/admin/facilities/new" method="GET">
-    <button>Add Facility</button>
-  </form>
-  <ul>
-    <% for(let facility of allFacilities){%>
-    <li>
-      <a href="/admin/facilities/<%= facility._id %>"
-        ><%= facility.facilityName %></a
-      >
-    </li>
-
-    <% } %>
-  </ul>
-</body>
+    <button class="add-facility-btn" onclick="window.location.href='/admin/facilities/new'">
+        <i class="fas fa-plus" style="margin-right: 8px;"></i>
+        Add Facility
+    </button>
+</div>
