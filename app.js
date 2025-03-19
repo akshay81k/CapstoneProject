@@ -1270,7 +1270,12 @@ app.get(
   "/user/notices",
   wrapAsync(async (req, res) => {
     const allNotices = await Notice.find({});
-    res.render("notice/userShow.ejs", { allNotices });
+    const formattedNotices = allNotices.map(notice => ({
+      ...notice._doc, // Spread existing document fields
+      datePosted: notice.datePosted ? new Date(notice.datePosted) : null
+    }));
+    console.log(formattedNotices);
+    res.render('notice/userShow', { allNotices: formattedNotices });
   })
 );
 
@@ -1309,6 +1314,7 @@ app.get(
   "/user/admissions",
   wrapAsync(async (req, res) => {
     const admissionDetails = await AdmissionDetail.find({});
+    console.log(admissionDetails);
     res.render("admissions/userShow.ejs", { admissionDetails });
   })
 );

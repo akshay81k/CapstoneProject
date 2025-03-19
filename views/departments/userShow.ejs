@@ -77,15 +77,14 @@
           <div class="vision-mission">
             <div class="vision">
               <h3>Vision</h3>
-              <p>Imparting Quality Education for overall development of computer Engineering students to make them technically competent along with good social values.</p>
+              <p><%= department.vision %></p>
             </div>
             <div class="mission">
               <h3>Mission</h3>
               <ul>
-                <li>To effectively implement the curriculum and norms of MSBTE.</li>
-                <li>To conduct activities for overall development of students.</li>
-                <li>To enhance programming skills.</li>
-                <li>To familiarise the students with the latest technological developments in the field of computers.</li>
+                <% department.mission.forEach(point => { %>
+                  <li><%= point %></li>
+                <% }); %>
               </ul>
             </div>
           </div>
@@ -100,38 +99,29 @@
               </tr>
               <tr>
                 <td><%= department.departmentName %></td>
-                <td>120</td>
-                <td>03 YEARS</td>
+                <td><%= department.programDetails.intake %></td>
+                <td><%= department.programDetails.duration %></td>
               </tr>
             </table>
           </div>
 
           <div class="scope">
             <h3>Scope</h3>
-            <p>Computer engineering in India has risen quite high these few years. Corona and the quarantine system added to the increased digitization of all services and transactions that the IT sector is blooming into a large field from a small flower garden. Diploma in Computer Engineering is a very vast system that educates students on the foundation of different systems, computer architecture and organization, networking, database systems, OS, programming, website designing, computation, e-commerce, software and hardware studies, multimedia applications and so on.</p>
+            <p><%= department.scope %>.</p>
             <p>Career opportunities are available in:</p>
             <ul>
-              <li>Private firms and software companies (Wipro, Google, Infosys, HCL, Facebook, Microsoft, Amazon, Flipkart, IBM, Adobe)</li>
-              <li>Banks and financial institutions</li>
-              <li>Public sector organizations</li>
-              <li>Colleges and universities</li>
-              <li>IT firms and government organizations</li>
-              <li>Media and entertainment industry</li>
-              <li>Programming Language Development</li>
-              <li>Digital consultancy firms</li>
-              <li>Research labs</li>
-              <li>Medical field</li>
-              <li>Armed forces</li>
+              <% department.careerOpportunities.forEach(opportunity => { %>
+                <li><%= opportunity %></li>
+              <% }); %>
             </ul>
           </div>
 
           <div class="department-features">
             <h3>Department Features</h3>
             <ul>
-              <li>Highly qualified faculties</li>
-              <li>Well-equipped laboratory</li>
-              <li>Excellent academic results</li>
-              <li>Pass out students pursuing degree engineering in topmost engineering colleges such as VJTI, SP, VCET, DJ SANGHAVI, KJ SOMAIYA, FATHER ANGEL, THAKUR ENGG.</li>
+              <% department.departmentFeatures.forEach(feature => { %>
+                <li><%= feature %></li>
+              <% }); %>
             </ul>
           </div>
         </div>

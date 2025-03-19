@@ -7,11 +7,26 @@ const departmentSchema = new mongoose.Schema({
   departmentName: String,
   hod: String,
   contactEmail: String,
+
   courses: [String],
+
+  vision: String,
+  mission: [String], // List of mission points
+
+  programDetails: {
+    intake: Number,
+    duration: String,
+  },
+
+  scope: String, // Description about scope
+  careerOpportunities: [String], // List of career opportunities
+
+  departmentFeatures: [String], // List of features
+
   faculty: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Faculty", // Reference to the Faculty model
+      ref: "Faculty", // Reference to Faculty model
     },
   ],
   examination: [
