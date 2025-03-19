@@ -1,0 +1,95 @@
+.events-container {
+    width: 100%;
+    max-width: 100%;
+    margin: 30px 20px;
+    padding: 40px 20px;
+    position: relative;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.events-title {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 28px;
+    font-weight: 500;
+    font-family: 'Lexend Deca', sans-serif;
+    text-align: center;
+    padding: 8px 25px;
+    background: linear-gradient(to bottom, #05527E, #1864E0);
+    border-radius: 10px;
+    z-index: 10;
+    display: block;
+    visibility: visible;
+}
+
+.events-grid {
+    width: 800px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+}
+
+.event-card {
+    padding: 10px 15px;
+    background-color: white;
+    border-radius: 6px;
+    color: #05527E;
+    text-decoration: none;
+    font-family: 'Lexend Deca', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.4s ease;
+    min-width: 200px;
+}
+
+.event-card:hover {
+    background-color: #1864E0;
+    color: white;
+}
+
+.add-event-btn {
+    background-color: #0d6efd;
+    font-family: 'Lexend Deca', sans-serif;
+    color: white;
+    border: none;
+    padding: 8px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.add-event-btn:hover {
+    background-color: #0b5ed7;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .events-container {
+        padding: 15px;
+        margin: 30px 10px;
+    }
+
+    .events-grid {
+        padding: 15px;
+        width: 100%;
+    }
+
+    .event-card {
+        min-width: 100%;
+    }
+}

@@ -1,19 +1,19 @@
-<% layout("/layouts/boilerplate.ejs") %>
+<% layout("/layouts/admin_boilerplate.ejs") %>
+<head>
+    <link rel="stylesheet" href="/styles/admin/department.css">
+</head> 
+<div class="departments-container">
+    <h1 class="departments-title">Departments</h1>
+    
+    <div class="departments-grid">
+        <% for(let department of allDepartments){ %>
+            <a href="/admin/departments/<%= department._id %>" class="department-card">
+                <%= department.departmentName %>
+            </a>
+        <% } %>
+    </div>
 
-<body>
-  <h3>Departments</h3>
-
-  <form action="/admin/departments/new" method="GET">
-    <button>Add Department</button>
-  </form>
-  <ul>
-    <% for(let department of allDepartments){%>
-    <li>
-      <a href="/admin/departments/<%= department._id %>">
-        <%= department.departmentName %>
-      </a>
-    </li>
-
-    <% } %>
-  </ul>
-</body>
+    <button class="add-department-btn" onclick="window.location.href='/admin/departments/new'">
+        Add Departments
+    </button>
+</div>

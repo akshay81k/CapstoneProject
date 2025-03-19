@@ -1,0 +1,132 @@
+.admissions-container {
+    width: 100%;
+    max-width: 100%;
+    margin: 30px 20px;
+    padding: 40px 20px;
+    position: relative;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.admissions-title {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 28px;
+    font-weight: 500;
+    font-family: 'Lexend Deca', sans-serif;
+    text-align: center;
+    padding: 8px 25px;
+    background: linear-gradient(to bottom, #05527E, #1864E0);
+    border-radius: 10px;
+    z-index: 10;
+    display: block;
+    visibility: visible;
+}
+
+.admissions-grid {
+    width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding: 20px;
+}
+
+.admissions-section {
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.admissions-section h2 {
+    color: #05527E;
+    font-size: 20px;
+    font-weight: 500;
+    font-family: 'Lexend Deca', sans-serif;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #1864E0;
+}
+
+.admissions-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.admissions-table th {
+    background-color: #05527E;
+    color: white;
+    font-family: 'Lexend Deca', sans-serif;
+    font-weight: 500;
+    padding: 12px;
+    text-align: left;
+}
+
+.admissions-table td {
+    padding: 12px;
+    border-bottom: 1px solid #e0e0e0;
+    font-family: 'Lexend Deca', sans-serif;
+    color: #333;
+}
+
+.admissions-table tr:last-child td {
+    border-bottom: none;
+}
+
+.edit-link {
+    background-color: #0d6efd;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.edit-link:hover {
+    background-color: #0b5ed7;
+}
+
+.add-admission-btn {
+    background-color: #0d6efd;
+    font-family: 'Lexend Deca', sans-serif;
+    color: white;
+    border: none;
+    padding: 8px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.add-admission-btn:hover {
+    background-color: #0b5ed7;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .admissions-container {
+        padding: 15px;
+        margin: 30px 10px;
+    }
+
+    .admissions-table {
+        font-size: 14px;
+    }
+
+    .admissions-table th,
+    .admissions-table td {
+        padding: 8px;
+    }
+}

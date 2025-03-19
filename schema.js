@@ -97,7 +97,24 @@ module.exports.memberSchema = Joi.object({
 module.exports.admissionSchema = Joi.object({
   admissionDetails: Joi.object({
     eligibilityCriteria: Joi.string().required().trim(),
+    eligibilityCriteria: Joi.string().required().trim(),
     applicationDeadline: Joi.date().required(),
+    admissionProcedure: Joi.string().required().trim(),
+    feeStructure: Joi.array()
+      .items(
+        Joi.object({
+          year: Joi.string().required().trim(),
+          category: Joi.string().required().trim(),
+          applicability: Joi.string().required().trim(),
+          tuitionFee: Joi.number().min(0).required(),
+          developmentFee: Joi.number().min(0).default(0),
+          labFee: Joi.number().min(0).default(0),
+          examFee: Joi.number().min(0).default(0),
+          enrollmentFee: Joi.number().min(0).default(0),
+          actualFee: Joi.number().min(0).required(),
+        })
+      )
+      .required(),
     admissionProcedure: Joi.string().required().trim(),
     feeStructure: Joi.array()
       .items(

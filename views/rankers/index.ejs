@@ -1,186 +1,184 @@
-<% layout("/layouts/boilerplate.ejs") %>
-<body>
-  <form action="/admin/rankers/new" method="GET">
-    <button>Add Ranker</button>
-  </form>
+<% layout("/layouts/admin_boilerplate.ejs") %>
+<head>
+    <link rel="stylesheet" href="/styles/admin/rankers.css">
+</head> 
+<div class="rankers-container">
+    <h1 class="rankers-title">Rankers</h1>
+    
+    <div class="rankers-grid">
+        <!-- Computer Engineering Section -->
+        <div class="department-section">
+            <h2 class="department-title">Computer Engineering</h2>
+            <table class="rankers-table">
+                <thead>
+                    <tr>
+                        <th>Photo</th>
+                        <th>Name</th>
+                        <th>Percentage</th>
+                        <th>Rank</th>
+                        <th>Year</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% let rank = 1; %>
+                    <% for (let ranker of coRankers) { %>
+                    <tr>
+                        <td><img src="<%= ranker.photo.url %>" alt="Photo of <%= ranker.name %>"></td>
+                        <td><%= ranker.name %></td>
+                        <td><%= ranker.percentage %>%</td>
+                        <td><%= rank %></td>
+                        <td><%= ranker.year %></td>
+                        <td><a href="/admin/rankers/<%= ranker._id %>/edit" class="edit-link">Edit</a></td>
+                    </tr>
+                    <% rank++; %>
+                    <% } %>
+                </tbody>
+            </table>
+            <form action="/admin/rankers/delete?department=Computer Engineering&_method=DELETE" method="POST" style="text-align: right; margin-top: 10px;">
+                <button type="submit" class="delete-btn">Delete All Entries</button>
+            </form>
+        </div>
 
-  <!-- Computer Engineering Section -->
-  <h2>Computer Engineering</h2>
-  <table border="1">
-    <tr>
-      <th>Photo</th>
-      <th>Name</th>
-      <th>Percentage</th>
-      <th>Rank</th>
-      <th>Year</th>
-      <th>Edit</th>
-    </tr>
-    <% let rank = 1; %> <% for (let ranker of coRankers) { %>
-    <tr>
-      <td>
-        <img
-          src="<%= ranker.photo.url %>"
-          alt="Photo of <%= ranker.name %>"
-          height="50px"
-          width="30px"
-        />
-      </td>
-      <td><%= ranker.name %></td>
-      <td><%= ranker.percentage %></td>
-      <td><%= rank %></td>
-      <td><%= ranker.year %></td>
-      <td><a href="/admin/rankers/<%= ranker._id %>/edit">Edit</a></td>
-    </tr>
-    <% rank++; %> <% } %>
-  </table>
-  <form
-    action="/admin/rankers/delete?department=Computer Engineering&_method=DELETE"
-    method="POST"
-  >
-    <button type="submit">Delete All Entries</button>
-  </form>
+        <!-- Civil Engineering Section -->
+        <div class="department-section">
+            <h2 class="department-title">Civil Engineering</h2>
+            <table class="rankers-table">
+                <thead>
+                    <tr>
+                        <th>Photo</th>
+                        <th>Name</th>
+                        <th>Percentage</th>
+                        <th>Rank</th>
+                        <th>Year</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% rank = 1; %>
+                    <% for (let ranker of ciRankers) { %>
+                    <tr>
+                        <td><img src="<%= ranker.photo.url %>" alt="Photo of <%= ranker.name %>"></td>
+                        <td><%= ranker.name %></td>
+                        <td><%= ranker.percentage %>%</td>
+                        <td><%= rank %></td>
+                        <td><%= ranker.year %></td>
+                        <td><a href="/admin/rankers/<%= ranker._id %>/edit" class="edit-link">Edit</a></td>
+                    </tr>
+                    <% rank++; %>
+                    <% } %>
+                </tbody>
+            </table>
+            <form action="/admin/rankers/delete?department=Civil Engineering&_method=DELETE" method="POST" style="text-align: right; margin-top: 10px;">
+                <button type="submit" class="delete-btn">Delete All Entries</button>
+            </form>
+        </div>
 
-  <!-- Civil Engineering Section -->
-  <h2>Civil Engineering</h2>
-  <table border="1">
-    <tr>
-      <th>Photo</th>
-      <th>Name</th>
-      <th>Percentage</th>
-      <th>Rank</th>
-      <th>Year</th>
-      <th>Edit</th>
-    </tr>
-    <% rank = 1; %> <% for (let ranker of ciRankers) { %>
-    <tr>
-      <td>
-        <img
-          src="<%= ranker.photo.url %>"
-          alt="Photo of <%= ranker.name %>"
-          height="50px"
-          width="30px"
-        />
-      </td>
-      <td><%= ranker.name %></td>
-      <td><%= ranker.percentage %></td>
-      <td><%= rank %></td>
-      <td><%= ranker.year %></td>
-      <td><a href="/admin/rankers/<%= ranker._id %>/edit">Edit</a></td>
-    </tr>
-    <% rank++; %> <% } %>
-  </table>
-  <form
-    action="/admin/rankers/delete?department=Civil Engineering&_method=DELETE"
-    method="POST"
-  >
-    <button type="submit">Delete All Entries</button>
-  </form>
+        <!-- Mechanical Engineering Section -->
+        <div class="department-section">
+            <h2 class="department-title">Mechanical Engineering</h2>
+            <table class="rankers-table">
+                <thead>
+                    <tr>
+                        <th>Photo</th>
+                        <th>Name</th>
+                        <th>Percentage</th>
+                        <th>Rank</th>
+                        <th>Year</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% rank = 1; %>
+                    <% for (let ranker of meRankers) { %>
+                    <tr>
+                        <td><img src="<%= ranker.photo.url %>" alt="Photo of <%= ranker.name %>"></td>
+                        <td><%= ranker.name %></td>
+                        <td><%= ranker.percentage %>%</td>
+                        <td><%= rank %></td>
+                        <td><%= ranker.year %></td>
+                        <td><a href="/admin/rankers/<%= ranker._id %>/edit" class="edit-link">Edit</a></td>
+                    </tr>
+                    <% rank++; %>
+                    <% } %>
+                </tbody>
+            </table>
+            <form action="/admin/rankers/delete?department=Mechanical Engineering&_method=DELETE" method="POST" style="text-align: right; margin-top: 10px;">
+                <button type="submit" class="delete-btn">Delete All Entries</button>
+            </form>
+        </div>
 
-  <!-- Mechanical Engineering Section -->
-  <h2>Mechanical Engineering</h2>
-  <table border="1">
-    <tr>
-      <th>Photo</th>
-      <th>Name</th>
-      <th>Percentage</th>
-      <th>Rank</th>
-      <th>Year</th>
-      <th>Edit</th>
-    </tr>
-    <% rank = 1; %> <% for (let ranker of meRankers) { %>
-    <tr>
-      <td>
-        <img
-          src="<%= ranker.photo.url %>"
-          alt="Photo of <%= ranker.name %>"
-          height="50px"
-          width="30px"
-        />
-      </td>
-      <td><%= ranker.name %></td>
-      <td><%= ranker.percentage %></td>
-      <td><%= rank %></td>
-      <td><%= ranker.year %></td>
-      <td><a href="/admin/rankers/<%= ranker._id %>/edit">Edit</a></td>
-    </tr>
-    <% rank++; %> <% } %>
-  </table>
-  <form
-    action="/admin/rankers/delete?department=Mechanical Engineering&_method=DELETE"
-    method="POST"
-  >
-    <button type="submit">Delete All Entries</button>
-  </form>
+        <!-- Big Data Section -->
+        <div class="department-section">
+            <h2 class="department-title">Big Data</h2>
+            <table class="rankers-table">
+                <thead>
+                    <tr>
+                        <th>Photo</th>
+                        <th>Name</th>
+                        <th>Percentage</th>
+                        <th>Rank</th>
+                        <th>Year</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% rank = 1; %>
+                    <% for (let ranker of bdRankers) { %>
+                    <tr>
+                        <td><img src="<%= ranker.photo.url %>" alt="Photo of <%= ranker.name %>"></td>
+                        <td><%= ranker.name %></td>
+                        <td><%= ranker.percentage %>%</td>
+                        <td><%= rank %></td>
+                        <td><%= ranker.year %></td>
+                        <td><a href="/admin/rankers/<%= ranker._id %>/edit" class="edit-link">Edit</a></td>
+                    </tr>
+                    <% rank++; %>
+                    <% } %>
+                </tbody>
+            </table>
+            <form action="/admin/rankers/delete?department=Big Data&_method=DELETE" method="POST" style="text-align: right; margin-top: 10px;">
+                <button type="submit" class="delete-btn">Delete All Entries</button>
+            </form>
+        </div>
 
-  <!-- Big Data Section -->
-  <h2>Big Data</h2>
-  <table border="1">
-    <tr>
-      <th>Photo</th>
-      <th>Name</th>
-      <th>Percentage</th>
-      <th>Rank</th>
-      <th>Year</th>
-      <th>Edit</th>
-    </tr>
-    <% rank = 1; %> <% for (let ranker of bdRankers) { %>
-    <tr>
-      <td>
-        <img
-          src="<%= ranker.photo.url %>"
-          alt="Photo of <%= ranker.name %>"
-          height="50px"
-          width="30px"
-        />
-      </td>
-      <td><%= ranker.name %></td>
-      <td><%= ranker.percentage %></td>
-      <td><%= rank %></td>
-      <td><%= ranker.year %></td>
-      <td><a href="/admin/rankers/<%= ranker._id %>/edit">Edit</a></td>
-    </tr>
-    <% rank++; %> <% } %>
-  </table>
-  <form
-    action="/admin/rankers/delete?department=Big Data&_method=DELETE"
-    method="POST"
-  >
-    <button type="submit">Delete All Entries</button>
-  </form>
+        <!-- AI Section -->
+        <div class="department-section">
+            <h2 class="department-title">Artificial Intelligence and Machine Learning</h2>
+            <table class="rankers-table">
+                <thead>
+                    <tr>
+                        <th>Photo</th>
+                        <th>Name</th>
+                        <th>Percentage</th>
+                        <th>Rank</th>
+                        <th>Year</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% rank = 1; %>
+                    <% for (let ranker of aiRankers) { %>
+                    <tr>
+                        <td><img src="<%= ranker.photo.url %>" alt="Photo of <%= ranker.name %>"></td>
+                        <td><%= ranker.name %></td>
+                        <td><%= ranker.percentage %>%</td>
+                        <td><%= rank %></td>
+                        <td><%= ranker.year %></td>
+                        <td><a href="/admin/rankers/<%= ranker._id %>/edit" class="edit-link">Edit</a></td>
+                    </tr>
+                    <% rank++; %>
+                    <% } %>
+                </tbody>
+            </table>
+            <form action="/admin/rankers/delete?department=Artificial Intelligence&_method=DELETE" method="POST" style="text-align: right; margin-top: 10px;">
+                <button type="submit" class="delete-btn">Delete All Entries</button>
+            </form>
+        </div>
+    </div>
 
-  <!-- Artificial Intelligence and Machine Learning Section -->
-  <h2>Artificial Intelligence and Machine Learning</h2>
-  <table border="1">
-    <tr>
-      <th>Photo</th>
-      <th>Name</th>
-      <th>Percentage</th>
-      <th>Rank</th>
-      <th>Year</th>
-      <th>Edit</th>
-    </tr>
-    <% rank = 1; %> <% for (let ranker of aiRankers) { %>
-    <tr>
-      <td>
-        <img
-          src="<%= ranker.photo.url %>"
-          alt="Photo of <%= ranker.name %>"
-          height="50px"
-          width="30px"
-        />
-      </td>
-      <td><%= ranker.name %></td>
-      <td><%= ranker.percentage %></td>
-      <td><%= rank %></td>
-      <td><%= ranker.year %></td>
-      <td><a href="/admin/rankers/<%= ranker._id %>/edit">Edit</a></td>
-    </tr>
-    <% rank++; %> <% } %>
-  </table>
-  <form
-    action="/admin/rankers/delete?department=Artificial Intelligence&_method=DELETE"
-    method="POST"
-  >
-    <button type="submit">Delete All Entries</button>
-  </form>
-</body>
+    <button class="add-ranker-btn" onclick="window.location.href='/admin/rankers/new'">
+        <i class="fas fa-plus"></i>
+        Add Ranker
+    </button>
+</div>

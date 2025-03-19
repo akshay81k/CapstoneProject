@@ -1,18 +1,21 @@
-<% layout("/layouts/boilerplate.ejs") %>
-<body>
-  <h3>Committee</h3>
+<% layout("/layouts/admin_boilerplate.ejs") %>
+<head>
+    <link rel="stylesheet" href="/styles/admin/committees.css">
+</head> 
+<div class="committees-container">
+    <h1 class="committees-title">Committees</h1>
+    
+    <div class="committees-grid">
+        <% for(let committee of allCommittees){ %>
+            <a href="/admin/committees/<%= committee._id %>" class="committee-card">
+                <i class="fas fa-users" style="margin-right: 12px;"></i>
+                <%= committee.committeeName %>
+            </a>
+        <% } %>
+    </div>
 
-  <form action="/admin/committees/new" method="GET">
-    <button>Add Committee</button>
-  </form>
-  <ul>
-    <% for(let committee of allCommittees){%>
-    <li>
-      <a href="/admin/committees/<%= committee._id %>"
-        ><%= committee.committeeName %></a
-      >
-    </li>
-
-    <% } %>
-  </ul>
-</body>
+    <button class="add-committee-btn" onclick="window.location.href='/admin/committees/new'">
+        <i class="fas fa-plus" style="margin-right: 8px;"></i>
+        Add Committee
+    </button>
+</div>

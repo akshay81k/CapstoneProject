@@ -1,165 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <link rel="icon" type="image/x-icon" href="/images/logo.png">
-    <title>Admin Dashboard - Bhausaheb Vartak Polytechnic</title>
-    <link rel="stylesheet" href="/styles/admin/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lexend+Zetta:wght@100..900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&family=Lexend+Zetta:wght@100..900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&family=Lexend+Zetta:wght@100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-</head>
-<body>
-    <div class="page1">
-        <header>
-            <div class="lcontainer">
-                <img id="logo" src="/images/logo.png">
-                <span id="clg">विद्यावर्धिनीचे भाऊसाहेब वर्तक तंत्रनिकेतन, वसई रोड<h2>VIDYAVARDHINI'S BHAUSAHEB VARTAK POLYTECHNIC</h2><h4>Admin Dashboard</h4></span>
-            </div>
-            <div class="icontainer"><img src="/images/anna.png"></div>
-        </header>
-        <nav>
-            <ul class="nav-links" type="none">
-                <li class="nav"><a href="/admin/notices">Notices</a></li>
-                <li class="nav"><a href="/admin/events">Events</a></li>
-                <li class="nav"><a href="/admin/rankers">Rankers</a></li>
-                <li class="nav"><a href="/admin/departments">Departments</a></li>
-                <li class="nav"><a href="/admin/facilities">Facilities</a></li>
-                <li class="nav"><a href="/admin/committees">Committees</a></li>
-                <li class="nav"><a href="/admin/admissions">Admissions</a></li>
-                <li class="nav"><a href="/admin/resources">Resources</a></li>
-                <li class="nav"><a href="/admin/projects">Projects</a></li>
-            </ul>
-        </nav>
-        <div class="main-content">
-            <div class="quote-container">
-                <div class="quote-text">
-                    <span class="text-dark">One</span>
-                    <span class="text-blue">spark</span>
-                    <span class="text-dark">may</span>
-                    <span class="text-orange">light</span>
-                    <span class="text-dark">a</span>
-                    <span class="text-blue">flame</span>,<br>
-                    <span class="text-dark">but only together can we</span><br>
-                    <span class="text-dark">ignite a lasting</span>
-                    <span class="text-green">fire</span>.
+<%- layout('layouts/admin_boilerplate') %>
+
+<div class="quote-container">
+    <div class="quote-text">
+        <span class="text-dark">One</span>
+        <span class="text-blue">spark</span>
+        <span class="text-dark">may</span>
+        <span class="text-orange">light</span>
+        <span class="text-dark">a</span>
+        <span class="text-blue">flame</span>,<br>
+        <span class="text-dark">but only together can we</span><br>
+        <span class="text-dark">ignite a lasting</span>
+        <span class="text-green">fire</span>.
+    </div>
+    <div class="slider-container">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="box-slide">
+                        <img src="/images/banner1.jpg" alt="Banner 1">
+                    </div>
                 </div>
-                <div class="slider-container">
-                    <div class="swiper-container">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <div class="box-slide">
-                                    <img src="/images/banner1.jpg" alt="Banner 1">
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="box-slide">
-                                    <img src="/images/banner2.jpeg" alt="Banner 2">
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="box-slide">
-                                    <img src="/images/banner3.jpg" alt="Banner 3">
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Add Navigation -->
-                        <div class="swiper-button-next"></div>
-                        <div class="swiper-button-prev"></div>
-                        <!-- Add Pagination -->
-                        <div class="swiper-pagination"></div>
+                <div class="swiper-slide">
+                    <div class="box-slide">
+                        <img src="/images/banner2.jpeg" alt="Banner 2">
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="box-slide">
+                        <img src="/images/banner3.jpg" alt="Banner 3">
                     </div>
                 </div>
             </div>
+            <!-- Add Navigation -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
         </div>
     </div>
+</div>
 
-    <div class="footer">
-        <div class="footer-content">
-            <!-- Links sections in one row -->
-            <div class="footer-links-row">
-                <div class="footer-section">
-                    <h3>Useful Links</h3>
-                    <ul>
-                        <li class="footer-link"><a href="#">Grievance form</a></li>
-                        <li class="footer-link"><a href="#">Student feedback</a></li>
-                        <li class="footer-link"><a href="#">AICTE feedback</a></li>
-                        <li class="footer-link"><a href="#">DTE Maharashtra</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li class="footer-link"><a href="#">Mandatory Discloser</a></li>
-                        <li class="footer-link"><a href="#">EOA Report 2012 to 2024</a></li>
-                        <li class="footer-link"><a href="#">Library Information</a></li>
-                        <li class="footer-link"><a href="#">Career @VBVP</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Courses</h3>
-                    <ul>
-                        <li class="footer-link"><a href="#">Civil Engineering</a></li>
-                        <li class="footer-link"><a href="#">Computer Engineering</a></li>
-                        <li class="footer-link"><a href="#">Cloud Computing & Big Data</a></li>
-                        <li class="footer-link"><a href="#">Mechanical Engineering</a></li>
-                        <li class="footer-link"><a href="#">AI and Machine Learning</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Contact section in new row -->
-            <div class="footer-contact-row">
-                <div class="footer-section contact">
-                    <h3>Contact Us</h3>
-                    <div class="con-social">
-                        <div class="contact-info">
-                            <p><i class="fa-solid fa-location-dot"></i> Shastri Nagar, Vishal Nagar, Vasai RD(W), Palghar, MH 401202</p>
-                            <p><i class="fas fa-phone"></i> 274867386</p>
-                            <p><i class="fas fa-envelope"></i> abc@gmail.com</p>
-                        </div>
-                        <div class="social-icons">
-                            <a href="#"><img src="/images/youtube.png" alt="YouTube"></a>
-                            <a href="#"><img src="/images/instagram.png" alt="Instagram"></a>
-                            <a href="#"><img src="/images/twitter.png" alt="Twitter"></a>
-                            <a href="#"><img src="/images/facebook.png" alt="Facebook"></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script>
-        var swiper = new Swiper('.swiper-container', {
-    effect: 'cube',
-    grabCursor: true,
-    cubeEffect: {
-        shadow: true,
-        slideShadows: true,
-        shadowOffset: 20,
-        shadowScale: 0.94,
-    },
-    autoplay: {
-        delay: 2500,
-        disableOnInteraction: false,
-    },
-    pagination: {
-        el: '.swiper-pagination',
-    },
-    navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-    },
-});
-    </script>
-</body>
-</html>
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        effect: 'cube',
+        grabCursor: true,
+        cubeEffect: {
+            shadow: true,
+            slideShadows: true,
+            shadowOffset: 20,
+            shadowScale: 0.94,
+        },
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: '.swiper-pagination',
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+</script>

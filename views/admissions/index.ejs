@@ -1,50 +1,69 @@
-<% layout("/layouts/boilerplate.ejs") %>
-<body>
-  <h1>Admission Details</h1>
-  <ul>
-    <li><strong>Eligibility Criteria:</strong> <%= admissionDetails[0].eligibilityCriteria %></li>
-    <li><strong>Application Deadline:</strong> <%= admissionDetails[0].applicationDeadline.toDateString() %></li>
-    <li><strong>Admission Procedure:</strong> <%= admissionDetails[0].admissionProcedure %></li>
-  </ul>
-  
-  <h2>Fee Structure</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Year</th>
-        <th>Category</th>
-        <th>Applicability</th>
-        <th>Tuition Fee (INR)</th>
-        <th>Development Fee (INR)</th>
-        <th>Lab Fee (INR)</th>
-        <th>Exam Fee (INR)</th>
-        <th>Enrollment Fee (INR)</th>
-        <th>Actual Fee (INR)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% admissionDetails[0].feeStructure.forEach(fee => { %>
-      <tr>
-        <td><%= fee.year %></td>
-        <td><%= fee.category %></td>
-        <td><%= fee.applicability %></td>
-        <td><%= fee.tuitionFee %></td>
-        <td><%= fee.developmentFee %></td>
-        <td><%= fee.labFee %></td>
-        <td><%= fee.examFee %></td>
-        <td><%= fee.enrollmentFee %></td>
-        <td><%= fee.actualFee %></td>
-      </tr>
-      <% }) %>
-    </tbody>
-  </table>
-  
-  <h2>Contact Information</h2>
-  <ul>
-    <li><strong>Name:</strong> <%= admissionDetails[0].contact.name %></li>
-    <li><strong>Email:</strong> <%= admissionDetails[0].contact.email %></li>
-    <li><strong>Phone:</strong> <%= admissionDetails[0].contact.phone %></li>
-  </ul>
-  
-  <a href="/admin/admissions/<%= admissionDetails[0]._id %>/edit">Edit</a>
-</body>
+<% layout("/layouts/admin_boilerplate.ejs") %>
+<head>
+    <link rel="stylesheet" href="/styles/admin/admission.css">
+</head> 
+<div class="admissions-container">
+    <h1 class="admissions-title">Admission Details</h1>
+    
+    <div class="admissions-grid">
+        <div class="admissions-section">
+            <h2>Eligibility Criteria</h2>
+            <p><%= admissionDetails[0].eligibilityCriteria %></p>
+        </div>
+
+        <div class="admissions-section">
+            <h2>Application Deadline</h2>
+            <p><%= admissionDetails[0].applicationDeadline.toDateString() %></p>
+        </div>
+
+        <div class="admissions-section">
+            <h2>Admission Procedure</h2>
+            <p><%= admissionDetails[0].admissionProcedure %></p>
+        </div>
+
+        <div class="admissions-section">
+            <h2>Fee Structure</h2>
+            <table class="admissions-table">
+                <thead>
+                    <tr>
+                        <th>Year</th>
+                        <th>Category</th>
+                        <th>Applicability</th>
+                        <th>Tuition Fee (INR)</th>
+                        <th>Development Fee (INR)</th>
+                        <th>Lab Fee (INR)</th>
+                        <th>Exam Fee (INR)</th>
+                        <th>Enrollment Fee (INR)</th>
+                        <th>Actual Fee (INR)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% admissionDetails[0].feeStructure.forEach(fee => { %>
+                    <tr>
+                        <td><%= fee.year %></td>
+                        <td><%= fee.category %></td>
+                        <td><%= fee.applicability %></td>
+                        <td><%= fee.tuitionFee %></td>
+                        <td><%= fee.developmentFee %></td>
+                        <td><%= fee.labFee %></td>
+                        <td><%= fee.examFee %></td>
+                        <td><%= fee.enrollmentFee %></td>
+                        <td><%= fee.actualFee %></td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="admissions-section">
+            <h2>Contact Information</h2>
+            <ul>
+                <li><strong>Name:</strong> <%= admissionDetails[0].contact.name %></li>
+                <li><strong>Email:</strong> <%= admissionDetails[0].contact.email %></li>
+                <li><strong>Phone:</strong> <%= admissionDetails[0].contact.phone %></li>
+            </ul>
+        </div>
+    </div>
+
+    <a href="/admin/admissions/<%= admissionDetails[0]._id %>/edit" class="edit-link edit-button">Edit Admission</a>
+</div>
