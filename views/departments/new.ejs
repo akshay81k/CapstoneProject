@@ -1,35 +1,90 @@
 <% layout("/layouts/boilerplate.ejs") %>
-  <body>
-    <h3>Add Department</h3>
+<body>
+  <h3>Add Department</h3>
 
-    <form action="/admin/departments" method="POST">
-      <input
-        type="text"
-        name="department[departmentName]"
-        placeholder="Enter name"
-        required
-      /><br />
-      <input
-        type="text"
-        name="department[hod]"
-        placeholder="Enter name of Hod "
-        required
-      /><br />
-      <input
-        type="email"
-        name="department[contactEmail]"
-        placeholder="Enter email of hod "
-        required
-      /><br />
-      <textarea
-        type="text"
-        name="department[courses]"
-        placeholder="Enter courses"
-        required
-      >
-      </textarea
-      ><br />
-      <button>Add Department</button>
-    </form>
-  </body>
+  <form action="/admin/departments" method="POST">
+    <!-- Department Name -->
+    <input
+      type="text"
+      name="department[departmentName]"
+      placeholder="Enter department name"
+      required
+    /><br />
 
+    <!-- HOD Name -->
+    <input
+      type="text"
+      name="department[hod]"
+      placeholder="Enter name of HOD"
+      required
+    /><br />
+
+    <!-- Contact Email -->
+    <input
+      type="email"
+      name="department[contactEmail]"
+      placeholder="Enter email of HOD"
+      required
+    /><br />
+
+    <!-- Courses (Comma Separated) -->
+    <textarea
+      name="department[courses]"
+      placeholder="Enter courses (comma-separated)"
+      required
+    ></textarea><br />
+
+    <!-- Vision -->
+    <textarea
+      name="department[vision]"
+      placeholder="Enter department vision"
+      required
+    ></textarea><br />
+
+    <!-- Mission (Multiple Points) -->
+    <textarea
+      name="department[mission]"
+      placeholder="Enter mission points (comma-separated)"
+      required
+    ></textarea><br />
+
+    <!-- Program Intake -->
+    <input
+      type="number"
+      name="department[programDetails][intake]"
+      placeholder="Enter program intake"
+      required
+    /><br />
+
+    <!-- Program Duration -->
+    <input
+      type="text"
+      name="department[programDetails][duration]"
+      placeholder="Enter program duration (e.g., 4 years)"
+      required
+    /><br />
+
+    <!-- Scope -->
+    <textarea
+      name="department[scope]"
+      placeholder="Enter department scope"
+      required
+    ></textarea><br />
+
+    <!-- Career Opportunities -->
+    <textarea
+      name="department[careerOpportunities]"
+      placeholder="Enter career opportunities (comma-separated)"
+      required
+    ></textarea><br />
+
+    <!-- Department Features -->
+    <textarea
+      name="department[departmentFeatures]"
+      placeholder="Enter department features (comma-separated)"
+      required
+    ></textarea><br />
+
+    <button>Add Department</button>
+  </form>
+</body>

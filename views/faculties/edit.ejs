@@ -1,77 +1,57 @@
 <% layout("/layouts/boilerplate.ejs") %>
-  <body>
-    <form
-      action="/admin/faculties/<%= faculty._id %>?_method=PUT"
-      method="POST"
-      enctype="multipart/form-data"
-    >
-      <input
-        type="text"
-        name="faculty[name]"
-        value="<%= faculty.name %>"
-        required
-      /><br />
-      <select name="faculty[department]" required>
-        <option value="Computer Engineering" <%= exam.department === 'Computer Engineering' ? 'selected' : '' %>>
-          Computer Engineering
-        </option>
-        <option value="Civil Engineering" <%= exam.department === 'Civil Engineering' ? 'selected' : '' %>>
-          Civil Engineering
-        </option>
-        <option value="Mechanical Engineering" <%= exam.department === 'Mechanical Engineering' ? 'selected' : '' %>>
-          Mechanical Engineering
-        </option>
-        <option value="Big Data" <%= exam.department === 'Big Data' ? 'selected' : '' %>>
-          Big Data
-        </option>
-        <option value="Artificial Intelligence" <%= exam.department === 'Artificial Intelligence' ? 'selected' : '' %>>
-          Artificial Intelligence
-        </option>
-      </select><br />
-      <input
-        type="text"
-        name="faculty[designation]"
-        value="<%= faculty.designation%>"
-        required
-      /><br />
-      <input
-        type="email"
-        name="faculty[email]"
-        value="<%= faculty.email %>"
-        required
-      /><br />
-      <input
-        type="tel"
-        name="faculty[phone]"
-        value="<%= faculty.phone %>"
-        required
-      /><br />
-      <input
-        type="text"
-        name="faculty[specialization]"
-        value="<%= faculty.specialization %>"
-        required
-      /><br />
-      <input
-        type="text"
-        name="faculty[experience]"
-        value="<%= faculty.experience %>"
-        required
-      /><br />
-      <input
-        type="date"
-        name="faculty[date_of_joining]"
-        value="<%= faculty.date_of_joining.toISOString().slice(0, 10)  %>"
-        required
-      /><br />
-      <input
-        type="file"
-        name="faculty[photo]"
-        value="<%= faculty.photo %>"
-        required
-      /><br />
 
-      <button>Update Faculty</button>
-    </form>
-  </body>
+<body>
+  <h3>Edit Faculty</h3>
 
+  <form
+    action="/admin/faculties/<%= faculty._id %>?_method=PUT"
+    method="POST"
+    enctype="multipart/form-data"
+  >
+    <!-- Faculty Name -->
+    <input type="text" name="faculty[name]" value="<%= faculty.name %>" required /><br />
+
+    <!-- Address -->
+    <input type="text" name="faculty[address]" value="<%= faculty.address %>" required /><br />
+
+    <!-- Aadhar Number -->
+    <input type="text" name="faculty[adharNo]" value="<%= faculty.adharNo %>" required /><br />
+
+    <!-- Date of Birth -->
+    <input type="date" name="faculty[date_of_birth]" value="<%= faculty.date_of_birth ? faculty.date_of_birth.toISOString().slice(0, 10) : '' %>" required /><br />
+
+    <!-- Qualification -->
+    <input type="text" name="faculty[qualification]" value="<%= faculty.qualification %>" required /><br />
+
+    <!-- Department -->
+    <input type="text" name="faculty[department]" value="<%= faculty.department %>" required /><br />
+
+    <!-- Designation -->
+    <input type="text" name="faculty[designation]" value="<%= faculty.designation %>" required /><br />
+
+    <!-- Email -->
+    <input type="email" name="faculty[email]" value="<%= faculty.email %>" required /><br />
+
+    <!-- Phone -->
+    <input type="tel" name="faculty[phone]" value="<%= faculty.phone %>" required /><br />
+
+    <!-- Specialization -->
+    <input type="text" name="faculty[specialization]" value="<%= faculty.specialization %>" required /><br />
+
+    <!-- Experience -->
+    <input type="text" name="faculty[experience]" value="<%= faculty.experience %>" required /><br />
+
+    <!-- Date of Joining -->
+    <input type="date" name="faculty[date_of_joining]" value="<%= faculty.date_of_joining ? faculty.date_of_joining.toISOString().slice(0, 10) : '' %>" required /><br />
+
+    <!-- Existing Image Preview -->
+    <% if (faculty.photo && faculty.photo.url) { %>
+      <img src="<%= faculty.photo.url %>" alt="Faculty Image" width="150" height="150"><br>
+    <% } %>
+
+    <!-- Upload New Image -->
+    <input type="file" name="faculty[photo]"><br />
+
+    <button>Update Faculty</button>
+  </form>
+</body>

@@ -9,13 +9,12 @@
         placeholder="Enter name"
         required
       /><br />
-
-      <input
-        type="text"
-        name="ranker[year]"
-        placeholder="Enter Year"
-        required
-      /><br />
+      <label for="">Select Year</label>
+      <select name="ranker[year]" required>
+        <option value="1st Year">1st year</option>
+        <option value="2nd Year">2nd year</option>
+        <option value="3rd Year">3rd year</option>
+      </select><br />
 
       <select name="ranker[department]" required>
         <option value="Computer Engineering">Computer Engineering</option>
@@ -30,6 +29,9 @@
         name="ranker[percentage]"
         placeholder="Enter percentage"
         required
+        step="0.01"  
+        min="0"    
+        max="100"  
       /><br />
       <input
         type="file"

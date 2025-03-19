@@ -5,7 +5,7 @@ module.exports.noticeSchema = Joi.object({
   notice: Joi.object({
     title: Joi.string().required(),
     description: Joi.string().required(),
-    datePosted: Joi.date().required(),
+    datePosted: Joi.date(),
     postedBy: Joi.string().required(),
     category: Joi.string().required(),
   }).required(),
@@ -20,11 +20,15 @@ module.exports.eventSchema = Joi.object({
     organizer: Joi.string(),
     category: Joi.string().required(),
     venue: Joi.string().required(),
-    imgs: Joi.string().allow("", null),
+    imgs: Joi.object({
+      url: Joi.array().items(Joi.string()).allow(null, ""),
+      fileName: Joi.array().items(Joi.string()).allow(null, ""),
+    }).allow(null, ""),
+    existingImgs: Joi.array().items(Joi.string()).optional(),
+    existingFileNames: Joi.array().items(Joi.string()).optional(),
   }).required(),
 });
 
-//  ranker schema
 module.exports.rankerSchema = Joi.object({
   ranker: Joi.object({
     name: Joi.string().required(),
@@ -32,6 +36,7 @@ module.exports.rankerSchema = Joi.object({
     department: Joi.string().required(),
     percentage: Joi.number().required().min(1).max(100),
     photo: Joi.string().allow("", null),
+    existingPhoto: Joi.string().allow("", null), // ✅ Allow existing photo field
   }).required(),
 });
 
@@ -41,7 +46,16 @@ module.exports.departmentSchema = Joi.object({
     departmentName: Joi.string().required(),
     hod: Joi.string().required(),
     contactEmail: Joi.string().email().required(),
-    courses: Joi.string().required(),
+    courses: Joi.array().items(Joi.string()).required(),
+    vision: Joi.string().required(),
+    mission: Joi.array().items(Joi.string()).required(),
+    programDetails: Joi.object({
+      intake: Joi.number().integer().min(1).required(),
+      duration: Joi.string().required(),
+    }).required(),
+    scope: Joi.string().required(),
+    careerOpportunities: Joi.array().items(Joi.string()).required(),
+    departmentFeatures: Joi.array().items(Joi.string()).required(),
   }).required(),
 });
 
@@ -143,23 +157,30 @@ module.exports.admissionSchema = Joi.object({
 module.exports.facultySchema = Joi.object({
   faculty: Joi.object({
     name: Joi.string().required(),
-    department: Joi.string().required(),
+    address: Joi.string().required(),
+    adharNo: Joi.string().length(12).pattern(/^\d+$/).required(),
+    date_of_birth: Joi.date().iso().required(),
+    qualification: Joi.string().required(),
+    department: Joi.string().optional(),
     designation: Joi.string().required(),
     email: Joi.string().email().required(),
     phone: Joi.string().required(),
     specialization: Joi.string().required(),
     experience: Joi.string().required(),
     date_of_joining: Joi.date().iso().required(),
-    photo: Joi.string().allow("", null),
+    photo: Joi.object({
+      url: Joi.string().allow("", null),
+      fileName: Joi.string().allow("", null),
+    }).allow(null),
   }).required(),
 });
+
 
 // examination route
 module.exports.examinationSchema = Joi.object({
   exam: Joi.object({
     examName: Joi.string().required(),
     examType: Joi.string().required(),
-    department: Joi.string().required(),
     semester: Joi.string().required(),
     startDate: Joi.date().iso().required(),
     endDate: Joi.date().iso().required(),
@@ -171,7 +192,6 @@ module.exports.examinationSchema = Joi.object({
 module.exports.resourceSchema = Joi.object({
   resource: Joi.object({
     subjectName: Joi.string().required(),
-    department: Joi.string().required(),
     semester: Joi.number().required().min(1).max(6),
     subjectCode: Joi.string().required(),
     materials: Joi.array()

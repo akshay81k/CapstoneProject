@@ -12,34 +12,13 @@
       /><br />
       <input type="text" name="exam[examType]" value="<%= exam.examType %>" />
       <br />
-      <select name="exam[department]" required>
-        <option value="Computer Engineering" <%= exam.department === 'Computer Engineering' ? 'selected' : '' %>>
-          Computer Engineering
-        </option>
-        <option value="Civil Engineering" <%= exam.department === 'Civil Engineering' ? 'selected' : '' %>>
-          Civil Engineering
-        </option>
-        <option value="Mechanical Engineering" <%= exam.department === 'Mechanical Engineering' ? 'selected' : '' %>>
-          Mechanical Engineering
-        </option>
-        <option value="Big Data" <%= exam.department === 'Big Data' ? 'selected' : '' %>>
-          Big Data
-        </option>
-        <option value="Artificial Intelligence" <%= exam.department === 'Artificial Intelligence' ? 'selected' : '' %>>
-          Artificial Intelligence
-        </option>
-      </select><br />
-      <input
-        type="text"
-        name="exam[department]"
-        value="<%= exam.department %>"
-        required
-      />
       <br />
       <input
         type="number"
         name="exam[semester]"
         value="<%= exam.semester %>"
+        max="6"
+        min="1"
         required
       />
       <br />
