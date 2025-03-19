@@ -1,32 +1,119 @@
-<% layout("/layouts/boilerplate.ejs") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="icon" type="image/x-icon" href="/images/logo.png">
+    <title>Admin Signup - Bhausaheb Vartak Polytechnic</title>
+    <link rel="stylesheet" href="/styles/admin/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Zetta:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&family=Lexend+Zetta:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&family=Lexend+Zetta:wght@100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="/styles/admin/signup.css">
+</head>
 <body>
-  <h3>Signup Form</h3>
+    <div class="page1">
+        <header>
+            <div class="lcontainer">
+                <img id="logo" src="/images/logo.png">
+                <span id="clg">विद्यावर्धिनीचे भाऊसाहेब वर्तक तंत्रनिकेतन, वसई रोड<h2>VIDYAVARDHINI'S BHAUSAHEB VARTAK POLYTECHNIC</h2><h4>Admin Signup</h4></span>
+            </div>
+            <div class="icontainer"><img src="/images/anna.png"></div>
+        </header>
 
-  <form action="/admin/signup" method="POST">
-    <label for="username"
-      >Username:
-      <input type="text" name="username" required />
-    </label>
-    <br />
-    <br />
+        <div class="main-content">
+            <img src="/images/blob1.png" class="blob1">
+            <div class="signup-container">
+                <h3>Signup Form</h3>
+                <form action="/admin/signup" method="POST">
+                    <label for="username">
+                        Username:
+                        <input type="text" name="username" required />
+                    </label>
+                    <br />
+                    <br />
 
-    <label for="email"
-      >Email:
-      <input type="email" name="email" required />
-    </label>
-    <br />
-    <br />
+                    <label for="email">
+                        Email:
+                        <input type="email" name="email" required />
+                    </label>
+                    <br />
+                    <br />
 
-    <label for="password">
-      Password:
-      <input type="password" name="password" required />
-    </label>
-    <br />
+                    <label for="password">
+                        Password:
+                        <input type="password" name="password" required />
+                    </label>
+                    <br />
 
-    <a href="/admin/login">Already have registered? Log In </a>
-    <br />
-    <br />
+                    <a href="/admin/login">Already have registered? Log In </a>
+                    <br />
+                    <br />
 
-    <button>Sign Up</button>
-  </form>
+                    <button>Sign Up</button>
+                </form>
+            </div>
+            <img src="/images/blob2.png" class="blob2">
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-links-row">
+                <div class="footer-section">
+                    <h3>Useful Links</h3>
+                    <ul>
+                        <li class="footer-link"><a href="#">Grievance form</a></li>
+                        <li class="footer-link"><a href="#">Student feedback</a></li>
+                        <li class="footer-link"><a href="#">AICTE feedback</a></li>
+                        <li class="footer-link"><a href="#">DTE Maharashtra</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li class="footer-link"><a href="#">Mandatory Discloser</a></li>
+                        <li class="footer-link"><a href="#">EOA Report 2012 to 2024</a></li>
+                        <li class="footer-link"><a href="#">Library Information</a></li>
+                        <li class="footer-link"><a href="#">Career @VBVP</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Courses</h3>
+                    <ul>
+                        <li class="footer-link"><a href="#">Civil Engineering</a></li>
+                        <li class="footer-link"><a href="#">Computer Engineering</a></li>
+                        <li class="footer-link"><a href="#">Cloud Computing & Big Data</a></li>
+                        <li class="footer-link"><a href="#">Mechanical Engineering</a></li>
+                        <li class="footer-link"><a href="#">AI and Machine Learning</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-contact-row">
+                <div class="footer-section contact">
+                    <h3>Contact Us</h3>
+                    <div class="con-social">
+                        <div class="contact-info">
+                            <p><i class="fa-solid fa-location-dot"></i> Shastri Nagar, Vishal Nagar, Vasai RD(W), Palghar, MH 401202</p>
+                            <p><i class="fas fa-phone"></i> 274867386</p>
+                            <p><i class="fas fa-envelope"></i> abc@gmail.com</p>
+                        </div>
+                        <div class="social-icons">
+                            <a href="#"><img src="/images/youtube.png" alt="YouTube"></a>
+                            <a href="#"><img src="/images/instagram.png" alt="Instagram"></a>
+                            <a href="#"><img src="/images/twitter.png" alt="Twitter"></a>
+                            <a href="#"><img src="/images/facebook.png" alt="Facebook"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+</html>

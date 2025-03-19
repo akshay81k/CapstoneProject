@@ -1,10 +1,10 @@
-/* Login Page Styles */
+/* Signup Page Styles */
 .main-content {
     background: transparent !important;
     position: relative;
 }
 
-.login-container {
+.signup-container {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -20,24 +20,25 @@
     margin-bottom: 5%;
 }
 
-.main-content img{
-   position: absolute;
-   z-index: 1;
-   height: 350px;
-   width: 400px;
+.main-content img {
+    position: absolute;
+    z-index: 1;
+    height: 350px;
+    width: 400px;
 }
 
-.blob1{
+.blob1 {
     right: 50%;
     top: 50%;
 }
 
-.blob2{
+.blob2 {
     left: 50%;
     top: -5%;
 }
+
 /* Form Elements */
-.login-container h3 {
+.signup-container h3 {
     color: #05527E;
     font-family: 'Lexend Deca', sans-serif;
     font-size: 24px;
@@ -46,7 +47,7 @@
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.login-container label {
+.signup-container label {
     display: block;
     color: #182848;
     font-family: 'Lexend Deca', sans-serif;
@@ -54,8 +55,9 @@
     font-size: 16px;
 }
 
-.login-container input[type="text"],
-.login-container input[type="password"] {
+.signup-container input[type="text"],
+.signup-container input[type="email"],
+.signup-container input[type="password"] {
     width: 90%;
     padding: 15px;
     background: rgba(255, 255, 255, 0.9);
@@ -72,7 +74,7 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.login-container input:focus {
+.signup-container input:focus {
     outline: none;
     background: rgba(255, 255, 255, 0.95);
     border-color: rgba(75, 108, 183, 0.8);
@@ -80,7 +82,7 @@
     transform: translateY(-2px);
 }
 
-.login-container button {
+.signup-container button {
     width: 100%;
     padding: 15px;
     background: linear-gradient(135deg, #4b6cb7 0%, #1864E0 100%);
@@ -96,13 +98,13 @@
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.login-container button:hover {
+.signup-container button:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
     background: linear-gradient(135deg, #1864E0 0%, #4b6cb7 100%);
 }
 
-.login-container a {
+.signup-container a {
     display: block;
     color: #4b6cb7;
     text-decoration: none;
@@ -114,7 +116,7 @@
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-.login-container a:hover {
+.signup-container a:hover {
     color: #182848;
     text-decoration: underline;
     transform: translateY(-1px);
@@ -122,23 +124,24 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .login-container {
+    .signup-container {
         margin: 10px;
         padding: 30px;
     }
 }
 
 @media (max-width: 480px) {
-    .login-container {
+    .signup-container {
         padding: 20px;
     }
     
-    .login-container input[type="text"],
-    .login-container input[type="password"] {
+    .signup-container input[type="text"],
+    .signup-container input[type="email"],
+    .signup-container input[type="password"] {
         padding: 12px;
     }
     
-    .login-container button {
+    .signup-container button {
         padding: 12px;
     }
 }
