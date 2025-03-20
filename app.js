@@ -96,7 +96,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 
-app.get("/admin", (req, res) => {
+app.get("/admin", isLoggedIn,(req, res) => {
   res.render("main/index.ejs");
 });
 
@@ -105,6 +105,7 @@ app.get("/admin", (req, res) => {
 // Index route
 app.get(
   "/admin/notices",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     const allNotices = await Notice.find({});
     res.render("notice/index.ejs", { allNotices });
@@ -119,6 +120,7 @@ app.get("/admin/notices/new", isLoggedIn, (req, res) => {
 // Create Route
 app.post(
   "/admin/notices",
+  isLoggedIn,
   validateNotice,
   wrapAsync(async (req, res) => {
     const newNotice = new Notice(req.body.notice);
@@ -131,6 +133,7 @@ app.post(
 // Show Route
 app.get(
   "/admin/notices/:id",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     let notice = await Notice.findById(id);
@@ -152,6 +155,7 @@ app.get(
 // Update Route
 app.put(
   "/admin/notices/:id",
+  isLoggedIn,
   validateNotice,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
@@ -179,6 +183,7 @@ app.delete(
 // Index route
 app.get(
   "/admin/events",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     const allEvents = await Event.find({});
     res.render("events/index.ejs", { allEvents });
@@ -193,6 +198,7 @@ app.get("/admin/events/new", isLoggedIn, (req, res) => {
 // Create Route
 app.post(
   "/admin/events",
+  isLoggedIn,
   upload.array("event[imgs]", 10),
   validateEvent,
   wrapAsync(async (req, res) => {
@@ -212,6 +218,7 @@ app.post(
 // Show Route
 app.get(
   "/admin/events/:id",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     let event = await Event.findById(id);
@@ -233,6 +240,7 @@ app.get(
 // Update Route
 app.put(
   "/admin/events/:id",
+  isLoggedIn,
   upload.array("event[newImgs]", 10),
   validateEvent,
   wrapAsync(async (req, res) => {
@@ -301,6 +309,7 @@ app.delete(
 // Index Route
 app.get(
   "/admin/rankers",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     const coRankers = await Ranker.find({
       department: "Computer Engineering",
@@ -346,6 +355,7 @@ app.get("/admin/rankers/new", isLoggedIn, (req, res) => {
 // Create Route
 app.post(
   "/admin/rankers",
+  isLoggedIn,
   upload.single("ranker[photo]"),
   validateRanker,
   wrapAsync(async (req, res) => {
@@ -371,28 +381,68 @@ app.get(
 );
 
 // Update Route
+// app.put(
+//   "/admin/rankers/:id",
+//   isLoggedIn,
+//   upload.single("ranker[photo]"),
+//   validateRanker,
+//   wrapAsync(async (req, res) => {
+//     let { id } = req.params;
+//     let ranker = await Ranker.findById(id);
+//     if (ranker && ranker.photo.fileName) {
+//       await cloudinary.uploader.destroy(ranker.photo.fileName);
+//     }
+//     ranker.set(req.body.ranker);
+//     if (req.file) {
+//       ranker.photo = {
+//         url: req.file.path,
+//         fileName: req.file.filename,
+//       };
+//     }
+//     await ranker.save();
+//     req.flash("success", "rankers edited!");
+//     res.redirect("/admin/rankers");
+//   })
+// );
+
+
 app.put(
   "/admin/rankers/:id",
-  upload.single("ranker[photo]"),
+  isLoggedIn,
+  upload.single("ranker[newPhoto]"), // Change to match form field
   validateRanker,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     let ranker = await Ranker.findById(id);
-    if (ranker && ranker.photo.fileName) {
-      await cloudinary.uploader.destroy(ranker.photo.fileName);
-    }
-    ranker.set(req.body.ranker);
+
     if (req.file) {
+      // Delete old image from Cloudinary before replacing
+      if (ranker && ranker.photo && ranker.photo.fileName) {
+        await cloudinary.uploader.destroy(ranker.photo.fileName);
+      }
+      // Assign new image
       ranker.photo = {
         url: req.file.path,
         fileName: req.file.filename,
       };
+    } else if (req.body.ranker.existingPhoto) {
+      // Retain old image if no new file is uploaded
+      ranker.photo = {
+        url: req.body.ranker.existingPhoto,
+        fileName: ranker.photo.fileName,
+      };
     }
+
+    // Update other ranker details
+    ranker.set(req.body.ranker);
     await ranker.save();
-    req.flash("success", "rankers edited!");
+
+    req.flash("success", "Ranker edited successfully!");
     res.redirect("/admin/rankers");
   })
 );
+
+
 
 // Delete Route
 app.delete(
@@ -419,6 +469,7 @@ app.delete(
 // Index route
 app.get(
   "/admin/departments",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     const allDepartments = await Department.find({});
     res.render("departments/index.ejs", { allDepartments });
@@ -431,20 +482,59 @@ app.get("/admin/departments/new", isLoggedIn, (req, res) => {
 });
 
 // Create Route
+// app.post(
+//   "/admin/departments",
+//   isLoggedIn,
+//   validateDepartment,
+//   wrapAsync(async (req, res) => {
+//     const newDepartment = new Department(req.body.department);
+//     await newDepartment.save();
+//     req.flash("success", "department added!");
+//     res.redirect("/admin/departments");
+//   })
+// );
+
+const preprocessDepartmentData = (req, res, next) => {
+  if (req.body.department) {
+    req.body.department.courses = req.body.department.courses
+      ? req.body.department.courses.split(",").map((item) => item.trim())
+      : [];
+
+    req.body.department.mission = req.body.department.mission
+      ? req.body.department.mission.split(",").map((item) => item.trim())
+      : [];
+
+    req.body.department.careerOpportunities = req.body.department.careerOpportunities
+      ? req.body.department.careerOpportunities.split(",").map((item) => item.trim())
+      : [];
+
+    req.body.department.departmentFeatures = req.body.department.departmentFeatures
+      ? req.body.department.departmentFeatures.split(",").map((item) => item.trim())
+      : [];
+  }
+  next();
+};
+
+// Apply this middleware before validateDepartment
 app.post(
   "/admin/departments",
+  isLoggedIn,
+  preprocessDepartmentData, // Convert data before validation
   validateDepartment,
   wrapAsync(async (req, res) => {
     const newDepartment = new Department(req.body.department);
     await newDepartment.save();
-    req.flash("success", "department added!");
+    req.flash("success", "Department added!");
     res.redirect("/admin/departments");
   })
 );
 
+
+
 // Show Route
 app.get(
   "/admin/departments/:id",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     let department = await Department.findById(id)
@@ -465,14 +555,29 @@ app.get(
   })
 );
 
-// Update Route
+// // Update Route
+// app.put(
+//   "/admin/departments/:id",
+//   isLoggedIn,
+//   validateDepartment,
+//   wrapAsync(async (req, res) => {
+//     let { id } = req.params;
+//     await Department.findByIdAndUpdate(id, { ...req.body.department });
+//     req.flash("success", "department updated!");
+//     res.redirect("/admin/departments");
+//   })
+// );
+
+
 app.put(
   "/admin/departments/:id",
+  isLoggedIn,
+  preprocessDepartmentData, // Convert data before validation
   validateDepartment,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     await Department.findByIdAndUpdate(id, { ...req.body.department });
-    req.flash("success", "department updated!");
+    req.flash("success", "Department updated!");
     res.redirect("/admin/departments");
   })
 );
@@ -496,6 +601,7 @@ app.delete(
 // Index route
 app.get(
   "/admin/facilities",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     const allFacilities = await Facility.find({});
     res.render("facilities/index.ejs", { allFacilities });
@@ -510,6 +616,7 @@ app.get("/admin/facilities/new", isLoggedIn, (req, res) => {
 // Create Route
 app.post(
   "/admin/facilities",
+  isLoggedIn,
   upload.single("facility[img]"),
   validateFacility,
   wrapAsync(async (req, res) => {
@@ -526,6 +633,7 @@ app.post(
 // Show Route
 app.get(
   "/admin/facilities/:id",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     let facility = await Facility.findById(id);
@@ -547,6 +655,7 @@ app.get(
 // Update Route
 app.put(
   "/admin/facilities/:id",
+  isLoggedIn,
   upload.single("facility[img]"),
   validateFacility,
   wrapAsync(async (req, res) => {
@@ -591,6 +700,7 @@ app.delete(
 // Index route
 app.get(
   "/admin/committees",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     const allCommittees = await Committee.find({});
     res.render("committees/index.ejs", { allCommittees });
@@ -605,6 +715,7 @@ app.get("/admin/committees/new", isLoggedIn, (req, res) => {
 // Create Route
 app.post(
   "/admin/committees",
+  isLoggedIn,
   validateCommittee,
   wrapAsync(async (req, res) => {
     const newCommittee = new Committee(req.body.committee);
@@ -617,6 +728,7 @@ app.post(
 // Show Route
 app.get(
   "/admin/committees/:id",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     let committee = await Committee.findById(id);
@@ -638,6 +750,7 @@ app.get(
 // Add new member
 app.put(
   "/admin/committees/:id/members",
+  isLoggedIn,
   validateCommitteeMember,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
@@ -666,19 +779,23 @@ app.get(
 // Update Route
 app.put(
   "/admin/committees/:id",
+  isLoggedIn,
   validateCommitteeEdit,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
-    const { committeeName, description, members } = req.body;
+    let { committeeName, description, members } = req.body.committeeEdit; // ✅ Get data properly
+
     await Committee.findByIdAndUpdate(id, {
       committeeName,
       description,
       members,
     });
+
     req.flash("success", "Committee updated!");
     res.redirect("/admin/committees");
   })
 );
+
 
 // Delete Route
 app.delete(
@@ -715,6 +832,7 @@ app.delete(
 // Index Route
 app.get(
   "/admin/admissions",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     let admissionDetails = await AdmissionDetail.find({});
     res.render("admissions/index.ejs", { admissionDetails });
@@ -735,6 +853,7 @@ app.get(
 //update Route
 app.put(
   "/admin/admissions/:id",
+  isLoggedIn,
   validateAdmission,
   wrapAsync(async (req, res) => {
     const { id } = req.params;
@@ -758,6 +877,7 @@ app.get("/admin/faculties/:id/new", isLoggedIn, (req, res) => {
 // Create Route
 app.post(
   "/admin/faculties/:id",
+  isLoggedIn,
   upload.single("faculty[photo]"),
   validateFaculty,
   wrapAsync(async (req, res) => {
@@ -767,6 +887,7 @@ app.post(
     let department = await Department.findById(id);
     let newFaculty = await Faculty(req.body.faculty);
     newFaculty.photo = { url, fileName };
+    newFaculty.department = department.departmentName;
     department.faculty.push(newFaculty);
     newFaculty.save();
     department.save();
@@ -778,6 +899,7 @@ app.post(
 // Show Route
 app.get(
   "/admin/department/:depId/faculties/:id",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     let { depId, id } = req.params;
     let faculty = await Faculty.findById(id);
@@ -797,26 +919,57 @@ app.get(
 );
 
 // Update Route
+// app.put(
+//   "/admin/faculties/:id",
+//   isLoggedIn,
+//   upload.single("faculty[photo]"),
+//   validateFaculty,
+//   wrapAsync(async (req, res) => {
+//     let { id } = req.params;
+//     let faculty = await Faculty.findById(id);
+//     if (faculty && faculty.photo.fileName) {
+//       await cloudinary.uploader.destroy(faculty.photo.fileName);
+//     }
+//     faculty.set(req.body.faculty);
+//     if (req.file) {
+//       faculty.photo = {
+//         url: req.file.path,
+//         fileName: req.file.filename,
+//       };
+//     }
+//     await faculty.save();
+//     req.flash("success", "Faculty updated!");
+//     res.redirect(`/admin/faculties/${id}`);
+//   })
+// );
+
 app.put(
   "/admin/faculties/:id",
+  isLoggedIn,
   upload.single("faculty[photo]"),
   validateFaculty,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     let faculty = await Faculty.findById(id);
-    if (faculty && faculty.photo.fileName) {
-      await cloudinary.uploader.destroy(faculty.photo.fileName);
-    }
-    faculty.set(req.body.faculty);
+    let department = await Department.findOne({ departmentName: req.body.faculty.department });
+
+    // Keep old photo if no new file is uploaded
     if (req.file) {
+      if (faculty.photo.fileName) {
+        await cloudinary.uploader.destroy(faculty.photo.fileName);
+      }
       faculty.photo = {
         url: req.file.path,
         fileName: req.file.filename,
       };
     }
+
+    // Update other fields
+    faculty.set(req.body.faculty);
     await faculty.save();
+
     req.flash("success", "Faculty updated!");
-    res.redirect(`/admin/faculties/${id}`);
+    res.redirect(`/admin/department/${department._id}/faculties/${id}`);
   })
 );
 
@@ -850,28 +1003,52 @@ app.get("/admin/examinations/:id/new", isLoggedIn, (req, res) => {
 // Create Route
 app.post(
   "/admin/examinations/:id",
+  isLoggedIn,
   uploadDrive.single("exam[timetable]"),
   validateExamination,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     const examData = req.body.exam;
     const timetableFile = req.file;
+
+    console.log("Uploaded route File:", timetableFile); // Debugging line
+
     if (timetableFile) {
-      const timetableURL = await uploadFile(timetableFile);
-      examData.timetable = {
-        url: timetableURL,
-        fileName: timetableFile.originalname,
-      };
+      try {
+        const timetableURL = await uploadFile(timetableFile); // Ensure await is used properly
+        console.log("Google Drive URL:", timetableURL); // Debugging line
+
+        examData.timetable = {
+          url: timetableURL,
+          fileName: timetableFile.originalname,
+        };
+      } catch (error) {
+        console.error("Error uploading file to Google Drive:", error);
+        req.flash("error", "File upload failed!");
+        return res.redirect(`/admin/departments/${id}`);
+      }
     }
+
+    // Ensure department is found before proceeding
     const department = await Department.findById(id);
+    if (!department) {
+      req.flash("error", "Department not found!");
+      return res.redirect("/admin/departments");
+    }
+
     const newExam = new Examination(examData);
+    newExam.department = department.departmentName;
     department.examination.push(newExam);
+
     await newExam.save();
     await department.save();
+
     req.flash("success", "Examination created!");
     res.redirect(`/admin/departments/${id}`);
   })
 );
+
+
 
 // Edit Route
 app.get(
@@ -888,6 +1065,7 @@ app.get(
 // Examination Update Route
 app.put(
   "/admin/examinations/:id",
+  isLoggedIn,
   uploadDrive.single("exam[timetable]"), // Use multer to handle timetable file upload
   validateExamination,
   wrapAsync(async (req, res) => {
@@ -961,28 +1139,63 @@ const auth = new google.auth.GoogleAuth({
 const drive = google.drive({ version: "v3", auth });
 
 // Helper function to upload files to Google Drive
+// const uploadFile = wrapAsync(async (file) => {
+//   const bufferStream = new stream.PassThrough();
+//   bufferStream.end(file.buffer);
+
+//   const { data } = await drive.files.create({
+//     media: {
+//       mimeType: file.mimetype,
+//       body: bufferStream,
+//     },
+//     requestBody: {
+//       name: file.originalname,
+//       parents: ["1FnnuBR0aFQfSMMdsvVFMueUULcGMq1Zs"], // Replace with your Google Drive folder ID if needed
+//     },
+//     fields: "id, name",
+//   });
+
+//   return `https://drive.google.com/file/d/${data.id}/view`;
+// });
+
+
 const uploadFile = async (file) => {
   const bufferStream = new stream.PassThrough();
   bufferStream.end(file.buffer);
 
-  const { data } = await drive.files.create({
+  console.log("Uploading file:", file.originalname);
+
+  const response = await drive.files.create({
     media: {
       mimeType: file.mimetype,
       body: bufferStream,
     },
     requestBody: {
       name: file.originalname,
-      parents: ["1FnnuBR0aFQfSMMdsvVFMueUULcGMq1Zs"], // Replace with your Google Drive folder ID if needed
+      parents: ["1FnnuBR0aFQfSMMdsvVFMueUULcGMq1Zs"], // Google Drive folder ID
     },
-    fields: "id, name",
+    fields: "id, name", // Request file ID and name
   });
 
-  return `https://drive.google.com/file/d/${data.id}/view`;
+  console.log("Drive API Full Response:", response.data);
+
+  if (!response.data || !response.data.id) {
+    throw new Error("Failed to upload file to Google Drive - No file ID returned");
+  }
+
+  // ✅ Properly construct and return the URL
+  const fileUrl = `https://drive.google.com/file/d/${response.data.id}/view`;
+  console.log("Generated Google Drive URL:", fileUrl); // Debugging line
+  return fileUrl;
 };
+
+
+
 
 // Index Route
 app.get(
   "/admin/resources",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     const resources = await Resource.find({});
     const groupedResources = resources.reduce((acc, resource) => {
@@ -1006,6 +1219,7 @@ app.get("/admin/resources/:id/new", isLoggedIn, (req, res) => {
 // Create Route
 app.post(
   "/admin/resources/:id",
+  isLoggedIn,
   uploadDrive.fields([
     { name: "resource[materials][0][textbookURL]" },
     { name: "resource[materials][0][paperLinks][]" },
@@ -1046,6 +1260,7 @@ app.post(
     const department = await Department.findById(req.params.id);
 
     const newResource = new Resource(resourceData);
+    newResource.department = department.departmentName;
     newResource.materials = material;
     console.log(newResource);
     department.resource.push(newResource);
@@ -1062,6 +1277,7 @@ app.post(
 // Show Route
 app.get(
   "/admin/resources/:id",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     const resource = await Resource.findById(req.params.id);
     res.render("resources/show.ejs", { resource });
@@ -1106,6 +1322,7 @@ app.delete(
 // Index route
 app.get(
   "/admin/projects",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     const projects = await Project.find({});
 
@@ -1129,9 +1346,21 @@ app.get("/admin/projects/new", isLoggedIn, (req, res) => {
 });
 
 // Create Route
+// Middleware to convert studentName string to an array
+const parseStudentNames = (req, res, next) => {
+  if (req.body.project && typeof req.body.project.studentName === "string") {
+    req.body.project.studentName = req.body.project.studentName
+      .split(",")
+      .map(name => name.trim());
+  }
+  next();
+};
+
 app.post(
   "/admin/projects",
-  validateProject,
+  isLoggedIn,
+  parseStudentNames, // ✅ Convert studentName to an array before validation
+  validateProject,   // ✅ Now Joi validation will work correctly
   wrapAsync(async (req, res) => {
     const newProject = new Project(req.body.project);
     await newProject.save();
@@ -1142,6 +1371,7 @@ app.post(
 // Show Route
 app.get(
   "/admin/projects/:id",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     let project = await Project.findById(id);
@@ -1163,6 +1393,8 @@ app.get(
 // Update Route
 app.put(
   "/admin/projects/:id",
+  isLoggedIn,
+  parseStudentNames,
   validateProject,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
@@ -1184,29 +1416,29 @@ app.delete(
 
 // TODO: Authentication routes
 
-app.get("/admin/signup", (req, res) => {
-  res.render("authentication/signup.ejs");
-});
+// app.get("/admin/signup", (req, res) => {
+//   res.render("authentication/signup.ejs");
+// });
 
-app.post("/admin/signup", async (req, res) => {
-  try {
-    let { username, email, password } = req.body;
-    let newAdmin = new Admin({ email, username });
-    const registeredAdmin = await Admin.register(newAdmin, password);
-    //  console.log(registeredAdmin);
-    req.login(registeredAdmin, (err) => {
-      if (err) {
-        req.flash("failure", "Login error during registration");
-        return res.redirect("/admin/signup");
-      }
-      req.flash("success", "You are registered!");
-      res.redirect("/admin");
-    });
-  } catch (e) {
-    req.flash("failure", "Some error occurred");
-    res.redirect("/admin/signup");
-  }
-});
+// app.post("/admin/signup", async (req, res) => {
+//   try {
+//     let { username, email, password } = req.body;
+//     let newAdmin = new Admin({ email, username });
+//     const registeredAdmin = await Admin.register(newAdmin, password);
+//     //  console.log(registeredAdmin);
+//     req.login(registeredAdmin, (err) => {
+//       if (err) {
+//         req.flash("failure", "Login error during registration");
+//         return res.redirect("/admin/signup");
+//       }
+//       req.flash("success", "You are registered!");
+//       res.redirect("/admin");
+//     });
+//   } catch (e) {
+//     req.flash("failure", "Some error occurred");
+//     res.redirect("/admin/signup");
+//   }
+// });
 
 app.get("/admin/login", (req, res) => {
   res.render("authentication/login.ejs");
@@ -1224,27 +1456,6 @@ app.post(
   }
 );
 
-// user accessing used in login feature
-// app.post("/admin/login", (req, res, next) => {
-//   passport.authenticate("local", (err, user, info) => {
-//     if (err) {
-//       return next(err); // Handle errors
-//     }
-//     if (!user) {
-//       req.flash("error", "Invalid credentials");
-//       return res.redirect("/admin/login");
-//     }
-//     req.login(user, (err) => {
-//       if (err) {
-//         return next(err);
-//       }
-//       // Access the authenticated user document
-//       console.log("Authenticated User:", user);
-//       req.flash("success", "Logged in successfully!");
-//       return res.redirect("/admin");
-//     });
-//   })(req, res, next);
-// });
 
 app.get("/admin/logout", (req, res) => {
   req.logout((err) => {
@@ -1466,6 +1677,18 @@ app.use((err, req, res, next) => {
   res.status(status).render("error.ejs", { message });
 });
 
+async function deleteExpiredExams() {
+  try {
+    const today = new Date(); // Get the current date
+    const result = await Examination.deleteMany({ endDate: { $lt: today } });
+
+    console.log(`${result.deletedCount} expired exams deleted.`);
+  } catch (error) {
+    console.error("Error deleting expired exams:", error);
+  }
+}
+
 app.listen(3000, () => {
+  deleteExpiredExams();
   console.log("server running on port 3000");
 });

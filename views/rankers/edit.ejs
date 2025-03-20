@@ -10,21 +10,21 @@
     <h3>Edit Ranker</h3>
 
     <form
-      action="/admin/rankers/<%=ranker._id%>?_method=PUT"
+      action="/admin/rankers/<%= ranker._id %>?_method=PUT"
       method="POST"
       enctype="multipart/form-data"
     >
       <input
         type="text"
         name="ranker[name]"
-        value="<%=ranker.name%>"
+        value="<%= ranker.name %>"
         required
       /><br />
 
       <input
         type="text"
         name="ranker[year]"
-        value="<%=ranker.year%>"
+        value="<%= ranker.year %>"
         required
       /><br />
 
@@ -49,16 +49,21 @@
       <input
         type="number"
         name="ranker[percentage]"
-        value="<%=ranker.percentage%>"
+        value="<%= ranker.percentage %>"
         step="0.1"
         required
       /><br />
-      <input
-        type="file"
-        name="ranker[photo]"
-        value="<%=ranker.photo%>"
-        required
-      /><br />
+
+      <!-- Show Existing Image -->
+      <% if (ranker.photo) { %>
+        <img src="<%= ranker.photo %>" alt="Ranker Photo" height="100px" /><br />
+        <!-- Hidden Input to Retain Old Image if New One is Not Uploaded -->
+        <input type="hidden" name="ranker[existingPhoto]" value="<%= ranker.photo %>" />
+      <% } %>
+
+      <!-- Upload New Image -->
+      <input type="file" name="ranker[newPhoto]" /><br />
+
       <button>Edit Ranker</button>
     </form>
   </body>

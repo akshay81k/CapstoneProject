@@ -1,33 +1,82 @@
 <% layout("/layouts/boilerplate.ejs") %>
 
-  <body>
-    <form
-      action="/admin/departments/<%= department._id %>?_method=PUT"
-      method="POST"
-    >
-      <input
-        type="text"
-        name="department[departmentName]"
-        value="<%= department.departmentName %>"
-        required
-      /><br />
-      <input
-        type="text"
-        name="department[hod]"
-        value="<%= department.hod %>"
-        required
-      /><br />
-      <input
-        type="email"
-        name="department[contactEmail]"
-        value="<%= department.contactEmail %>"
-        required
-      /><br />
-      <textarea type="text" name="department[courses]" required>
-      <%= department.courses %>
-      </textarea
-      ><br />
-      <button>Update Department</button>
-    </form>
-  </body>
+<body>
+  <h3>Edit Department</h3>
 
+  <form
+    action="/admin/departments/<%= department._id %>?_method=PUT"
+    method="POST"
+  >
+    <!-- Department Name -->
+    <input
+      type="text"
+      name="department[departmentName]"
+      value="<%= department.departmentName %>"
+      required
+    /><br />
+
+    <!-- HOD Name -->
+    <input
+      type="text"
+      name="department[hod]"
+      value="<%= department.hod %>"
+      required
+    /><br />
+
+    <!-- Contact Email -->
+    <input
+      type="email"
+      name="department[contactEmail]"
+      value="<%= department.contactEmail %>"
+      required
+    /><br />
+
+    <!-- Courses (Comma Separated) -->
+    <textarea name="department[courses]" required>
+      <%= department.courses ? department.courses.join(", ") : "" %>
+    </textarea><br />
+
+    <!-- Vision -->
+    <textarea name="department[vision]" required>
+      <%= department.vision %>
+    </textarea><br />
+
+    <!-- Mission (Multiple Points) -->
+    <textarea name="department[mission]" required>
+      <%= department.mission ? department.mission.join(", ") : "" %>
+    </textarea><br />
+
+    <!-- Program Intake -->
+    <input
+      type="number"
+      name="department[programDetails][intake]"
+      value="<%= department.programDetails.intake %>"
+      required
+    /><br />
+
+    <!-- Program Duration -->
+    <input
+      type="text"
+      name="department[programDetails][duration]"
+      value="<%= department.programDetails.duration %>"
+      required
+    /><br />
+
+    <!-- Scope -->
+    <textarea name="department[scope]" required>
+      <%= department.scope %>
+    </textarea><br />
+
+    <!-- Career Opportunities -->
+    <textarea name="department[careerOpportunities]" required>
+      <%= department.careerOpportunities ? department.careerOpportunities.join(", ") : "" %>
+    </textarea><br />
+
+    <!-- Department Features -->
+    <textarea name="department[departmentFeatures]" required>
+      <%= department.departmentFeatures ? department.departmentFeatures.join(", ") : "" %>
+    </textarea><br />
+
+    <button>Update Department</button>
+  </form>
+</body>

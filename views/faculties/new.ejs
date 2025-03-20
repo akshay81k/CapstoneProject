@@ -3,67 +3,19 @@
     <h3>Add Faculty</h3>
 
     <br />
-    <form
-      action="/admin/faculties/<%= id %>"
-      method="POST"
-      enctype="multipart/form-data"
-    >
-      <input
-        type="text"
-        name="faculty[name]"
-        placeholder="Enter name"
-        required
-      /><br />
-      <select name="faculty[department]" required>
-        <option value="Computer Engineering">Computer Engineering</option>
-        <option value="Civil Engineering">Civil Engineering</option>
-        <option value="Mechanical Engineering">Mechanical Engineering</option>
-        <option value="Big Data">Big Data</option>
-        <option value="Artificial Intelligence">Artificial Intelligence</option>
-      </select>
-      <br />
-      <input
-        type="text"
-        name="faculty[designation]"
-        placeholder="Enter Designation"
-        required
-      /><br />
-      <input
-        type="email"
-        name="faculty[email]"
-        placeholder="Enter email"
-        required
-      /><br />
-      <input
-        type="tel"
-        name="faculty[phone]"
-        placeholder="Enter phone"
-        required
-      /><br />
-      <input
-        type="text"
-        name="faculty[specialization]"
-        placeholder="Enter specialization"
-        required
-      /><br />
-      <input
-        type="text"
-        name="faculty[experience]"
-        placeholder="Enter experience"
-        required
-      /><br />
-      <input
-        type="date"
-        name="faculty[date_of_joining]"
-        placeholder="Enter date of date_of_joining"
-        required
-      /><br />
-      <input
-        type="file"
-        name="faculty[photo]"
-        placeholder="Upload photo"
-        required
-      /><br />
+    <form action="/admin/faculties/<%= id %>" method="POST" enctype="multipart/form-data">
+      <input type="text" name="faculty[name]" placeholder="Enter name" required /><br />
+      <input type="text" name="faculty[address]" placeholder="Enter Address" required /><br />
+      <input type="number" name="faculty[adharNo]" placeholder="Enter Aadhar No" required /><br />
+      <input type="date" name="faculty[date_of_birth]" placeholder="Enter Date of Birth" required /><br />
+      <input type="text" name="faculty[qualification]" placeholder="Enter Qualification" required /><br />
+      <input type="text" name="faculty[designation]" placeholder="Enter Designation" required /><br />
+      <input type="email" name="faculty[email]" placeholder="Enter Email" required /><br />
+      <input type="tel" name="faculty[phone]" placeholder="Enter Phone" required /><br />
+      <input type="text" name="faculty[specialization]" placeholder="Enter Specialization" required /><br />
+      <input type="text" name="faculty[experience]" placeholder="Enter Experience" required /><br />
+      <input type="date" name="faculty[date_of_joining]" placeholder="Enter Date of Joining" required /><br />
+      <input type="file" name="faculty[photo]" required /><br />
       <button>Add Faculty</button>
     </form>
   </body>

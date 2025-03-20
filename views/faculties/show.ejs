@@ -1,29 +1,58 @@
 <% layout("/layouts/boilerplate.ejs") %>
-  <body>
-    <li>
-      <img
-        src="<%= faculty.photo.url %>"
-        alt="img"
-        height="100px"
-        width="40px"
-      />
-    </li>
-    <li><%= faculty.name %></li>
-    <li><%= faculty.department %></li>
-    <li><%= faculty.designation %></li>
-    <li><%= faculty.email %></li>
-    <li><%= faculty.phone %></li>
-    <li><%= faculty.specialization %></li>
-    <li><%= faculty.experience %></li>
-    <li><%= faculty.date_of_joining.toDateString() %></li>
 
-    <a href="/admin/faculties/<%= faculty._id %>/edit">Edit</a><br />
+<body>
+  <h3>Faculty Details</h3>
+  
+  <ul>
+    <!-- Faculty Image -->
+    <% if (faculty.photo && faculty.photo.url) { %>
+      <li>
+        <img src="<%= faculty.photo.url %>" alt="Faculty Image" height="100px" width="100px" />
+      </li>
+    <% } %>
 
-    <form
-      action="/admin/department/<%= depId %>/faculties/<%= faculty._id %>?_method=DELETE"
-      method="post"
-    >
-      <button>Delete</button>
-    </form>
-  </body>
+    <!-- Faculty Name -->
+    <li><strong>Name:</strong> <%= faculty.name %></li>
 
+    <!-- Address -->
+    <li><strong>Address:</strong> <%= faculty.address %></li>
+
+    <!-- Aadhar Number -->
+    <li><strong>Aadhar Number:</strong> <%= faculty.adharNo %></li>
+
+    <!-- Date of Birth -->
+    <li><strong>Date of Birth:</strong> <%= faculty.date_of_birth ? faculty.date_of_birth.toDateString() : 'N/A' %></li>
+
+    <!-- Qualification -->
+    <li><strong>Qualification:</strong> <%= faculty.qualification %></li>
+
+    <!-- Department -->
+    <li><strong>Department:</strong> <%= faculty.department %></li>
+
+    <!-- Designation -->
+    <li><strong>Designation:</strong> <%= faculty.designation %></li>
+
+    <!-- Email -->
+    <li><strong>Email:</strong> <%= faculty.email %></li>
+
+    <!-- Phone -->
+    <li><strong>Phone:</strong> <%= faculty.phone %></li>
+
+    <!-- Specialization -->
+    <li><strong>Specialization:</strong> <%= faculty.specialization %></li>
+
+    <!-- Experience -->
+    <li><strong>Experience:</strong> <%= faculty.experience %></li>
+
+    <!-- Date of Joining -->
+    <li><strong>Date of Joining:</strong> <%= faculty.date_of_joining ? faculty.date_of_joining.toDateString() : 'N/A' %></li>
+  </ul>
+
+  <!-- Edit Button -->
+  <a href="/admin/faculties/<%= faculty._id %>/edit">Edit</a><br />
+
+  <!-- Delete Form -->
+  <form action="/admin/department/<%= depId %>/faculties/<%= faculty._id %>?_method=DELETE" method="post">
+    <button>Delete</button>
+  </form>
+</body>
