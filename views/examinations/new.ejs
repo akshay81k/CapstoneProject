@@ -1,49 +1,43 @@
-<% layout("/layouts/boilerplate.ejs") %>
-  <body>
-    <h3>Add Examination</h3>
-    <br />
-    <form
-      action="/admin/examinations/<%= id %>"
-      method="POST"
-      enctype="multipart/form-data"
-    >
-      <input
-        type="text"
-        name="exam[examName]"
-        placeholder="Enter exam name"
-        required
-      /><br />
-      <input
-        type="text"
-        name="exam[examType]"
-        placeholder="Enter exam type"
-        required
-      /><br />
-      <input
-        type="number"
-        name="exam[semester]"
-        placeholder="Enter semester"
-        required
-      /><br />
-      <input
-        type="date"
-        name="exam[startDate]"
-        placeholder="Enter startDate"
-        required
-      /><br />
-      <input
-        type="date"
-        name="exam[endDate]"
-        placeholder="Enter endDate"
-        required
-      /><br />
-      <input
-        type="file"
-        name="exam[timetable]"
-        placeholder="Upload Timetable"
-        required
-      /><br />
-      <button>Add Examination</button>
-    </form>
-  </body>
+<% layout("/layouts/admin_boilerplate.ejs") %>
+<head>
+    <link rel="stylesheet" href="/styles/admin/addexamination.css">
+</head>
+        <img src="/images/blob1.png" class="blob1">
+        <div class="examination-container">
+            <h3>Add Examination</h3>
+            <form action="/admin/examinations/<%= id %>" method="POST" enctype="multipart/form-data">
+                <label for="examName">
+                    Exam Name:
+                    <input type="text" id="examName" name="exam[examName]" placeholder="Enter exam name" required />
+                </label>
+
+                <label for="examType">
+                    Exam Type:
+                    <input type="text" id="examType" name="exam[examType]" placeholder="Enter exam type" required />
+                </label>
+
+                <label for="semester">
+                    Semester:
+                    <input type="number" id="semester" name="exam[semester]" placeholder="Enter semester" min="1" max="8" required />
+                </label>
+
+                <label for="startDate">
+                    Start Date:
+                    <input type="date" id="startDate" name="exam[startDate]" required />
+                </label>
+
+                <label for="endDate">
+                    End Date:
+                    <input type="date" id="endDate" name="exam[endDate]" required />
+                </label>
+
+                <label for="timetable">
+                    Timetable:
+                    <input type="file" id="timetable" name="exam[timetable]" accept=".pdf,.doc,.docx" required />
+                </label>
+
+                <button type="submit">Add Examination</button>
+            </form>
+        </div>
+        <img src="/images/blob2.png" class="blob2">
 

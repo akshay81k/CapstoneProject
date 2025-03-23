@@ -1,42 +1,55 @@
-<% layout("/layouts/boilerplate.ejs") %>
-  <body>
-    <h1><%= committee.committeeName %></h1>
+<% layout("/layouts/admin_boilerplate.ejs") %>
+<head>
+    <link rel="stylesheet" href="/styles/admin/committeeshow.css">
+</head>
 
-    <h4>Members:</h4>
-    <ul>
-      <% committee.members.forEach((member) => { %>
-      <li>
-        <strong>Name:</strong> <%= member.name %> <br />
-        <strong>Role:</strong> <%= member.role %>
-      </li>
-      <% }) %>
-    </ul>
+<div class="committee-show-container">
+    <h1 class="committee-show-title"><%= committee.committeeName %></h1>
+    
+    <div class="committee-details">
+        <div class="committee-info">
+            <li><strong>Description:</strong> <%= committee.description %></li>
+        </div>
 
-    <li><%= committee.description %></li>
+        <h2 class="section-title">
+            <i class="fas fa-users" style="margin-right: 8px;"></i>Committee Members
+        </h2>
+        <div class="members-grid">
+            <% committee.members.forEach((member) => { %>
+                <div class="member-card">
+                    <p><strong>Name:</strong> <%= member.name %></p>
+                    <p><strong>Role:</strong> <%= member.role %></p>
+                </div>
+            <% }) %>
+        </div>
 
-    <a href="/admin/committees/<%= committee._id %>/edit">Edit</a><br /><br />
-    <a href="/admin/committees/<%= committee._id %>/members">Add Members</a
-    ><br />
+        <div class="delete-member-form">
+            <h2 class="section-title">
+                <i class="fas fa-user-minus" style="margin-right: 8px;"></i>Remove Member
+            </h2>
+            <form action="/admin/committees/<%= committee._id %>/members?_method=DELETE" method="POST">
+                <input type="text" name="memberName" placeholder="Enter member name to delete" required />
+                <button type="submit" class="primary-btn delete-btn">
+                    <i class="fas fa-trash" style="margin-right: 8px;"></i>Delete Member
+                </button>
+            </form>
+        </div>
 
-    <h3>Delete Member</h3>
-    <form
-      action="/admin/committees/<%= committee._id %>/members?_method=DELETE"
-      method="POST"
-    >
-      <input
-        type="text"
-        name="memberName"
-        placeholder="Enter member name to delete"
-        required
-      /><br />
-      <button type="submit">Delete Member</button>
-    </form>
+        <div class="committee-actions">
+            <a href="/admin/committees/<%= committee._id %>/members" class="primary-btn add-btn">
+                <i class="fas fa-user-plus" style="margin-right: 8px;"></i>Add Members
+            </a>
 
-    <form
-      action="/admin/committees/<%= committee._id %>?_method=DELETE"
-      method="post"
-    >
-      <button>Delete Committee</button>
-    </form>
-  </body>
+            <a href="/admin/committees/<%= committee._id %>/edit" class="primary-btn">
+                <i class="fas fa-edit" style="margin-right: 8px;"></i>Edit Committee
+            </a>
+
+            <form action="/admin/committees/<%= committee._id %>?_method=DELETE" method="post" style="display: inline;">
+                <button class="primary-btn delete-btn">
+                    <i class="fas fa-trash" style="margin-right: 8px;"></i>Delete Committee
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
 

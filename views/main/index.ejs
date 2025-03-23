@@ -12,54 +12,64 @@
         <span class="text-dark">ignite a lasting</span>
         <span class="text-green">fire</span>.
     </div>
-    <div class="slider-container">
-        <div class="swiper-container">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <div class="box-slide">
-                        <img src="/images/banner1.jpg" alt="Banner 1">
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="box-slide">
-                        <img src="/images/banner2.jpeg" alt="Banner 2">
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="box-slide">
-                        <img src="/images/banner3.jpg" alt="Banner 3">
-                    </div>
-                </div>
-            </div>
-            <!-- Add Navigation -->
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-            <!-- Add Pagination -->
-            <div class="swiper-pagination"></div>
+    <div class="boxes-container">
+        <div class="static-box">
+            <img src="/images/banner2.jpeg" alt="Banner 1" id="box1-img">
+        </div>
+        <div class="static-box">
+            <img src="/images/banner1.jpg" alt="Banner 2" id="box2-img">
         </div>
     </div>
 </div>
 
 <script>
-    var swiper = new Swiper('.swiper-container', {
-        effect: 'cube',
-        grabCursor: true,
-        cubeEffect: {
-            shadow: true,
-            slideShadows: true,
-            shadowOffset: 20,
-            shadowScale: 0.94,
-        },
-        autoplay: {
-            delay: 2500,
-            disableOnInteraction: false,
-        },
-        pagination: {
-            el: '.swiper-pagination',
-        },
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-    });
+    // Image arrays for each box
+    const box1Images = [
+        '/images/banner2.jpeg',
+        '/images/banner1.jpg',
+        '/images/banner3.jpg'
+    ];
+
+    const box2Images = [
+        '/images/banner1.jpg',
+        '/images/banner3.jpg',
+        '/images/banner2.jpeg'
+    ];
+
+    let currentIndex = 0;
+
+    function rotateImages() {
+        // Get the image elements
+        const img1 = document.querySelector('#box1-img');
+        const img2 = document.querySelector('#box2-img');
+
+        // Add fade-out class
+        img1.classList.add('fade-out');
+        img2.classList.add('fade-out');
+
+        // Wait for fade out to complete
+        setTimeout(() => {
+            // Update images
+            img1.src = box1Images[currentIndex];
+            img2.src = box2Images[currentIndex];
+
+            // Remove fade-out and add fade-in
+            img1.classList.remove('fade-out');
+            img2.classList.remove('fade-out');
+            img1.classList.add('fade-in');
+            img2.classList.add('fade-in');
+
+            // Update index
+            currentIndex = (currentIndex + 1) % box1Images.length;
+
+            // Remove fade-in class after animation completes
+            setTimeout(() => {
+                img1.classList.remove('fade-in');
+                img2.classList.remove('fade-in');
+            }, 2000);
+        }, 2000);
+    }
+
+    // Start rotation with 8-second interval
+    setInterval(rotateImages, 8000);
 </script>

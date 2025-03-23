@@ -1,0 +1,127 @@
+.notice-show-container {
+    width: 100%;
+    max-width: 100%;
+    margin: 30px 20px;
+    padding: 40px 20px;
+    position: relative;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.notice-show-title {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 28px;
+    font-weight: 500;
+    font-family: 'Lexend Deca', sans-serif;
+    text-align: center;
+    padding: 8px 25px;
+    background: linear-gradient(to bottom, #05527E, #1864E0);
+    border-radius: 10px;
+    z-index: 10;
+}
+
+.notice-details {
+    width: 800px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.notice-info {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.notice-info li {
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    background-color: #f8f9fa;
+    color: #05527E;
+    font-family: 'Lexend Deca', sans-serif;
+    font-size: 16px;
+}
+
+.notice-info li strong {
+    display: inline-block;
+    min-width: 120px;
+    color: #1864E0;
+}
+
+.notice-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+.edit-btn {
+    background-color: #0d6efd;
+    font-family: 'Lexend Deca', sans-serif;
+    color: white;
+    border: none;
+    padding: 8px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 16px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    font-family: 'Lexend Deca', sans-serif;
+    color: white;
+    border: none;
+    padding: 8px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.edit-btn:hover {
+    background-color: #0b5ed7;
+}
+
+.delete-btn:hover {
+    background-color: #bb2d3b;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .notice-show-container {
+        padding: 15px;
+        margin: 30px 10px;
+    }
+
+    .notice-details {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .notice-info li {
+        padding: 12px;
+    }
+
+    .notice-actions {
+        flex-direction: column;
+    }
+
+    .edit-btn, .delete-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}

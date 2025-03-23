@@ -1,34 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BVP</title>
-  </head>
-  <body>
-    <form action="/admin/notices/<%= notice._id %>?_method=PUT" method="POST">
-      <input
-        type="text"
-        name="notice[title]"
-        value="<%= notice.title %>"
-        required
-      /><br />
-      <textarea type="text" name="notice[description]">
-        <%= notice.description %>"</textarea
-      ><br />
-      <input
-        type="text"
-        name="notice[postedBy]"
-        value="<%= notice.postedBy %>"
-        required
-      /><br />
-      <input
-        type="text"
-        name="notice[category]"
-        value="<%= notice.category %>"
-        required
-      /><br />
-      <button>Update Notice</button>
-    </form>
-  </body>
-</html>
+<% layout("/layouts/admin_boilerplate.ejs") %>
+<head>
+    <link rel="stylesheet" href="/styles/admin/editnotice.css">
+</head>
+
+<div class="notice-edit-container">
+    <h1 class="notice-edit-title">Edit Notice</h1>
+    
+    <div class="notice-edit-form">
+        <form action="/admin/notices/<%= notice._id %>?_method=PUT" method="POST">
+            <div class="form-group">
+                <label for="title">
+                    <i class="fas fa-heading" style="margin-right: 8px;"></i>
+                    Title:
+                </label>
+                <input type="text" id="title" name="notice[title]" value="<%= notice.title %>" required />
+            </div>
+
+            <div class="form-group">
+                <label for="description">
+                    <i class="fas fa-align-left" style="margin-right: 8px;"></i>
+                    Description:
+                </label>
+                <textarea id="description" name="notice[description]"><%= notice.description %></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="postedBy">
+                    <i class="fas fa-user" style="margin-right: 8px;"></i>
+                    Posted By:
+                </label>
+                <input type="text" id="postedBy" name="notice[postedBy]" value="<%= notice.postedBy %>" required />
+            </div>
+
+            <div class="form-group">
+                <label for="category">
+                    <i class="fas fa-tag" style="margin-right: 8px;"></i>
+                    Category:
+                </label>
+                <input type="text" id="category" name="notice[category]" value="<%= notice.category %>" required />
+            </div>
+
+            <button type="submit" class="update-btn">
+                <i class="fas fa-save" style="margin-right: 8px;"></i>
+                Update Notice
+            </button>
+        </form>
+    </div>
+</div>

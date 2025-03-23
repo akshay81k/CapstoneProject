@@ -1,0 +1,189 @@
+/* Import base styles from faculty.css */
+* {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    overflow-x: visible;
+    background-color: #f8f9fa;
+    font-family: 'Lexend Deca', sans-serif;
+}
+
+/* Reuse header, nav, and footer styles from faculty.css */
+/* Header Styles */
+header {
+    margin-top: 0;
+    display: flex;
+    flex-wrap: nowrap;
+    height: 15vh;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center; 
+    padding: 10px; 
+    overflow-y: hidden;
+    position: relative;
+    top: 0;
+    z-index: 10;
+}
+
+.lcontainer {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+
+.lcontainer #logo {
+    width: 8%;
+    height: auto;
+    margin-right: 2%;
+    margin-left: 2%;
+}
+
+.lcontainer #clg {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #053165;
+}
+
+.icontainer {
+    position: relative;
+    display: inline; 
+    margin-top: 1.5%;  
+}
+
+.icontainer img {
+    width: 60%;
+    height: auto;
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0));
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0));
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    border-radius: 25%;
+}
+
+/* Navigation Styles */
+nav {
+    width: 100%;
+    margin: auto;
+    margin-top: 1% !important;
+    margin-bottom: 1%;
+    min-height: 10vh;
+    position: relative;
+    z-index: 100;
+    overflow: visible;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin: 0 auto;
+    padding: 0;
+    flex-wrap: nowrap;
+    overflow: visible;
+}
+
+/* Notice Card Styles */
+.notice-container {
+    width: 90%;
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.notice-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    margin-bottom: 30px;
+    padding: 25px;
+    transition: all 0.3s ease;
+}
+
+.notice-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.notice-title {
+    color: #053165;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(5, 49, 101, 0.1);
+}
+
+.notice-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.notice-info p {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.notice-info b {
+    color: #053165;
+    font-weight: 600;
+    min-width: 120px;
+    margin-right: 10px;
+}
+
+.notice-description {
+    background-color: #f8fbff;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+    color: #1C6F9F;
+}
+
+/* Footer Styles */
+.footer {
+    background-color: #002147;
+    color: white;
+    padding: 40px 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    margin-top: auto;
+}
+
+/* Rest of the footer styles from faculty.css */
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .notice-container {
+        width: 95%;
+        padding: 10px;
+    }
+
+    .notice-card {
+        padding: 20px;
+    }
+
+    .notice-title {
+        font-size: 20px;
+    }
+
+    .notice-info p {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .notice-info b {
+        min-width: 100%;
+    }
+}

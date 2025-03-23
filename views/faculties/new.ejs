@@ -1,22 +1,73 @@
-<% layout("/layouts/boilerplate.ejs") %>
-  <body>
-    <h3>Add Faculty</h3>
+<% layout("/layouts/admin_boilerplate.ejs") %>
+<head>
+    <link rel="stylesheet" href="/styles/admin/addfaculties.css">
+</head>
+        <img src="/images/blob1.png" class="blob1">
+        <div class="faculty-container">
+            <h3>Add Faculty</h3>
+            <form action="/admin/faculties/<%= id %>" method="POST" enctype="multipart/form-data">
+                <label for="name">
+                    Name:
+                    <input type="text" id="name" name="faculty[name]" placeholder="Enter name" required />
+                </label>
 
-    <br />
-    <form action="/admin/faculties/<%= id %>" method="POST" enctype="multipart/form-data">
-      <input type="text" name="faculty[name]" placeholder="Enter name" required /><br />
-      <input type="text" name="faculty[address]" placeholder="Enter Address" required /><br />
-      <input type="number" name="faculty[adharNo]" placeholder="Enter Aadhar No" required /><br />
-      <input type="date" name="faculty[date_of_birth]" placeholder="Enter Date of Birth" required /><br />
-      <input type="text" name="faculty[qualification]" placeholder="Enter Qualification" required /><br />
-      <input type="text" name="faculty[designation]" placeholder="Enter Designation" required /><br />
-      <input type="email" name="faculty[email]" placeholder="Enter Email" required /><br />
-      <input type="tel" name="faculty[phone]" placeholder="Enter Phone" required /><br />
-      <input type="text" name="faculty[specialization]" placeholder="Enter Specialization" required /><br />
-      <input type="text" name="faculty[experience]" placeholder="Enter Experience" required /><br />
-      <input type="date" name="faculty[date_of_joining]" placeholder="Enter Date of Joining" required /><br />
-      <input type="file" name="faculty[photo]" required /><br />
-      <button>Add Faculty</button>
-    </form>
-  </body>
+                <label for="address">
+                    Address:
+                    <input type="text" id="address" name="faculty[address]" placeholder="Enter Address" required />
+                </label>
+
+                <label for="adharNo">
+                    Aadhar Number:
+                    <input type="number" id="adharNo" name="faculty[adharNo]" placeholder="Enter Aadhar No" required />
+                </label>
+
+                <label for="date_of_birth">
+                    Date of Birth:
+                    <input type="date" id="date_of_birth" name="faculty[date_of_birth]" required />
+                </label>
+
+                <label for="qualification">
+                    Qualification:
+                    <input type="text" id="qualification" name="faculty[qualification]" placeholder="Enter Qualification" required />
+                </label>
+
+                <label for="designation">
+                    Designation:
+                    <input type="text" id="designation" name="faculty[designation]" placeholder="Enter Designation" required />
+                </label>
+
+                <label for="email">
+                    Email:
+                    <input type="email" id="email" name="faculty[email]" placeholder="Enter Email" required />
+                </label>
+
+                <label for="phone">
+                    Phone:
+                    <input type="tel" id="phone" name="faculty[phone]" placeholder="Enter Phone" required />
+                </label>
+
+                <label for="specialization">
+                    Specialization:
+                    <input type="text" id="specialization" name="faculty[specialization]" placeholder="Enter Specialization" required />
+                </label>
+
+                <label for="experience">
+                    Experience:
+                    <input type="text" id="experience" name="faculty[experience]" placeholder="Enter Experience" required />
+                </label>
+
+                <label for="date_of_joining">
+                    Date of Joining:
+                    <input type="date" id="date_of_joining" name="faculty[date_of_joining]" required />
+                </label>
+
+                <label for="photo">
+                    Photo:
+                    <input type="file" id="photo" name="faculty[photo]" accept="image/*" required />
+                </label>
+
+                <button type="submit">Add Faculty</button>
+            </form>
+        </div>
+        <img src="/images/blob2.png" class="blob2">
 

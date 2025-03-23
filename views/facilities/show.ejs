@@ -1,29 +1,45 @@
-<% layout("/layouts/boilerplate.ejs") %>
-  <body>
-    <li>
-      <img
-        src="<%= facility.img.url %>"
-        alt="img"
-        height="150px"
-        width="50px"
-      />
-    </li>
-    <li><%= facility.facilityName %></li>
-    <li><%= facility.description %></li>
-    <li><%= facility.location %></li>
-    <li><%= facility.timing %></li>
-    <li>Contact:</li>
-    <li><%= facility.contact.name %></li>
-    <li><%= facility.contact.email %></li>
-    <li><%= facility.contact.phone %></li>
+<% layout("/layouts/admin_boilerplate.ejs") %>
+<head>
+    <link rel="stylesheet" href="/styles/admin/facilitiesshow.css">
+</head>
 
-    <a href="/admin/facilities/<%= facility._id %>/edit">Edit</a><br />
+<div class="facility-show-container">
+    <h1 class="facility-show-title">Facility Details</h1>
+    
+    <div class="facility-details">
+        <div class="facility-image">
+            <img src="<%= facility.img.url %>" alt="Facility Image">
+        </div>
 
-    <form
-      action="/admin/facilities/<%= facility._id %>?_method=DELETE"
-      method="post"
-    >
-      <button>Delete</button>
-    </form>
-  </body>
+        <ul class="facility-info">
+            <li><strong>Name:</strong> <%= facility.facilityName %></li>
+            <li><strong>Description:</strong> <%= facility.description %></li>
+            <li><strong>Location:</strong> <%= facility.location %></li>
+            <li><strong>Timing:</strong> <%= facility.timing %></li>
+        </ul>
+
+        <div class="contact-section">
+            <h2><i class="fas fa-address-card" style="margin-right: 8px;"></i>Contact Information</h2>
+            <ul class="facility-info">
+                <li><strong>Name:</strong> <%= facility.contact.name %></li>
+                <li><strong>Email:</strong> <%= facility.contact.email %></li>
+                <li><strong>Phone:</strong> <%= facility.contact.phone %></li>
+            </ul>
+        </div>
+
+        <div class="facility-actions">
+            <a href="/admin/facilities/<%= facility._id %>/edit" class="edit-btn">
+                <i class="fas fa-edit" style="margin-right: 8px;"></i>
+                Edit Facility
+            </a>
+
+            <form action="/admin/facilities/<%= facility._id %>?_method=DELETE" method="post" style="display: inline;">
+                <button class="delete-btn">
+                    <i class="fas fa-trash" style="margin-right: 8px;"></i>
+                    Delete Facility
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
 

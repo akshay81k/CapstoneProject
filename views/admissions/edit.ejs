@@ -1,74 +1,113 @@
-<% layout("/layouts/boilerplate.ejs") %>
+<% layout("/layouts/admin_boilerplate.ejs") %>
+<head>
+    <link rel="stylesheet" href="/styles/admin/editadmission.css">
+</head>
 
-<body>
-  <h1>Edit Admission Details</h1>
-  <form action="/admin/admissions/<%= admissionDetails._id %>?_method=PUT" method="POST">
-    <div>
-      <label for="eligibilityCriteria">Eligibility Criteria:</label>
-      <input type="text" id="eligibilityCriteria" name="admissionDetails[eligibilityCriteria]" 
-        value="<%= admissionDetails.eligibilityCriteria %>" required />
-      <br />
-      
-      <label for="applicationDeadline">Application Deadline:</label>
-      <input type="date" id="applicationDeadline" name="admissionDetails[applicationDeadline]" 
-        value="<%= admissionDetails.applicationDeadline.toISOString().split('T')[0] %>" required />
-      <br />
-      
-      <label for="admissionProcedure">Admission Procedure:</label>
-      <textarea id="admissionProcedure" name="admissionDetails[admissionProcedure]" required>
-        <%= admissionDetails.admissionProcedure %>
-      </textarea>
-      <br />
+<div class="admission-edit-container">
+    <h1 class="admission-edit-title">Edit Admission Details</h1>
+    
+    <div class="admission-edit-form">
+        <form action="/admin/admissions/<%= admissionDetails._id %>?_method=PUT" method="POST">
+            <div class="form-group">
+                <label for="eligibilityCriteria">
+                    <i class="fas fa-check-circle" style="margin-right: 8px;"></i>
+                    Eligibility Criteria:
+                </label>
+                <input type="text" id="eligibilityCriteria" name="admissionDetails[eligibilityCriteria]" 
+                    value="<%= admissionDetails.eligibilityCriteria %>" required />
+            </div>
+
+            <div class="form-group">
+                <label for="applicationDeadline">
+                    <i class="fas fa-calendar-alt" style="margin-right: 8px;"></i>
+                    Application Deadline:
+                </label>
+                <input type="date" id="applicationDeadline" name="admissionDetails[applicationDeadline]" 
+                    value="<%= admissionDetails.applicationDeadline.toISOString().split('T')[0] %>" required />
+            </div>
+
+            <div class="form-group">
+                <label for="admissionProcedure">
+                    <i class="fas fa-list-ol" style="margin-right: 8px;"></i>
+                    Admission Procedure:
+                </label>
+                <textarea id="admissionProcedure" name="admissionDetails[admissionProcedure]" required><%= admissionDetails.admissionProcedure %></textarea>
+            </div>
+
+            <h2 class="section-title">
+                <i class="fas fa-money-bill-wave" style="margin-right: 8px;"></i>
+                Fee Structure
+            </h2>
+
+            <div class="table-responsive">
+                <table class="fee-table">
+                    <thead>
+                        <tr>
+                            <th>Year</th>
+                            <th>Category</th>
+                            <th>Applicability</th>
+                            <th>Tuition Fee</th>
+                            <th>Development Fee</th>
+                            <th>Lab Fee</th>
+                            <th>Exam Fee</th>
+                            <th>Enrollment Fee</th>
+                            <th>Actual Fee</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% admissionDetails.feeStructure.forEach((fee, index) => { %>
+                        <tr>
+                            <td><input type="text" name="admissionDetails[feeStructure][<%= index %>][year]" value="<%= fee.year %>" required /></td>
+                            <td><input type="text" name="admissionDetails[feeStructure][<%= index %>][category]" value="<%= fee.category %>" required /></td>
+                            <td><input type="text" name="admissionDetails[feeStructure][<%= index %>][applicability]" value="<%= fee.applicability %>" required /></td>
+                            <td><input type="number" name="admissionDetails[feeStructure][<%= index %>][tuitionFee]" value="<%= fee.tuitionFee %>" required /></td>
+                            <td><input type="number" name="admissionDetails[feeStructure][<%= index %>][developmentFee]" value="<%= fee.developmentFee %>" required /></td>
+                            <td><input type="number" name="admissionDetails[feeStructure][<%= index %>][labFee]" value="<%= fee.labFee %>" required /></td>
+                            <td><input type="number" name="admissionDetails[feeStructure][<%= index %>][examFee]" value="<%= fee.examFee %>" required /></td>
+                            <td><input type="number" name="admissionDetails[feeStructure][<%= index %>][enrollmentFee]" value="<%= fee.enrollmentFee %>" required /></td>
+                            <td><input type="number" name="admissionDetails[feeStructure][<%= index %>][actualFee]" value="<%= fee.actualFee %>" required /></td>
+                        </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2 class="section-title">
+                <i class="fas fa-address-card" style="margin-right: 8px;"></i>
+                Contact Information
+            </h2>
+
+            <div class="form-group">
+                <label for="contactName">
+                    <i class="fas fa-user" style="margin-right: 8px;"></i>
+                    Contact Name:
+                </label>
+                <input type="text" id="contactName" name="admissionDetails[contact][name]" 
+                    value="<%= admissionDetails.contact.name %>" required />
+            </div>
+
+            <div class="form-group">
+                <label for="contactEmail">
+                    <i class="fas fa-envelope" style="margin-right: 8px;"></i>
+                    Contact Email:
+                </label>
+                <input type="email" id="contactEmail" name="admissionDetails[contact][email]" 
+                    value="<%= admissionDetails.contact.email %>" required />
+            </div>
+
+            <div class="form-group">
+                <label for="contactPhone">
+                    <i class="fas fa-phone" style="margin-right: 8px;"></i>
+                    Contact Phone:
+                </label>
+                <input type="tel" id="contactPhone" name="admissionDetails[contact][phone]" 
+                    value="<%= admissionDetails.contact.phone %>" required />
+            </div>
+
+            <button type="submit" class="update-btn">
+                <i class="fas fa-save" style="margin-right: 8px;"></i>
+                Update Admission Details
+            </button>
+        </form>
     </div>
-
-    <h2>Fee Structure</h2>
-    <table border="1">
-      <thead>
-        <tr>
-          <th>Year</th>
-          <th>Category</th>
-          <th>Applicability</th>
-          <th>Tuition Fee</th>
-          <th>Development Fee</th>
-          <th>Lab Fee</th>
-          <th>Exam Fee</th>
-          <th>Enrollment Fee</th>
-          <th>Actual Fee</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% admissionDetails.feeStructure.forEach((fee, index) => { %>
-        <tr>
-          <td><input type="text" name="admissionDetails[feeStructure][<%= index %>][year]" value="<%= fee.year %>" required /></td>
-          <td><input type="text" name="admissionDetails[feeStructure][<%= index %>][category]" value="<%= fee.category %>" required /></td>
-          <td><input type="text" name="admissionDetails[feeStructure][<%= index %>][applicability]" value="<%= fee.applicability %>" required /></td>
-          <td><input type="number" name="admissionDetails[feeStructure][<%= index %>][tuitionFee]" value="<%= fee.tuitionFee %>" required /></td>
-          <td><input type="number" name="admissionDetails[feeStructure][<%= index %>][developmentFee]" value="<%= fee.developmentFee %>" required /></td>
-          <td><input type="number" name="admissionDetails[feeStructure][<%= index %>][labFee]" value="<%= fee.labFee %>" required /></td>
-          <td><input type="number" name="admissionDetails[feeStructure][<%= index %>][examFee]" value="<%= fee.examFee %>" required /></td>
-          <td><input type="number" name="admissionDetails[feeStructure][<%= index %>][enrollmentFee]" value="<%= fee.enrollmentFee %>" required /></td>
-          <td><input type="number" name="admissionDetails[feeStructure][<%= index %>][actualFee]" value="<%= fee.actualFee %>" required /></td>
-        </tr>
-        <% }); %>
-      </tbody>
-    </table>
-
-    <h2>Contact Information</h2>
-    <label for="contactName">Contact Name:</label>
-    <input type="text" id="contactName" name="admissionDetails[contact][name]" 
-      value="<%= admissionDetails.contact.name %>" required />
-    <br />
-
-    <label for="contactEmail">Contact Email:</label>
-    <input type="email" id="contactEmail" name="admissionDetails[contact][email]" 
-      value="<%= admissionDetails.contact.email %>" required />
-    <br />
-
-    <label for="contactPhone">Contact Phone:</label>
-    <input type="tel" id="contactPhone" name="admissionDetails[contact][phone]" 
-      value="<%= admissionDetails.contact.phone %>" required />
-    <br />
-
-    <button type="submit">Update Admission Details</button>
-  </form>
-</body>
+</div>

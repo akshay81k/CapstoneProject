@@ -1,78 +1,91 @@
-<% layout("/layouts/boilerplate.ejs") %>
-  <body>
-    <form
-      action="/admin/events/<%= event._id %>?_method=PUT"
-      method="POST"
-      enctype="multipart/form-data"
-    >
-      <input
-        type="text"
-        name="event[name]"
-        value="<%= event.name %>"
-        required
-      /><br />
-      <textarea type="text" name="event[description]" required>
-<%= event.description %></textarea
-      ><br />
-      <input
-        type="date"
-        name="event[date]"
-        value="<%= event.date.toISOString().slice(0, 10) %>"
-        required
-      /><br />
-      <input
-        type="text"
-        name="event[organizer]"
-        value="<%= event.organizer %>"
-        required
-      /><br />
-      <input
-        type="text"
-        name="event[category]"
-        value="<%= event.category %>"
-        required
-      /><br />
-      <input
-        type="text"
-        name="event[venue]"
-        value="<%= event.venue %>"
-        required
-      /><br />
+<% layout("/layouts/admin_boilerplate.ejs") %>
+<head>
+    <link rel="stylesheet" href="/styles/admin/editevent.css">
+</head>
 
-      <!-- Display existing images with a checkbox to delete each one -->
-      <% event.imgs.url.forEach((imgUrl, index) => { %>
-      <div>
-        <img
-          src="<%= imgUrl %>"
-          alt="Event Image <%= index + 1 %>"
-          height="100px"
-        />
-        <label>
-          <input
-            type="checkbox"
-            name="deleteImgs[]"
-            value="<%= event.imgs.fileName[index] %>"
-          />
-          Delete this image
-        </label>
-        <!-- Hidden field to retain existing images if they are not selected for deletion -->
-        <input
-          type="hidden"
-          name="event[existingImgs][]"
-          value="<%= imgUrl %>"
-        />
-        <input
-          type="hidden"
-          name="event[existingFileNames][]"
-          value="<%= event.imgs.fileName[index] %>"
-        />
-      </div>
-      <% }) %>
+<div class="event-edit-container">
+    <h1 class="event-edit-title">Edit Event</h1>
+    
+    <div class="event-edit-form">
+        <form action="/admin/events/<%= event._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="name">
+                    <i class="fas fa-heading" style="margin-right: 8px;"></i>
+                    Event Name:
+                </label>
+                <input type="text" id="name" name="event[name]" value="<%= event.name %>" required />
+            </div>
 
-      <!-- Upload new images -->
-      <input type="file" name="event[newImgs]" multiple /><br />
+            <div class="form-group">
+                <label for="description">
+                    <i class="fas fa-align-left" style="margin-right: 8px;"></i>
+                    Description:
+                </label>
+                <textarea id="description" name="event[description]" required><%= event.description %></textarea>
+            </div>
 
-      <button>Update Event</button>
-    </form>
-  </body>
+            <div class="form-group">
+                <label for="date">
+                    <i class="fas fa-calendar" style="margin-right: 8px;"></i>
+                    Date:
+                </label>
+                <input type="date" id="date" name="event[date]" value="<%= event.date.toISOString().slice(0, 10) %>" required />
+            </div>
+
+            <div class="form-group">
+                <label for="organizer">
+                    <i class="fas fa-user" style="margin-right: 8px;"></i>
+                    Organizer:
+                </label>
+                <input type="text" id="organizer" name="event[organizer]" value="<%= event.organizer %>" required />
+            </div>
+
+            <div class="form-group">
+                <label for="category">
+                    <i class="fas fa-tag" style="margin-right: 8px;"></i>
+                    Category:
+                </label>
+                <input type="text" id="category" name="event[category]" value="<%= event.category %>" required />
+            </div>
+
+            <div class="form-group">
+                <label for="venue">
+                    <i class="fas fa-map-marker-alt" style="margin-right: 8px;"></i>
+                    Venue:
+                </label>
+                <input type="text" id="venue" name="event[venue]" value="<%= event.venue %>" required />
+            </div>
+
+            <div class="images-section">
+                <h3><i class="fas fa-images" style="margin-right: 8px;"></i>Event Images</h3>
+                <div class="image-grid">
+                    <% event.imgs.url.forEach((imgUrl, index) => { %>
+                        <div class="image-item">
+                            <img src="<%= imgUrl %>" alt="Event Image <%= index + 1 %>" />
+                            <label>
+                                <input type="checkbox" name="deleteImgs[]" value="<%= event.imgs.fileName[index] %>" />
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </label>
+                            <input type="hidden" name="event[existingImgs][]" value="<%= imgUrl %>" />
+                            <input type="hidden" name="event[existingFileNames][]" value="<%= event.imgs.fileName[index] %>" />
+                        </div>
+                    <% }) %>
+                </div>
+
+                <div class="form-group">
+                    <label for="newImages">
+                        <i class="fas fa-upload" style="margin-right: 8px;"></i>
+                        Add New Images:
+                    </label>
+                    <input type="file" id="newImages" name="event[newImgs]" multiple accept="image/*" />
+                </div>
+            </div>
+
+            <button type="submit" class="update-btn">
+                <i class="fas fa-save" style="margin-right: 8px;"></i>
+                Update Event
+            </button>
+        </form>
+    </div>
+</div>
 

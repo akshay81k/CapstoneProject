@@ -1,41 +1,63 @@
-<% layout("/layouts/boilerplate.ejs") %>
-  <body>
-    <h1>Resource Details</h1>
+<% layout("/layouts/admin_boilerplate.ejs") %>
+<head>
+    <link rel="stylesheet" href="/styles/admin/resourceshow.css">
+</head>
 
-    <h2><%= resource.subjectName %></h2>
-    <p><strong>Department:</strong> <%= resource.department %></p>
-    <p><strong>Semester:</strong> <%= resource.semester %></p>
-    <p><strong>Subject Code:</strong> <%= resource.subjectCode %></p>
+<div class="resource-show-container">
+    <h1 class="resource-show-title">Resource Details</h1>
+    
+    <div class="resource-details">
+        <ul class="resource-info">
+            <li><strong>Subject:</strong> <%= resource.subjectName %></li>
+            <li><strong>Department:</strong> <%= resource.department %></li>
+            <li><strong>Semester:</strong> <%= resource.semester %></li>
+            <li><strong>Subject Code:</strong> <%= resource.subjectCode %></li>
+        </ul>
 
-    <h3>Materials</h3>
-    <% resource.materials.forEach(material => { %>
+        <div class="materials-section">
+            <% resource.materials.forEach(material => { %>
+                <div class="material-card">
+                    <h3 class="material-title">
+                        <i class="fas fa-book" style="margin-right: 8px;"></i>
+                        <%= material.textbookTitle %>
+                    </h3>
+                    
+                    <div class="material-info">
+                        <p>
+                            <strong>Textbook:</strong>
+                            <a href="<%= material.textbookURL.url %>" target="_blank" class="resource-link">
+                                <i class="fas fa-file-pdf" style="margin-right: 8px;"></i>
+                                View Textbook
+                            </a>
+                        </p>
+                        <p><strong>Upload Date:</strong> <%= material.uploadDate.toDateString() %></p>
+                    </div>
 
-    <h4><%= material.textbookTitle %></h4>
-    <p>
-      <strong>Textbook URL:</strong>
-      <a href="<%= material.textbookURL.url %>" target="_blank"
-        >View Textbook</a
-      >
-    </p>
-    <p>
-      <strong>Upload Date:</strong> <%= material.uploadDate.toDateString() %>
-    </p>
+                    <div class="paper-links">
+                        <h4 class="material-title">Paper Links</h4>
+                        <ul>
+                            <% material.paperLinks.forEach(link => { %>
+                                <li>
+                                    <a href="<%= link.url %>" target="_blank" class="resource-link">
+                                        <i class="fas fa-file-alt" style="margin-right: 8px;"></i>
+                                        View Paper
+                                    </a>
+                                </li>
+                            <% }); %>
+                        </ul>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
 
-    <h5>Paper Links:</h5>
-    <ul>
-      <% material.paperLinks.forEach(link => { %>
-      <li><a href="<%= link.url %>" target="_blank">View Paper</a></li>
-      <% }); %>
-    </ul>
-
-    <% }); %>
-    <br />
-    <hr />
-    <form
-      action="/admin/resources/<%= resource._id %>?_method=DELETE"
-      method="post"
-    >
-      <button>Delete Resource</button>
-    </form>
-  </body>
+        <div class="resource-actions">
+            <form action="/admin/resources/<%= resource._id %>?_method=DELETE" method="post" style="display: inline;">
+                <button class="delete-btn">
+                    <i class="fas fa-trash" style="margin-right: 8px;"></i>
+                    Delete Resource
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
 

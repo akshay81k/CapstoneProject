@@ -1,0 +1,161 @@
+.facility-show-container {
+    width: 100%;
+    max-width: 100%;
+    margin: 30px 20px;
+    padding: 40px 20px;
+    position: relative;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.facility-show-title {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 28px;
+    font-weight: 500;
+    font-family: 'Lexend Deca', sans-serif;
+    text-align: center;
+    padding: 8px 25px;
+    background: linear-gradient(to bottom, #05527E, #1864E0);
+    border-radius: 10px;
+    z-index: 10;
+}
+
+.facility-details {
+    width: 800px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.facility-info {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.facility-info li {
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    background-color: #f8f9fa;
+    color: #05527E;
+    font-family: 'Lexend Deca', sans-serif;
+    font-size: 16px;
+}
+
+.facility-info li strong {
+    display: inline-block;
+    min-width: 120px;
+    color: #1864E0;
+}
+
+.facility-image {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.facility-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.facility-image img:hover {
+    transform: scale(1.02);
+}
+
+.contact-section {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.contact-section h2 {
+    color: #05527E;
+    font-family: 'Lexend Deca', sans-serif;
+    font-size: 20px;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(24, 40, 72, 0.1);
+}
+
+.facility-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+.edit-btn {
+    background-color: #0d6efd;
+    font-family: 'Lexend Deca', sans-serif;
+    color: white;
+    border: none;
+    padding: 8px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 16px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    font-family: 'Lexend Deca', sans-serif;
+    color: white;
+    border: none;
+    padding: 8px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.edit-btn:hover {
+    background-color: #0b5ed7;
+}
+
+.delete-btn:hover {
+    background-color: #bb2d3b;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .facility-show-container {
+        padding: 15px;
+        margin: 30px 10px;
+    }
+
+    .facility-details {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .facility-info li {
+        padding: 12px;
+    }
+
+    .facility-actions {
+        flex-direction: column;
+    }
+
+    .edit-btn, .delete-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}

@@ -1,61 +1,79 @@
 <% layout("/layouts/admin_boilerplate.ejs") %>
+<head>
+    <link rel="stylesheet" href="/styles/admin/departmentshow.css">
+</head>
 
-  <body>
-    <li><%= department.departmentName %></li>
-    <li><%= department.hod %></li>
-    <li><%= department.contactEmail %></li>
-    <li><%= department.courses %></li>
-    <h2>Faculty Member</h2>
-    <ul>
-      <% for(faculty of department.faculty){ %>
-      <li>
-        <a
-          href="/admin/department/<%=department._id%>/faculties/<%= faculty._id %>"
-          ><%= faculty.name %></a
-        >
-      </li>
-      <% } %>
-    </ul>
-    <br />
-    <hr />
-    <a href="/admin/departments/<%= department._id %>/edit">Edit Department</a
-    ><br />
+<div class="department-show-container">
+    <h1 class="department-show-title">Department Details</h1>
+    
+    <div class="department-details">
+        <ul class="department-info">
+            <li><strong>Name:</strong> <%= department.departmentName %></li>
+            <li><strong>HOD:</strong> <%= department.hod %></li>
+            <li><strong>Email:</strong> <%= department.contactEmail %></li>
+            <li><strong>Courses:</strong> <%= department.courses %></li>
+        </ul>
 
-    <form
-      action="/admin/departments/<%= department._id %>?_method=DELETE"
-      method="post"
-    >
-      <button>Delete Department</button>
-    </form>
-    <br /><br />
-    <hr />
-    <a href="/admin/faculties/<%= department._id%>/new">Add Faculty Member</a>
-    <br /><br />
-    <hr />
-    <a href="/admin/examinations/<%= department._id %>/new">Add Examination</a>
-    <br />
-    <hr />
-    <ul>
-      <% for(exam of department.examination){ %>
-      <li><%= exam.examName %></li>
-      <li><%= exam.examType %></li>
-      <li><%= exam.startDate.toDateString() %></li>
-      <li><%= exam.endDate.toDateString() %></li>
-      <li>
-        <a href="<%= exam.timetable.url %>" target="_blank">Show timetable</a>
-      </li>
-      <br />
-      <a href="/admin/examinations/<%= exam._id %>">Edit</a
-      ><br />
-      <form
-        action="/admin/department/<%= department._id %>/examinations/<%= exam._id %>?_method=DELETE"
-        method="post"
-      >
-        <button>Delete Exam</button>
-      </form>
-      <% } %>
-    </ul>
-    <br />
-    <hr />
-    <a href="/admin/resources/<%= department._id %>/new">Add Resource</a>
-  </body>
+        <h2 class="section-title">Faculty Members</h2>
+        <div class="faculty-list">
+            <% for(faculty of department.faculty){ %>
+                <a href="/admin/department/<%=department._id%>/faculties/<%= faculty._id %>" class="faculty-card">
+                    <i class="fas fa-user-tie" style="margin-right: 8px;"></i>
+                    <%= faculty.name %>
+                </a>
+            <% } %>
+        </div>
+
+        <h2 class="section-title">Examinations</h2>
+        <div class="exam-list">
+            <% for(exam of department.examination){ %>
+                <div class="exam-card">
+                    <div class="exam-card-info"><strong>Name:</strong> <%= exam.examName %></div>
+                    <div class="exam-card-info"><strong>Type:</strong> <%= exam.examType %></div>
+                    <div class="exam-card-info"><strong>Start Date:</strong> <%= exam.startDate.toDateString() %></div>
+                    <div class="exam-card-info"><strong>End Date:</strong> <%= exam.endDate.toDateString() %></div>
+                    <a href="<%= exam.timetable.url %>" target="_blank" class="timetable-link">
+                        <i class="fas fa-calendar-alt" style="margin-right: 8px;"></i>View Timetable
+                    </a>
+                    
+                    <div class="exam-actions">
+                        <a href="/admin/examinations/<%= exam._id %>" class="primary-btn">
+                            <i class="fas fa-edit" style="margin-right: 8px;"></i>Edit
+                        </a>
+                        <form action="/admin/department/<%= department._id %>/examinations/<%= exam._id %>?_method=DELETE" method="post" style="display: inline;">
+                            <button class="primary-btn delete-btn">
+                                <i class="fas fa-trash" style="margin-right: 8px;"></i>Delete
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+
+        <div class="action-buttons">
+            <a href="/admin/faculties/<%= department._id%>/new" class="primary-btn add-btn">
+                <i class="fas fa-user-plus" style="margin-right: 8px;"></i>Add Faculty
+            </a>
+
+            <a href="/admin/examinations/<%= department._id %>/new" class="primary-btn add-btn">
+                <i class="fas fa-plus" style="margin-right: 8px;"></i>Add Examination
+            </a>
+
+            <a href="/admin/resources/<%= department._id %>/new" class="primary-btn add-btn">
+                <i class="fas fa-plus" style="margin-right: 8px;"></i>Add Resource
+            </a>
+
+            <div style="width: 100%; border-top: 1px solid #eee; margin: 20px 0;"></div>
+
+            <a href="/admin/departments/<%= department._id %>/edit" class="primary-btn">
+                <i class="fas fa-edit" style="margin-right: 8px;"></i>Edit Department
+            </a>
+            
+            <form action="/admin/departments/<%= department._id %>?_method=DELETE" method="post" style="display: inline;">
+                <button class="primary-btn delete-btn">
+                    <i class="fas fa-trash" style="margin-right: 8px;"></i>Delete Department
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

@@ -137,7 +137,7 @@ nav {
     white-space: nowrap;
     overflow: visible;
     margin-top: 8%;
-
+    text-align: center;
 }
 
 .nav a {
@@ -156,7 +156,7 @@ nav {
     content: "";
     position: absolute;
     bottom: 12px;
-    left: 12px;
+    left: -12px !important;
     width: 12px;
     height: 12px;
     border: 3px solid #053165;
@@ -241,170 +241,107 @@ nav {
     color: #33cc33;
 }
 
-/* Slider Styles */
-.slider-container {
+/* Replace the slider styles with these new styles */
+.boxes-container {
+    position: relative;
     width: 400px;
     height: 400px;
-    position: relative;
-    transform: rotate(-15deg) translate(50px, -50px);
-    overflow: hidden;
+    transform: rotate(15deg) translate(25px, -25px);
 }
 
-.swiper-container {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    overflow: hidden;
-}
-
-.box-slide {
-    width: 100%;
-    height: 100%;
-    background: #0066cc;
+.static-box {
+    width: 300px;
+    height: 300px;
     border-radius: 20px;
     overflow: hidden;
-    position: relative;
+    position: absolute;
     transform-style: preserve-3d;
 }
 
-.box-slide:before {
+.static-box:first-child {
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+
+.static-box:last-child {
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+}
+
+.static-box:before {
     content: '';
     position: absolute;
     width: 100%;
     height: 100%;
-    background: #003399;
+    background: rgba(0, 51, 153, 0.3);
     border-radius: 20px;
     transform: translateZ(-20px) translateX(20px) translateY(-20px);
     z-index: -1;
 }
 
-.box-slide img {
+.static-box img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 20px;
-    overflow: hidden;
+    transition: opacity 2s ease;
 }
 
-/* Remove navigation buttons */
-.swiper-button-next,
-.swiper-button-prev {
-    display: none;
+/* Add animation classes */
+.fade-out {
+    opacity: 0 !important;
 }
 
-/* Remove scrollbar and pagination */
-.swiper-scrollbar,
-.swiper-pagination {
-    display: none;
+.fade-in {
+    opacity: 1 !important;
 }
 
-/* Swiper Navigation Styles */
-.swiper-button-next,
-.swiper-button-prev {
-    color: #0066cc;
-    background: rgba(255, 255, 255, 0.9);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    transition: all 0.3s ease;
-    transform: rotate(15deg);
-}
-
-.swiper-button-next:after,
-.swiper-button-prev:after {
-    font-size: 20px;
-}
-
-.swiper-button-next:hover,
-.swiper-button-prev:hover {
-    background: white;
-    transform: scale(1.1);
-}
-
-/* Swiper Pagination Styles */
-.swiper-pagination-bullet {
-    width: 10px;
-    height: 10px;
-    background: #0066cc;
-    opacity: 0.5;
-}
-
-.swiper-pagination-bullet-active {
-    opacity: 1;
-    background: #0066cc;
-    transform: scale(1.2);
-}
-
-.swiper-pagination {
-    transform: rotate(15deg);
-}
-
-/* Cube Effect Styles */
-.swiper-cube-shadow {
-    background: rgba(0, 0, 0, 0.2);
-}
-
-/* Responsive Design */
+/* Update responsive styles */
 @media (max-width: 1200px) {
-    .quote-text {
-        font-size: 3rem;
-    }
-    
-    .slider-container {
+    .boxes-container {
         width: 350px;
         height: 350px;
+    }
+    .static-box {
+        width: 250px;
+        height: 250px;
     }
 }
 
 @media (max-width: 992px) {
-    .quote-text {
-        font-size: 2.5rem;
-    }
-    
-    .slider-container {
+    .boxes-container {
         width: 300px;
         height: 300px;
+    }
+    .static-box {
+        width: 200px;
+        height: 200px;
     }
 }
 
 @media (max-width: 768px) {
-    .quote-container {
-        flex-direction: column;
-        text-align: center;
-        padding: 30px;
+    .boxes-container {
+        transform: rotate(0) translate(0, 0);
+        width: 300px;
+        height: 300px;
+        margin: 0 auto;
     }
-    
-    .quote-text {
-        font-size: 2rem;
-        padding-right: 0;
-        margin-bottom: 40px;
-    }
-    
-    .slider-container {
+    .static-box {
         width: 250px;
         height: 250px;
     }
 }
 
 @media (max-width: 480px) {
-    .quote-text {
-        font-size: 1.5rem;
+    .boxes-container {
+        width: 250px;
+        height: 250px;
     }
-    
-    .slider-container {
+    .static-box {
         width: 200px;
         height: 200px;
-    }
-    
-    .swiper-button-next,
-    .swiper-button-prev {
-        width: 30px;
-        height: 30px;
-    }
-    
-    .swiper-button-next:after,
-    .swiper-button-prev:after {
-        font-size: 16px;
     }
 }
 

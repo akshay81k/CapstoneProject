@@ -4,67 +4,118 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BVP</title>
+    <link rel="stylesheet" href="/styles/admin/editrankers.css">
   </head>
 
   <body>
-    <h3>Edit Ranker</h3>
+    <% layout("/layouts/admin_boilerplate.ejs") %>
 
-    <form
-      action="/admin/rankers/<%= ranker._id %>?_method=PUT"
-      method="POST"
-      enctype="multipart/form-data"
-    >
-      <input
-        type="text"
-        name="ranker[name]"
-        value="<%= ranker.name %>"
-        required
-      /><br />
+    <div class="ranker-edit-container">
+      <h1 class="ranker-edit-title">Edit Ranker</h1>
+      
+      <div class="ranker-edit-form">
+        <form
+          action="/admin/rankers/<%= ranker._id %>?_method=PUT"
+          method="POST"
+          enctype="multipart/form-data"
+        >
+          <div class="form-group">
+            <label for="name">
+              <i class="fas fa-user" style="margin-right: 8px;"></i>
+              Name:
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="ranker[name]"
+              value="<%= ranker.name %>"
+              required
+            />
+          </div>
 
-      <input
-        type="text"
-        name="ranker[year]"
-        value="<%= ranker.year %>"
-        required
-      /><br />
+          <div class="form-group">
+            <label for="year">
+              <i class="fas fa-calendar" style="margin-right: 8px;"></i>
+              Year:
+            </label>
+            <input
+              type="text"
+              id="year"
+              name="ranker[year]"
+              value="<%= ranker.year %>"
+              required
+            />
+          </div>
 
-      <select name="ranker[department]" required>
-        <option value="Computer Engineering" <%= ranker.department === 'Computer Engineering' ? 'selected' : '' %>>
-          Computer Engineering
-        </option>
-        <option value="Civil Engineering" <%= ranker.department === 'Civil Engineering' ? 'selected' : '' %>>
-          Civil Engineering
-        </option>
-        <option value="Mechanical Engineering" <%= ranker.department === 'Mechanical Engineering' ? 'selected' : '' %>>
-          Mechanical Engineering
-        </option>
-        <option value="Big Data" <%= ranker.department === 'Big Data' ? 'selected' : '' %>>
-          Big Data
-        </option>
-        <option value="Artificial Intelligence" <%= ranker.department === 'Artificial Intelligence' ? 'selected' : '' %>>
-          Artificial Intelligence
-        </option>
-      </select><br />
+          <div class="form-group">
+            <label for="department">
+              <i class="fas fa-building" style="margin-right: 8px;"></i>
+              Department:
+            </label>
+            <select id="department" name="ranker[department]" required>
+              <option value="Computer Engineering" <%= ranker.department === 'Computer Engineering' ? 'selected' : '' %>>
+                Computer Engineering
+              </option>
+              <option value="Civil Engineering" <%= ranker.department === 'Civil Engineering' ? 'selected' : '' %>>
+                Civil Engineering
+              </option>
+              <option value="Mechanical Engineering" <%= ranker.department === 'Mechanical Engineering' ? 'selected' : '' %>>
+                Mechanical Engineering
+              </option>
+              <option value="Big Data" <%= ranker.department === 'Big Data' ? 'selected' : '' %>>
+                Big Data
+              </option>
+              <option value="Artificial Intelligence" <%= ranker.department === 'Artificial Intelligence' ? 'selected' : '' %>>
+                Artificial Intelligence
+              </option>
+            </select>
+          </div>
 
-      <input
-        type="number"
-        name="ranker[percentage]"
-        value="<%= ranker.percentage %>"
-        step="0.1"
-        required
-      /><br />
+          <div class="form-group">
+            <label for="percentage">
+              <i class="fas fa-percent" style="margin-right: 8px;"></i>
+              Percentage:
+            </label>
+            <input
+              type="number"
+              id="percentage"
+              name="ranker[percentage]"
+              value="<%= ranker.percentage %>"
+              step="0.1"
+              min="0"
+              max="100"
+              required
+            />
+          </div>
 
-      <!-- Show Existing Image -->
-      <% if (ranker.photo) { %>
-        <img src="<%= ranker.photo %>" alt="Ranker Photo" height="100px" /><br />
-        <!-- Hidden Input to Retain Old Image if New One is Not Uploaded -->
-        <input type="hidden" name="ranker[existingPhoto]" value="<%= ranker.photo %>" />
-      <% } %>
+          <div class="photo-section">
+            <h3 style="color: #05527E; margin-bottom: 20px;">
+              <i class="fas fa-image" style="margin-right: 8px;"></i>
+              Ranker Photo
+            </h3>
 
-      <!-- Upload New Image -->
-      <input type="file" name="ranker[newPhoto]" /><br />
+            <% if (ranker.photo) { %>
+              <div class="current-photo">
+                <img src="<%= ranker.photo %>" alt="Ranker Photo" />
+              </div>
+              <input type="hidden" name="ranker[existingPhoto]" value="<%= ranker.photo %>" />
+            <% } %>
 
-      <button>Edit Ranker</button>
-    </form>
+            <div class="form-group">
+              <label for="newPhoto">
+                <i class="fas fa-upload" style="margin-right: 8px;"></i>
+                Upload New Photo:
+              </label>
+              <input type="file" id="newPhoto" name="ranker[newPhoto]" accept="image/*" />
+            </div>
+          </div>
+
+          <button type="submit" class="update-btn">
+            <i class="fas fa-save" style="margin-right: 8px;"></i>
+            Update Ranker
+          </button>
+        </form>
+      </div>
+    </div>
   </body>
 </html>

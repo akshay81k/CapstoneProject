@@ -1,82 +1,125 @@
-<% layout("/layouts/boilerplate.ejs") %>
+<% layout("/layouts/admin_boilerplate.ejs") %>
+<head>
+    <link rel="stylesheet" href="/styles/admin/editdept.css">
+</head>
 
-<body>
-  <h3>Edit Department</h3>
+<div class="dept-edit-container">
+    <h1 class="dept-edit-title">Edit Department</h1>
+    
+    <div class="dept-edit-form">
+        <form action="/admin/departments/<%= department._id %>?_method=PUT" method="POST">
+            <h2 class="section-title">
+                <i class="fas fa-info-circle" style="margin-right: 8px;"></i>
+                Basic Information
+            </h2>
 
-  <form
-    action="/admin/departments/<%= department._id %>?_method=PUT"
-    method="POST"
-  >
-    <!-- Department Name -->
-    <input
-      type="text"
-      name="department[departmentName]"
-      value="<%= department.departmentName %>"
-      required
-    /><br />
+            <div class="form-group">
+                <label for="departmentName">
+                    <i class="fas fa-building" style="margin-right: 8px;"></i>
+                    Department Name:
+                </label>
+                <input type="text" id="departmentName" name="department[departmentName]" value="<%= department.departmentName %>" required />
+            </div>
 
-    <!-- HOD Name -->
-    <input
-      type="text"
-      name="department[hod]"
-      value="<%= department.hod %>"
-      required
-    /><br />
+            <div class="form-group">
+                <label for="hod">
+                    <i class="fas fa-user-tie" style="margin-right: 8px;"></i>
+                    Head of Department:
+                </label>
+                <input type="text" id="hod" name="department[hod]" value="<%= department.hod %>" required />
+            </div>
 
-    <!-- Contact Email -->
-    <input
-      type="email"
-      name="department[contactEmail]"
-      value="<%= department.contactEmail %>"
-      required
-    /><br />
+            <div class="form-group">
+                <label for="contactEmail">
+                    <i class="fas fa-envelope" style="margin-right: 8px;"></i>
+                    Contact Email:
+                </label>
+                <input type="email" id="contactEmail" name="department[contactEmail]" value="<%= department.contactEmail %>" required />
+            </div>
 
-    <!-- Courses (Comma Separated) -->
-    <textarea name="department[courses]" required>
-      <%= department.courses ? department.courses.join(", ") : "" %>
-    </textarea><br />
+            <h2 class="section-title">
+                <i class="fas fa-graduation-cap" style="margin-right: 8px;"></i>
+                Program Details
+            </h2>
 
-    <!-- Vision -->
-    <textarea name="department[vision]" required>
-      <%= department.vision %>
-    </textarea><br />
+            <div class="form-group">
+                <label for="courses">
+                    <i class="fas fa-book" style="margin-right: 8px;"></i>
+                    Courses Offered:
+                </label>
+                <textarea id="courses" name="department[courses]" placeholder="Enter courses separated by commas" required><%= department.courses ? department.courses.join(", ") : "" %></textarea>
+            </div>
 
-    <!-- Mission (Multiple Points) -->
-    <textarea name="department[mission]" required>
-      <%= department.mission ? department.mission.join(", ") : "" %>
-    </textarea><br />
+            <div class="form-group">
+                <label for="intake">
+                    <i class="fas fa-users" style="margin-right: 8px;"></i>
+                    Program Intake:
+                </label>
+                <input type="number" id="intake" name="department[programDetails][intake]" value="<%= department.programDetails.intake %>" required />
+            </div>
 
-    <!-- Program Intake -->
-    <input
-      type="number"
-      name="department[programDetails][intake]"
-      value="<%= department.programDetails.intake %>"
-      required
-    /><br />
+            <div class="form-group">
+                <label for="duration">
+                    <i class="fas fa-clock" style="margin-right: 8px;"></i>
+                    Program Duration:
+                </label>
+                <input type="text" id="duration" name="department[programDetails][duration]" value="<%= department.programDetails.duration %>" required />
+            </div>
 
-    <!-- Program Duration -->
-    <input
-      type="text"
-      name="department[programDetails][duration]"
-      value="<%= department.programDetails.duration %>"
-      required
-    /><br />
+            <h2 class="section-title">
+                <i class="fas fa-bullseye" style="margin-right: 8px;"></i>
+                Vision & Mission
+            </h2>
 
-    <!-- Scope -->
-    <textarea name="department[scope]" required>
-      <%= department.scope %>
-    </textarea><br />
+            <div class="form-group">
+                <label for="vision">
+                    <i class="fas fa-eye" style="margin-right: 8px;"></i>
+                    Vision:
+                </label>
+                <textarea id="vision" name="department[vision]" required><%= department.vision %></textarea>
+            </div>
 
-    <!-- Career Opportunities -->
-    <textarea name="department[careerOpportunities]" required>
-      <%= department.careerOpportunities ? department.careerOpportunities.join(", ") : "" %>
-    </textarea><br />
+            <div class="form-group">
+                <label for="mission">
+                    <i class="fas fa-flag" style="margin-right: 8px;"></i>
+                    Mission Points:
+                </label>
+                <textarea id="mission" name="department[mission]" placeholder="Enter mission points separated by commas" required><%= department.mission ? department.mission.join(", ") : "" %></textarea>
+            </div>
 
-    <!-- Department Features -->
-    <textarea name="department[departmentFeatures]" required>
-      <%= department.departmentFeatures ? department.departmentFeatures.join(", ") : "" %>
-    </textarea><br />
+            <h2 class="section-title">
+                <i class="fas fa-star" style="margin-right: 8px;"></i>
+                Additional Information
+            </h2>
 
-    <button>Update Department</button>
+            <div class="form-group">
+                <label for="scope">
+                    <i class="fas fa-chart-line" style="margin-right: 8px;"></i>
+                    Scope:
+                </label>
+                <textarea id="scope" name="department[scope]" required><%= department.scope %></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="careerOpportunities">
+                    <i class="fas fa-briefcase" style="margin-right: 8px;"></i>
+                    Career Opportunities:
+                </label>
+                <textarea id="careerOpportunities" name="department[careerOpportunities]" placeholder="Enter opportunities separated by commas" required><%= department.careerOpportunities ? department.careerOpportunities.join(", ") : "" %></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="departmentFeatures">
+                    <i class="fas fa-list-ul" style="margin-right: 8px;"></i>
+                    Department Features:
+                </label>
+                <textarea id="departmentFeatures" name="department[departmentFeatures]" placeholder="Enter features separated by commas" required><%= department.departmentFeatures ? department.departmentFeatures.join(", ") : "" %></textarea>
+            </div>
+
+            <button type="submit" class="update-btn">
+                <i class="fas fa-save" style="margin-right: 8px;"></i>
+                Update Department
+            </button>
   </form>
-</body>
+    </div>
+</div>

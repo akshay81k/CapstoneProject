@@ -1,48 +1,50 @@
-<% layout("/layouts/boilerplate.ejs") %>
-  <body>
-    <h3>Add Resource</h3>
+<% layout("/layouts/admin_boilerplate.ejs") %>
+<head>
+    <link rel="stylesheet" href="/styles/admin/addresource.css">
+</head>
+        <img src="/images/blob1.png" class="blob1">
+        <div class="resource-container">
+            <h3>Add Resource</h3>
+            <form action="/admin/resources/<%= id %>" method="POST" enctype="multipart/form-data">
+                <label for="subjectName">
+                    Subject Name:
+                    <input type="text" id="subjectName" name="resource[subjectName]" placeholder="Enter Subject Name" required />
+                </label>
 
-    <br />
-    <form
-      action="/admin/resources/<%= id %>"
-      method="POST"
-      enctype="multipart/form-data"
-    >
-      <input
-        type="text"
-        name="resource[subjectName]"
-        placeholder="Enter Subject Name"
-        required
-      /><br />
-      <input
-        type="number"
-        name="resource[semester]"
-        placeholder="Enter Semester"
-        required
-      /><br />
-      <input
-        type="text"
-        name="resource[subjectCode]"
-        placeholder="Enter subjectCode"
-        required
-      /><br />
-      <input
-        type="text"
-        name="resource[materials][0][textbookTitle]"
-        placeholder="Enter textbook title"
-      /><br />
-      <input
-        type="file"
-        name="resource[materials][0][textbookURL]"
-        placeholder="Enter textbook URL"
-      /><br />
-      <label for="paperLinks">Upload Paper Links:</label>
-      <input
-        type="file"
-        name="resource[materials][0][paperLinks][]"
-        id="paperLinks"
-        multiple
-      /><br />
-      <button>Add Resource</button>
-    </form>
-  </body>
+                <label for="semester">
+                    Semester:
+                    <input type="number" id="semester" name="resource[semester]" placeholder="Enter Semester" min="1" max="8" required />
+                </label>
+
+                <label for="subjectCode">
+                    Subject Code:
+                    <input type="text" id="subjectCode" name="resource[subjectCode]" placeholder="Enter Subject Code" required />
+                </label>
+
+                <div class="materials-section">
+                    <h4>
+                        <i class="fas fa-book" style="margin-right: 8px;"></i>
+                        Study Materials
+                    </h4>
+                    
+                    <label for="textbookTitle">
+                        Textbook Title:
+                        <input type="text" id="textbookTitle" name="resource[materials][0][textbookTitle]" placeholder="Enter textbook title" required />
+                    </label>
+
+                    <label for="textbookURL">
+                        Textbook File:
+                        <input type="file" id="textbookURL" name="resource[materials][0][textbookURL]" accept=".pdf,.doc,.docx" required />
+                    </label>
+
+                    <label for="paperLinks">
+                        Paper Links:
+                        <input type="file" id="paperLinks" name="resource[materials][0][paperLinks][]" accept=".pdf" multiple />
+                        <small style="color: #666; display: block; margin-top: 5px;">You can select multiple PDF files</small>
+                    </label>
+                </div>
+
+                <button type="submit">Add Resource</button>
+            </form>
+        </div>
+        <img src="/images/blob2.png" class="blob2">

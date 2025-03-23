@@ -1,24 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BVP</title>
-  </head>
-  <body>
-    <li><%= notice.title %></li>
-    <li><%= notice.description %></li>
-    <li><%= notice.datePosted %></li>
-    <li><%= notice.category %></li>
-    <li><%= notice.postedBy %></li>
+<% layout("/layouts/admin_boilerplate.ejs") %>
+<head>
+    <link rel="stylesheet" href="/styles/admin/noticeshow.css">
+</head>
 
-    <a href="/admin/notices/<%= notice._id %>/edit">Edit</a><br />
+<div class="notice-show-container">
+    <h1 class="notice-show-title">Notice Details</h1>
+    
+    <div class="notice-details">
+        <ul class="notice-info">
+            <li><strong>Title:</strong> <%= notice.title %></li>
+            <li><strong>Description:</strong> <%= notice.description %></li>
+            <li><strong>Date Posted:</strong> <%= notice.datePosted %></li>
+            <li><strong>Category:</strong> <%= notice.category %></li>
+            <li><strong>Posted By:</strong> <%= notice.postedBy %></li>
+        </ul>
 
-    <form
-      action="/admin/notices/<%= notice._id %>?_method=DELETE"
-      method="post"
-    >
-      <button>Delete</button>
-    </form>
-  </body>
-</html>
+        <div class="notice-actions">
+            <a href="/admin/notices/<%= notice._id %>/edit" class="edit-btn">
+                <i class="fas fa-edit" style="margin-right: 8px;"></i>
+                Edit Notice
+            </a>
+
+            <form action="/admin/notices/<%= notice._id %>?_method=DELETE" method="post" style="display: inline;">
+                <button class="delete-btn">
+                    <i class="fas fa-trash" style="margin-right: 8px;"></i>
+                    Delete Notice
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

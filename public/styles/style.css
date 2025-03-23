@@ -16,7 +16,7 @@ body{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    height: 100vh;
+    height: 110vh;
     width: 100vw;
     margin-top: 0%;
     position: relative;
@@ -63,10 +63,6 @@ header{
 .icontainer img {
     width: 60%;
     height: auto;
-    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0));
-    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0));
-    -webkit-mask-size: 100% 100%;
-    mask-size: 100% 100%;
     border-radius: 25%;
 }
 
@@ -225,8 +221,8 @@ nav{
 }
 
 #box1{
-    height: 50vh;
-    width: 25vw;
+    height: 60vh;
+    width: 30vw;
     border-radius: 3%;
     margin-top: -50px;
     transform: rotate(5deg);
@@ -237,8 +233,8 @@ nav{
 
 #box2{
     position: relative;
-    height: 40vh;
-    width: 20vw;
+    height: 50vh;
+    width: 25vw;
     border-radius: 3%;
     transform: rotate(-28deg);
     z-index: -1;
@@ -251,8 +247,8 @@ nav{
 
 #box3{
     position: relative;
-    height: 40vh;
-    width: 18vw;
+    height: 50vh;
+    width: 23vw;
     border-radius: 3%;
     transform: rotate(20deg);
     z-index: -1;
@@ -263,11 +259,12 @@ nav{
                 0 6px 6px rgba(4, 32, 88, 0.1);
 }
 
-#box1 img,#box2 img,#box3 img{
+#box1 img, #box2 img, #box3 img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 1s ease;
+    opacity: 1;
+    transition: opacity 2s ease, transform 2s ease;
 }
 
 .page2,.page3,.page4 {
@@ -298,78 +295,135 @@ nav{
 }
 
 .slider {
-    width: 100%;
-    max-width: 1200px;
-    padding: 0 20px;
-    overflow-y: hidden;
+    margin-top: 2%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 80vh;
 }
 
 .slide-container {
-    margin: 0 40px;
-    overflow: hidden;
     position: relative;
+    padding: 0 60px;
+    display: flex;
+    overflow-y: hidden;
+    max-width: 1200px;
+    width: 100%;
+    padding: 40px 0;
+    height: auto;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.swiper {
+    position: relative;
+    overflow: visible;
+    width: 100%;
 }
 
 .slide-content {
+    padding: 0 40px;
     margin: 0 40px;
     overflow: hidden;
-    border-radius: 25px;
-    padding: 20px 0;
 }
 
 .card {
-    width: 320px;
-    border-radius: 15px;
+    border-radius: 10px;
     background-color: #FFF;
-    margin: 0 auto;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border: 2px solid #2E7CA9;
 }
 
-.card-wrapper {
+.image-content,
+.card-content {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 30px;
+    padding: 10px 14px;
 }
 
 .image-content {
     position: relative;
-    width: 100%;
-    height: 200px;
     padding: 0;
-    border-radius: 15px 15px 0 0;
-    overflow: hidden;
+    height: 200px;
+}
+
+.overlay {
+    display: none;
 }
 
 .card-image {
-    width: 100%;
+    position: relative;
     height: 100%;
-    overflow-y: hidden;
+    width: 100%;
+    border-radius: 0;
+    padding: 0;
+    overflow: hidden;
 }
 
 .card-image .card-img {
-    width: 100%;
     height: 100%;
+    width: 100%;
     object-fit: cover;
+    border-radius: 10px 10px 0 0;
+    border: none;
 }
 
+.swiper-wrapper {
+    display: flex;
+    transition: transform 0.3s ease-in-out;
+    overflow: visible;
+    height: auto;
+}
+
+.swiper-slide {
+    flex-shrink: 0;
+    width: 300px;
+    height: auto;
+    margin-right: 15px;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    color: #053165;
+}
+
+.swiper-button-next {
+    right: -50px;
+}
+
+.swiper-button-prev {
+    left: -50px;
+}
+
+/* Update card content styles */
 .card-content {
     padding: 20px;
-    text-align: center;
+    background: white;
 }
 
 .name {
-    font-size: 22px;
-    font-weight: 600;
+    font-size: 20px;
+    font-weight: bolder;
     color: #053165;
-    margin-bottom: 15px;
+    font-family: 'Plus Jakarta Sans';
+    margin-bottom: 10px;
 }
 
 .description {
     font-size: 14px;
-    color: #707070;
+    color: #666;
     line-height: 1.5;
     margin-bottom: 20px;
+    font-family: 'Plus Jakarta Sans';
+    text-align: center;
 }
 
 .button.card-button {
@@ -432,6 +486,20 @@ nav{
     }
     .card {
         width: 100%;
+    }
+    #box1 {
+        height: 50vh;
+        width: 40vw;
+    }
+    #box2 {
+        height: 40vh;
+        width: 35vw;
+        left: 30px;
+    }
+    #box3 {
+        height: 40vh;
+        width: 33vw;
+        right: 20px;
     }
 }
 
@@ -627,12 +695,11 @@ nav{
 }
 
 .news-container {
-    margin-top: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    min-height: 60vh;
+    min-height: 40vh;
 }
 
 .wrapper {
@@ -781,10 +848,6 @@ nav{
     line-height: 2;
 }
 
-#ban1, #ban2, #ban3 {
-    transition: opacity 1s ease-in-out;
-}
-
 .carousel {
     scroll-behavior: smooth;
     transition: all 0.3s ease;
@@ -846,4 +909,223 @@ nav{
 .swiper-button-next,
 .swiper-button-prev {
     z-index: 10;
+}
+
+/* Add new animation classes */
+.slide-out {
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: all 2s ease !important;
+}
+
+.slide-in {
+    opacity: 1;
+    transform: translateX(0);
+    transition: all 2s ease !important;
+}
+
+/* Remove any existing transform transitions from the boxes */
+#box1, #box2, #box3 {
+    transition: none;
+}
+
+.fade-out {
+    opacity: 0 !important;
+}
+
+.fade-in {
+    opacity: 1 !important;
+}
+
+/* Add these new styles */
+.page1::before,
+.page1::after {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(45deg, rgba(5, 49, 101, 0.1), rgba(28, 111, 159, 0.1));
+    border-radius: 50%;
+    z-index: -2;
+}
+
+.page1::before {
+    left: -50px;
+    top: 20%;
+    animation: float-left 8s ease-in-out infinite;
+}
+
+.page1::after {
+    right: -50px;
+    bottom: 20%;
+    animation: float-right 8s ease-in-out infinite;
+}
+
+/* Add decorative circles */
+.decorative-circle {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: linear-gradient(45deg, #053165, #1C6F9F);
+    border-radius: 50%;
+    z-index: -2;
+    opacity: 0.5;
+}
+
+.circle1 {
+    left: 10%;
+    top: 30%;
+    animation: pulse 4s ease-in-out infinite;
+}
+
+.circle2 {
+    right: 10%;
+    top: 60%;
+    animation: pulse 4s ease-in-out infinite 1s;
+}
+
+.circle3 {
+    left: 15%;
+    bottom: 20%;
+    animation: pulse 4s ease-in-out infinite 2s;
+}
+
+.circle4 {
+    right: 15%;
+    top: 25%;
+    animation: pulse 4s ease-in-out infinite 3s;
+}
+
+/* Add animations */
+@keyframes float-left {
+    0%, 100% {
+        transform: translateX(0) translateY(0);
+    }
+    50% {
+        transform: translateX(20px) translateY(-20px);
+    }
+}
+
+@keyframes float-right {
+    0%, 100% {
+        transform: translateX(0) translateY(0);
+    }
+    50% {
+        transform: translateX(-20px) translateY(20px);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+    50% {
+        transform: scale(1.5);
+        opacity: 0.8;
+    }
+}
+
+/* Add these new styles */
+.side-decoration {
+    position: absolute;
+    height: 100%;
+    width: 250px;
+    top: 0;
+    z-index: -2;
+    overflow: hidden;
+}
+
+.side-decoration-left {
+    left: 0;
+    background: linear-gradient(135deg, 
+        rgba(5, 49, 101, 0.05) 25%, 
+        transparent 25%,
+        transparent 50%, 
+        rgba(5, 49, 101, 0.05) 50%, 
+        rgba(5, 49, 101, 0.05) 75%, 
+        transparent 75%, 
+        transparent
+    );
+    background-size: 20px 20px;
+}
+
+.side-decoration-right {
+    right: 0;
+    background: linear-gradient(135deg, 
+        rgba(28, 111, 159, 0.05) 25%, 
+        transparent 25%,
+        transparent 50%, 
+        rgba(28, 111, 159, 0.05) 50%, 
+        rgba(28, 111, 159, 0.05) 75%, 
+        transparent 75%, 
+        transparent
+    );
+    background-size: 20px 20px;
+}
+
+.floating-shape {
+    position: absolute;
+    z-index: -1;
+    opacity: 0.1;
+}
+
+.shape1 {
+    width: 100px;
+    height: 100px;
+    left: 50px;
+    top: 20%;
+    border: 3px solid #053165;
+    transform: rotate(45deg);
+    animation: float1 8s infinite ease-in-out;
+}
+
+.shape2 {
+    width: 80px;
+    height: 80px;
+    right: 60px;
+    top: 30%;
+    border: 3px solid #1C6F9F;
+    border-radius: 50%;
+    animation: float2 7s infinite ease-in-out;
+}
+
+.shape3 {
+    width: 60px;
+    height: 60px;
+    left: 80px;
+    bottom: 25%;
+    background: #053165;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    animation: float3 9s infinite ease-in-out;
+}
+
+.shape4 {
+    width: 70px;
+    height: 70px;
+    right: 70px;
+    bottom: 30%;
+    border: 3px solid #1C6F9F;
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    animation: float4 10s infinite ease-in-out;
+}
+
+@keyframes float1 {
+    0%, 100% { transform: rotate(45deg) translate(0, 0); }
+    50% { transform: rotate(45deg) translate(10px, -10px); }
+}
+
+@keyframes float2 {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-10px, 10px); }
+}
+
+@keyframes float3 {
+    0%, 100% { transform: translate(0, 0) rotate(0); }
+    50% { transform: translate(10px, -5px) rotate(10deg); }
+}
+
+@keyframes float4 {
+    0%, 100% { transform: translate(0, 0) rotate(0); }
+    50% { transform: translate(-5px, 10px) rotate(-10deg); }
 } 

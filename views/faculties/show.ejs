@@ -1,58 +1,45 @@
-<% layout("/layouts/boilerplate.ejs") %>
+<% layout("/layouts/admin_boilerplate.ejs") %>
+<head>
+    <link rel="stylesheet" href="/styles/admin/facultiesshow.css">
+</head>
 
-<body>
-  <h3>Faculty Details</h3>
-  
-  <ul>
-    <!-- Faculty Image -->
-    <% if (faculty.photo && faculty.photo.url) { %>
-      <li>
-        <img src="<%= faculty.photo.url %>" alt="Faculty Image" height="100px" width="100px" />
-      </li>
-    <% } %>
+<div class="faculty-show-container">
+    <h1 class="faculty-show-title">Faculty Details</h1>
+    
+    <div class="faculty-details">
+        <% if (faculty.photo && faculty.photo.url) { %>
+            <div class="faculty-image">
+                <img src="<%= faculty.photo.url %>" alt="Faculty Image">
+            </div>
+        <% } %>
 
-    <!-- Faculty Name -->
-    <li><strong>Name:</strong> <%= faculty.name %></li>
+        <ul class="faculty-info">
+            <li><strong>Name:</strong> <%= faculty.name %></li>
+            <li><strong>Department:</strong> <%= faculty.department %></li>
+            <li><strong>Designation:</strong> <%= faculty.designation %></li>
+            <li><strong>Qualification:</strong> <%= faculty.qualification %></li>
+            <li><strong>Specialization:</strong> <%= faculty.specialization %></li>
+            <li><strong>Experience:</strong> <%= faculty.experience %></li>
+            <li><strong>Email:</strong> <%= faculty.email %></li>
+            <li><strong>Phone:</strong> <%= faculty.phone %></li>
+            <li><strong>Address:</strong> <%= faculty.address %></li>
+            <li><strong>Aadhar Number:</strong> <%= faculty.adharNo %></li>
+            <li><strong>Date of Birth:</strong> <%= faculty.date_of_birth ? faculty.date_of_birth.toDateString() : 'N/A' %></li>
+            <li><strong>Date of Joining:</strong> <%= faculty.date_of_joining ? faculty.date_of_joining.toDateString() : 'N/A' %></li>
+        </ul>
 
-    <!-- Address -->
-    <li><strong>Address:</strong> <%= faculty.address %></li>
+        <div class="faculty-actions">
+            <a href="/admin/faculties/<%= faculty._id %>/edit" class="edit-btn">
+                <i class="fas fa-edit" style="margin-right: 8px;"></i>
+                Edit Faculty
+            </a>
 
-    <!-- Aadhar Number -->
-    <li><strong>Aadhar Number:</strong> <%= faculty.adharNo %></li>
-
-    <!-- Date of Birth -->
-    <li><strong>Date of Birth:</strong> <%= faculty.date_of_birth ? faculty.date_of_birth.toDateString() : 'N/A' %></li>
-
-    <!-- Qualification -->
-    <li><strong>Qualification:</strong> <%= faculty.qualification %></li>
-
-    <!-- Department -->
-    <li><strong>Department:</strong> <%= faculty.department %></li>
-
-    <!-- Designation -->
-    <li><strong>Designation:</strong> <%= faculty.designation %></li>
-
-    <!-- Email -->
-    <li><strong>Email:</strong> <%= faculty.email %></li>
-
-    <!-- Phone -->
-    <li><strong>Phone:</strong> <%= faculty.phone %></li>
-
-    <!-- Specialization -->
-    <li><strong>Specialization:</strong> <%= faculty.specialization %></li>
-
-    <!-- Experience -->
-    <li><strong>Experience:</strong> <%= faculty.experience %></li>
-
-    <!-- Date of Joining -->
-    <li><strong>Date of Joining:</strong> <%= faculty.date_of_joining ? faculty.date_of_joining.toDateString() : 'N/A' %></li>
-  </ul>
-
-  <!-- Edit Button -->
-  <a href="/admin/faculties/<%= faculty._id %>/edit">Edit</a><br />
-
-  <!-- Delete Form -->
-  <form action="/admin/department/<%= depId %>/faculties/<%= faculty._id %>?_method=DELETE" method="post">
-    <button>Delete</button>
-  </form>
-</body>
+            <form action="/admin/department/<%= depId %>/faculties/<%= faculty._id %>?_method=DELETE" method="post" style="display: inline;">
+                <button class="delete-btn">
+                    <i class="fas fa-trash" style="margin-right: 8px;"></i>
+                    Delete Faculty
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

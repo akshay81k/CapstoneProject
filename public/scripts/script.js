@@ -1,9 +1,9 @@
 var swiper = new Swiper(".slide-content", {
     slidesPerView: 3,
-    spaceBetween: 25,
+    spaceBetween: 50,
     loop: true,
-    loopFillGroupWithBlank: true,
     centerSlide: true,
+    fade: true,
     grabCursor: true,
     pagination: {
         el: ".swiper-pagination",
@@ -24,11 +24,7 @@ var swiper = new Swiper(".slide-content", {
         950: {
             slidesPerView: 3,
         },
-    },
-    loopedSlides: 5,
-    watchSlidesProgress: true,
-    watchSlidesVisibility: true,
-    slideToClickedSlide: true
+    }
 });
 
 // Image arrays for each box
@@ -58,45 +54,40 @@ function rotateImages() {
     const img2 = document.querySelector('#ban1');
     const img3 = document.querySelector('#ban3');
 
-    // Move images to the left
-    img1.style.transform = 'translateX(-100%)';
-    img2.style.transform = 'translateX(-100%)';
-    img3.style.transform = 'translateX(-100%)';
+    // Add fade-out class
+    img1.classList.add('fade-out');
+    img2.classList.add('fade-out');
+    img3.classList.add('fade-out');
 
+    // Wait for fade out to complete
     setTimeout(() => {
         // Update images
         img1.src = box1Images[currentIndex];
         img2.src = box2Images[currentIndex];
         img3.src = box3Images[currentIndex];
 
-        // Reset position without transition
-        img1.style.transition = 'none';
-        img2.style.transition = 'none';
-        img3.style.transition = 'none';
-        img1.style.transform = 'translateX(100%)';
-        img2.style.transform = 'translateX(100%)';
-        img3.style.transform = 'translateX(100%)';
-
-        // Force reflow
-        img1.offsetHeight;
-        img2.offsetHeight;
-        img3.offsetHeight;
-
-        // Restore transition and move to normal position
-        img1.style.transition = 'transform 1s ease';
-        img2.style.transition = 'transform 1s ease';
-        img3.style.transition = 'transform 1s ease';
-        img1.style.transform = 'translateX(0)';
-        img2.style.transform = 'translateX(0)';
-        img3.style.transform = 'translateX(0)';
+        // Remove fade-out and add fade-in
+        img1.classList.remove('fade-out');
+        img2.classList.remove('fade-out');
+        img3.classList.remove('fade-out');
+        img1.classList.add('fade-in');
+        img2.classList.add('fade-in');
+        img3.classList.add('fade-in');
 
         // Update index
         currentIndex = (currentIndex + 1) % box1Images.length;
-    }, 1000);
+
+        // Remove fade-in class after animation completes
+        setTimeout(() => {
+            img1.classList.remove('fade-in');
+            img2.classList.remove('fade-in');
+            img3.classList.remove('fade-in');
+        }, 2000);
+    }, 2000);
 }
 
-// Start the rotation
-setInterval(rotateImages, 3000);
+// Increase interval between rotations
+setInterval(rotateImages, 8000);
 
 // Latest News Carousel functionality
 const wrapper = document.querySelector(".wrapper");

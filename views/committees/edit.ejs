@@ -1,4 +1,89 @@
-<% layout("/layouts/boilerplate.ejs") %>
+<% layout("/layouts/admin_boilerplate.ejs") %>
+<head>
+    <link rel="stylesheet" href="/styles/admin/editcommittee.css">
+</head>
+
+<div class="committee-edit-container">
+    <h1 class="committee-edit-title">Edit Committee</h1>
+    
+    <div class="committee-edit-form">
+        <form action="/admin/committees/<%= committee._id %>?_method=PUT" method="POST">
+            <div class="form-group">
+                <label for="committeeName">
+                    <i class="fas fa-users" style="margin-right: 8px;"></i>
+                    Committee Name:
+                </label>
+                <input 
+                    type="text" 
+                    id="committeeName" 
+                    name="committeeEdit[committeeName]" 
+                    value="<%= committee.committeeName %>" 
+                    required 
+                />
+            </div>
+
+            <div class="form-group">
+                <label for="description">
+                    <i class="fas fa-align-left" style="margin-right: 8px;"></i>
+                    Description:
+                </label>
+                <textarea 
+                    id="description" 
+                    name="committeeEdit[description]" 
+                    required
+                ><%= committee.description %></textarea>
+            </div>
+
+            <h2 class="section-title">
+                <i class="fas fa-user-friends" style="margin-right: 8px;"></i>
+                Committee Members
+            </h2>
+
+            <% if (committee.members && committee.members.length > 0) { %>
+                <% committee.members.forEach((member, index) => { %>
+                    <div class="member-card">
+                        <div class="member-inputs">
+                            <div class="form-group">
+                                <label for="memberName_<%= index %>">
+                                    <i class="fas fa-user" style="margin-right: 8px;"></i>
+                                    Member Name:
+                                </label>
+                                <input
+                                    type="text"
+                                    id="memberName_<%= index %>"
+                                    name="committeeEdit[members][<%= index %>][name]"
+                                    value="<%= member.name %>"
+                                    required
+                                />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="memberRole_<%= index %>">
+                                    <i class="fas fa-user-tag" style="margin-right: 8px;"></i>
+                                    Role:
+                                </label>
+                                <input
+                                    type="text"
+                                    id="memberRole_<%= index %>"
+                                    name="committeeEdit[members][<%= index %>][role]"
+                                    value="<%= member.role %>"
+                                    required
+                                />
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <p class="no-members">No members found.</p>
+            <% } %>
+
+            <button type="submit" class="update-btn">
+                <i class="fas fa-save" style="margin-right: 8px;"></i>
+                Update Committee
+            </button>
+        </form>
+    </div>
+</div>
 
 <body>
   <form action="/admin/committees/<%= committee._id %>?_method=PUT" method="POST">

@@ -1,21 +1,40 @@
-<% layout("/layouts/boilerplate.ejs") %>
-  <body>
-    <li><%= event.name %></li>
-    <li><%= event.description %></li>
-    <li><%= event.date %></li>
-    <li><%= event.organizer %></li>
-    <li><%= event.category %></li>
-    <li><%= event.venue %></li>
-    <br><hr>
-    <% event.imgs.url.forEach(img => { %>
-      <img src="<%= img %>" alt="img1" height="200px" width="100px">
-   <% }); %>
-    
-<br><hr>
-    <a href="/admin/events/<%= event._id %>/edit">Edit</a><br />
+<% layout("/layouts/admin_boilerplate.ejs") %>
+<head>
+    <link rel="stylesheet" href="/styles/admin/eventshow.css">
+</head>
 
-    <form action="/admin/events/<%= event._id %>?_method=DELETE" method="post">
-      <button>Delete</button>
-    </form>
-  </body>
+<div class="event-show-container">
+    <h1 class="event-show-title">Event Details</h1>
+    
+    <div class="event-details">
+        <ul class="event-info">
+            <li><strong>Name:</strong> <%= event.name %></li>
+            <li><strong>Description:</strong> <%= event.description %></li>
+            <li><strong>Date:</strong> <%= event.date %></li>
+            <li><strong>Organizer:</strong> <%= event.organizer %></li>
+            <li><strong>Category:</strong> <%= event.category %></li>
+            <li><strong>Venue:</strong> <%= event.venue %></li>
+        </ul>
+
+        <div class="event-images">
+            <% event.imgs.url.forEach(img => { %>
+                <img src="<%= img %>" alt="Event Image">
+            <% }); %>
+        </div>
+
+        <div class="event-actions">
+            <a href="/admin/events/<%= event._id %>/edit" class="edit-btn">
+                <i class="fas fa-edit" style="margin-right: 8px;"></i>
+                Edit Event
+            </a>
+
+            <form action="/admin/events/<%= event._id %>?_method=DELETE" method="post" style="display: inline;">
+                <button class="delete-btn">
+                    <i class="fas fa-trash" style="margin-right: 8px;"></i>
+                    Delete Event
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
 

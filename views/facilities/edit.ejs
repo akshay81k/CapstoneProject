@@ -1,74 +1,140 @@
-<% layout("/layouts/boilerplate.ejs") %>
-  <body>
-    <form
-      action="/admin/facilities/<%= facility._id %>?_method=PUT"
-      method="POST"
-      enctype="multipart/form-data"
-    >
-      <input
-        type="text"
-        name="facility[facilityName]"
-        value="<%= facility.facilityName %>"
-        placeholder="Enter facility name"
-        required
-      /><br />
+<% layout("/layouts/admin_boilerplate.ejs") %>
+<head>
+    <link rel="stylesheet" href="/styles/admin/editfacilities.css">
+</head>
 
-      <textarea
-        name="facility[description]"
-        placeholder="Enter description"
-        required
-      >
-<%= facility.description %></textarea
-      ><br />
+<div class="facility-edit-container">
+    <h1 class="facility-edit-title">Edit Facility</h1>
+    
+    <div class="facility-edit-form">
+        <form action="/admin/facilities/<%= facility._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="facilityName">
+                    <i class="fas fa-building" style="margin-right: 8px;"></i>
+                    Facility Name:
+                </label>
+                <input 
+                    type="text" 
+                    id="facilityName" 
+                    name="facility[facilityName]" 
+                    value="<%= facility.facilityName %>" 
+                    placeholder="Enter facility name"
+                    required 
+                />
+            </div>
 
-      <input
-        type="text"
-        name="facility[location]"
-        value="<%= facility.location %>"
-        placeholder="Enter location"
-        required
-      /><br />
+            <div class="form-group">
+                <label for="description">
+                    <i class="fas fa-align-left" style="margin-right: 8px;"></i>
+                    Description:
+                </label>
+                <textarea 
+                    id="description" 
+                    name="facility[description]" 
+                    placeholder="Enter description"
+                    required
+                ><%= facility.description %></textarea>
+            </div>
 
-      <input
-        type="text"
-        name="facility[timing]"
-        value="<%= facility.timing %>"
-        placeholder="Enter timing (e.g., 9:00 AM - 5:00 PM)"
-        required
-      /><br />
+            <div class="form-group">
+                <label for="location">
+                    <i class="fas fa-map-marker-alt" style="margin-right: 8px;"></i>
+                    Location:
+                </label>
+                <input 
+                    type="text" 
+                    id="location" 
+                    name="facility[location]" 
+                    value="<%= facility.location %>" 
+                    placeholder="Enter location"
+                    required 
+                />
+            </div>
 
-      <h4>Contact Information</h4>
-      <input
-        type="text"
-        name="facility[contact][name]"
-        value="<%= facility.contact.name %>"
-        placeholder="Enter contact name"
-        required
-      /><br />
-      <input
-        type="email"
-        name="facility[contact][email]"
-        value="<%= facility.contact.email %>"
-        placeholder="Enter contact email"
-        required
-      /><br />
-      <input
-        type="tel"
-        name="facility[contact][phone]"
-        value="<%= facility.contact.phone %>"
-        placeholder="Enter contact phone"
-        required
-      /><br />
+            <div class="form-group">
+                <label for="timing">
+                    <i class="fas fa-clock" style="margin-right: 8px;"></i>
+                    Timing:
+                </label>
+                <input 
+                    type="text" 
+                    id="timing" 
+                    name="facility[timing]" 
+                    value="<%= facility.timing %>" 
+                    placeholder="Enter timing (e.g., 9:00 AM - 5:00 PM)"
+                    required 
+                />
+            </div>
 
-      <input
-        type="file"
-        name="facility[img]"
-        value="<%= facility.img %>"
-        placeholder="Upload Image"
-        required
-      /><br />
+            <h2 class="section-title">
+                <i class="fas fa-address-card" style="margin-right: 8px;"></i>
+                Contact Information
+            </h2>
 
-      <button type="submit">Update Facility</button>
-    </form>
-  </body>
+            <div class="form-group">
+                <label for="contactName">
+                    <i class="fas fa-user" style="margin-right: 8px;"></i>
+                    Contact Name:
+                </label>
+                <input 
+                    type="text" 
+                    id="contactName" 
+                    name="facility[contact][name]" 
+                    value="<%= facility.contact.name %>" 
+                    placeholder="Enter contact name"
+                    required 
+                />
+            </div>
+
+            <div class="form-group">
+                <label for="contactEmail">
+                    <i class="fas fa-envelope" style="margin-right: 8px;"></i>
+                    Contact Email:
+                </label>
+                <input 
+                    type="email" 
+                    id="contactEmail" 
+                    name="facility[contact][email]" 
+                    value="<%= facility.contact.email %>" 
+                    placeholder="Enter contact email"
+                    required 
+                />
+            </div>
+
+            <div class="form-group">
+                <label for="contactPhone">
+                    <i class="fas fa-phone" style="margin-right: 8px;"></i>
+                    Contact Phone:
+                </label>
+                <input 
+                    type="tel" 
+                    id="contactPhone" 
+                    name="facility[contact][phone]" 
+                    value="<%= facility.contact.phone %>" 
+                    placeholder="Enter contact phone"
+                    required 
+                />
+            </div>
+
+            <div class="form-group">
+                <label for="facilityImage">
+                    <i class="fas fa-image" style="margin-right: 8px;"></i>
+                    Facility Image:
+                </label>
+                <input 
+                    type="file" 
+                    id="facilityImage" 
+                    name="facility[img]" 
+                    accept="image/*"
+                    required 
+                />
+            </div>
+
+            <button type="submit" class="update-btn">
+                <i class="fas fa-save" style="margin-right: 8px;"></i>
+                Update Facility
+            </button>
+        </form>
+    </div>
+</div>
 
