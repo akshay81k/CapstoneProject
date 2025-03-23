@@ -6,18 +6,22 @@
     <h1 class="projects-title">Projects</h1>
     
     <div class="projects-grid">
-        <% for (let department in allProjects) { %>
-            <div class="department-section">
-                <h2 class="department-title"><%= department %></h2>
-                <div class="projects-list">
-                    <% allProjects[department].forEach(project => { %>
-                        <a href="/admin/projects/<%= project._id %>" class="project-card">
-                            <i class="fas fa-project-diagram" style="margin-right: 12px;"></i>
-                            <%= project.projectDetails.projectName %>
-                        </a>
-                    <% }); %>
+        <% if(allProjects.length === 0){ %>
+            <h2 class="no-projects">No projects found</h2>
+        <% }else{ %>
+            <% for (let department in allProjects) { %>
+                <div class="department-section">
+                    <h2 class="department-title"><%= department %></h2>
+                    <div class="projects-list">
+                        <% allProjects[department].forEach(project => { %>
+                            <a href="/admin/projects/<%= project._id %>" class="project-card">
+                                <i class="fas fa-project-diagram" style="margin-right: 12px;"></i>
+                                <%= project.projectDetails.projectName %>
+                            </a>
+                        <% }); %>
+                    </div>
                 </div>
-            </div>
+            <% } %>
         <% } %>
     </div>
 

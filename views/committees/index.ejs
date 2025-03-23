@@ -6,11 +6,15 @@
     <h1 class="committees-title">Committees</h1>
     
     <div class="committees-grid">
-        <% for(let committee of allCommittees){ %>
-            <a href="/admin/committees/<%= committee._id %>" class="committee-card">
-                <i class="fas fa-users" style="margin-right: 12px;"></i>
-                <%= committee.committeeName %>
-            </a>
+        <% if(allCommittees.length === 0){ %>
+            <h2 class="no-committees-msg">No committees found</h2>
+        <% }else{ %>
+            <% for(let committee of allCommittees){ %>
+                <a href="/admin/committees/<%= committee._id %>" class="committee-card">
+                    <i class="fas fa-users" style="margin-right: 12px;"></i>
+                    <%= committee.committeeName %>
+                </a>
+            <% } %>
         <% } %>
     </div>
 

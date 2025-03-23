@@ -6,18 +6,22 @@
     <h1 class="resources-title">Resources</h1>
     
     <div class="resources-grid">
-        <% for (let semester in groupedResources) { %>
-            <div class="semester-section">
-                <h2 class="semester-title">Semester <%= semester %></h2>
-                <div class="subjects-grid">
-                    <% groupedResources[semester].forEach(resource => { %>
-                        <a href="/admin/resources/<%= resource._id %>" class="subject-card">
-                            <i class="fas fa-book" style="margin-right: 12px;"></i>
-                            <%= resource.subjectName %>
-                        </a>
-                    <% }); %>
+        <% if(groupedResources.length === 0){ %>
+            <h2 class="no-resources">No resources found</h2>
+        <% }else{ %>
+            <% for (let semester in groupedResources) { %>
+                <div class="semester-section">
+                    <h2 class="semester-title">Semester <%= semester %></h2>
+                    <div class="subjects-grid">
+                        <% groupedResources[semester].forEach(resource => { %>
+                            <a href="/admin/resources/<%= resource._id %>" class="subject-card">
+                                <i class="fas fa-book" style="margin-right: 12px;"></i>
+                                <%= resource.subjectName %>
+                            </a>
+                        <% }); %>
+                    </div>
                 </div>
-            </div>
+            <% } %>
         <% } %>
     </div>
 </div>

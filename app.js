@@ -1,8 +1,6 @@
 if (process.env.NODE_ENV != "production") {
   require("dotenv").config();
 }
-// console.log(process.env);
-
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -92,7 +90,9 @@ async function main() {
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "80mb", extended: true })); 
+
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -303,7 +303,6 @@ app.delete(
   })
 );
 
-//---------------------------------------------------
 //TODO: Rankers Route
 
 // Index Route
@@ -379,32 +378,6 @@ app.get(
     res.render("rankers/edit", { ranker });
   })
 );
-
-// Update Route
-// app.put(
-//   "/admin/rankers/:id",
-//   isLoggedIn,
-//   upload.single("ranker[photo]"),
-//   validateRanker,
-//   wrapAsync(async (req, res) => {
-//     let { id } = req.params;
-//     let ranker = await Ranker.findById(id);
-//     if (ranker && ranker.photo.fileName) {
-//       await cloudinary.uploader.destroy(ranker.photo.fileName);
-//     }
-//     ranker.set(req.body.ranker);
-//     if (req.file) {
-//       ranker.photo = {
-//         url: req.file.path,
-//         fileName: req.file.filename,
-//       };
-//     }
-//     await ranker.save();
-//     req.flash("success", "rankers edited!");
-//     res.redirect("/admin/rankers");
-//   })
-// );
-
 
 app.put(
   "/admin/rankers/:id",
@@ -482,18 +455,6 @@ app.get("/admin/departments/new", isLoggedIn, (req, res) => {
 });
 
 // Create Route
-// app.post(
-//   "/admin/departments",
-//   isLoggedIn,
-//   validateDepartment,
-//   wrapAsync(async (req, res) => {
-//     const newDepartment = new Department(req.body.department);
-//     await newDepartment.save();
-//     req.flash("success", "department added!");
-//     res.redirect("/admin/departments");
-//   })
-// );
-
 const preprocessDepartmentData = (req, res, next) => {
   if (req.body.department) {
     req.body.department.courses = req.body.department.courses
@@ -511,20 +472,46 @@ const preprocessDepartmentData = (req, res, next) => {
     req.body.department.departmentFeatures = req.body.department.departmentFeatures
       ? req.body.department.departmentFeatures.split(",").map((item) => item.trim())
       : [];
+    
+    req.body.department.programEducationalObjectives = req.body.department.programEducationalObjectives
+      ? req.body.department.programEducationalObjectives.split(",").map((item) => item.trim())
+      : [];
   }
   next();
 };
 
-// Apply this middleware before validateDepartment
 app.post(
   "/admin/departments",
   isLoggedIn,
-  preprocessDepartmentData, // Convert data before validation
+  uploadDrive.array("syllabusFiles"), // Handle multiple file uploads
+  preprocessDepartmentData,
   validateDepartment,
   wrapAsync(async (req, res) => {
     const newDepartment = new Department(req.body.department);
+
+    if (req.files && req.files.length > 0) {
+      newDepartment.syllabus = [];
+
+      // Ensure syllabus details are an array
+      let syllabusData = req.body.department.syllabus;
+      if (!Array.isArray(syllabusData)) {
+        syllabusData = [syllabusData]; // Convert single entry to array
+      }
+
+      for (let i = 0; i < req.files.length; i++) {
+        const file = req.files[i];
+        const { fileUrl, fileName } = await uploadFile(file);
+
+        newDepartment.syllabus.push({
+          semester: parseInt(syllabusData[i]?.semester) || i + 1, // Default to index +1 if missing
+          fileName,
+          fileUrl,
+        });
+      }
+    }
+
     await newDepartment.save();
-    req.flash("success", "Department added!");
+    req.flash("success", "Department added with syllabus files uploaded!");
     res.redirect("/admin/departments");
   })
 );
@@ -556,19 +543,6 @@ app.get(
 );
 
 // // Update Route
-// app.put(
-//   "/admin/departments/:id",
-//   isLoggedIn,
-//   validateDepartment,
-//   wrapAsync(async (req, res) => {
-//     let { id } = req.params;
-//     await Department.findByIdAndUpdate(id, { ...req.body.department });
-//     req.flash("success", "department updated!");
-//     res.redirect("/admin/departments");
-//   })
-// );
-
-
 app.put(
   "/admin/departments/:id",
   isLoggedIn,
@@ -919,30 +893,6 @@ app.get(
 );
 
 // Update Route
-// app.put(
-//   "/admin/faculties/:id",
-//   isLoggedIn,
-//   upload.single("faculty[photo]"),
-//   validateFaculty,
-//   wrapAsync(async (req, res) => {
-//     let { id } = req.params;
-//     let faculty = await Faculty.findById(id);
-//     if (faculty && faculty.photo.fileName) {
-//       await cloudinary.uploader.destroy(faculty.photo.fileName);
-//     }
-//     faculty.set(req.body.faculty);
-//     if (req.file) {
-//       faculty.photo = {
-//         url: req.file.path,
-//         fileName: req.file.filename,
-//       };
-//     }
-//     await faculty.save();
-//     req.flash("success", "Faculty updated!");
-//     res.redirect(`/admin/faculties/${id}`);
-//   })
-// );
-
 app.put(
   "/admin/faculties/:id",
   isLoggedIn,
@@ -1011,15 +961,13 @@ app.post(
     const examData = req.body.exam;
     const timetableFile = req.file;
 
-    console.log("Uploaded route File:", timetableFile); // Debugging line
 
     if (timetableFile) {
       try {
-        const timetableURL = await uploadFile(timetableFile); // Ensure await is used properly
-        console.log("Google Drive URL:", timetableURL); // Debugging line
-
+        const { fileUrl, fileName } = await uploadFile(timetableFile); // Ensure await is used properly
+       
         examData.timetable = {
-          url: timetableURL,
+          url: fileUrl,
           fileName: timetableFile.originalname,
         };
       } catch (error) {
@@ -1138,32 +1086,10 @@ const auth = new google.auth.GoogleAuth({
 });
 const drive = google.drive({ version: "v3", auth });
 
-// Helper function to upload files to Google Drive
-// const uploadFile = wrapAsync(async (file) => {
-//   const bufferStream = new stream.PassThrough();
-//   bufferStream.end(file.buffer);
-
-//   const { data } = await drive.files.create({
-//     media: {
-//       mimeType: file.mimetype,
-//       body: bufferStream,
-//     },
-//     requestBody: {
-//       name: file.originalname,
-//       parents: ["1FnnuBR0aFQfSMMdsvVFMueUULcGMq1Zs"], // Replace with your Google Drive folder ID if needed
-//     },
-//     fields: "id, name",
-//   });
-
-//   return `https://drive.google.com/file/d/${data.id}/view`;
-// });
-
-
 const uploadFile = async (file) => {
   const bufferStream = new stream.PassThrough();
   bufferStream.end(file.buffer);
 
-  console.log("Uploading file:", file.originalname);
 
   const response = await drive.files.create({
     media: {
@@ -1177,16 +1103,16 @@ const uploadFile = async (file) => {
     fields: "id, name", // Request file ID and name
   });
 
-  console.log("Drive API Full Response:", response.data);
 
   if (!response.data || !response.data.id) {
     throw new Error("Failed to upload file to Google Drive - No file ID returned");
   }
 
-  // ✅ Properly construct and return the URL
   const fileUrl = `https://drive.google.com/file/d/${response.data.id}/view`;
-  console.log("Generated Google Drive URL:", fileUrl); // Debugging line
-  return fileUrl;
+  const fileName = response.data.name; // Extract the file name properly
+
+
+  return { fileUrl, fileName }; // ✅ Return both fileUrl and fileName
 };
 
 
@@ -1229,7 +1155,6 @@ app.post(
     // Parse form data
     const resourceData = req.body.resource;
     const files = req.files;
-    console.log(req.body);
     const material = {
       textbookTitle: resourceData.materials[0].textbookTitle,
       textbookURL: {},
@@ -1239,9 +1164,9 @@ app.post(
     // Upload the textbook file to Google Drive and get the link
     if (files["resource[materials][0][textbookURL]"]) {
       const textbookFile = files["resource[materials][0][textbookURL]"][0];
-      const textbookURL = await uploadFile(textbookFile);
+      const {fileUrl} = await uploadFile(textbookFile);
       material.textbookURL = {
-        url: textbookURL,
+        url: fileUrl,
         fileName: textbookFile.originalname,
       };
     }
@@ -1249,7 +1174,7 @@ app.post(
     // Upload each paper link file to Google Drive and add it to paperLinks array
     if (files["resource[materials][0][paperLinks][]"]) {
       for (let file of files["resource[materials][0][paperLinks][]"]) {
-        const fileURL = await uploadFile(file);
+        const {fileURL} = await uploadFile(file);
         material.paperLinks.push({
           url: fileURL,
           fileName: file.originalname,
@@ -1262,7 +1187,6 @@ app.post(
     const newResource = new Resource(resourceData);
     newResource.department = department.departmentName;
     newResource.materials = material;
-    console.log(newResource);
     department.resource.push(newResource);
 
     await newResource.save();
@@ -1416,30 +1340,6 @@ app.delete(
 
 // TODO: Authentication routes
 
-// app.get("/admin/signup", (req, res) => {
-//   res.render("authentication/signup.ejs");
-// });
-
-// app.post("/admin/signup", async (req, res) => {
-//   try {
-//     let { username, email, password } = req.body;
-//     let newAdmin = new Admin({ email, username });
-//     const registeredAdmin = await Admin.register(newAdmin, password);
-//     //  console.log(registeredAdmin);
-//     req.login(registeredAdmin, (err) => {
-//       if (err) {
-//         req.flash("failure", "Login error during registration");
-//         return res.redirect("/admin/signup");
-//       }
-//       req.flash("success", "You are registered!");
-//       res.redirect("/admin");
-//     });
-//   } catch (e) {
-//     req.flash("failure", "Some error occurred");
-//     res.redirect("/admin/signup");
-//   }
-// });
-
 app.get("/admin/login", (req, res) => {
   res.render("authentication/login.ejs");
 });
@@ -1490,7 +1390,6 @@ app.get(
       ...notice._doc, // Spread existing document fields
       datePosted: notice.datePosted ? new Date(notice.datePosted) : null
     }));
-    console.log(formattedNotices);
     res.render('notice/userShow', { allNotices: formattedNotices });
   })
 );
@@ -1530,7 +1429,6 @@ app.get(
   "/user/admissions",
   wrapAsync(async (req, res) => {
     const admissionDetails = await AdmissionDetail.find({});
-    console.log(admissionDetails);
     res.render("admissions/userShow.ejs", { admissionDetails });
   })
 );
@@ -1556,27 +1454,10 @@ app.get(
     }
 
     const faculties = await Faculty.find(filter);
-    res.render("faculties/userShow.ejs", { faculties });
+    res.render("faculties/userShow.ejs", { faculties,selectedDepartment: department || ""  });
   })
 );
 
-// Resources Routes
-// app.get(
-//   "/user/resources",
-//   wrapAsync(async (req, res) => {
-//     const allResources = await Resource.find({});
-
-//     const resourcesByDepartment = allResources.reduce((acc, resource) => {
-//       const department = resource.department;
-//       if (!acc[department]) {
-//         acc[department] = [];
-//       }
-//       acc[department].push(resource);
-//       return acc;
-//     }, {});
-//     res.render("resources/userShow.ejs", { resourcesByDepartment });
-//   })
-// );
 app.get(
   "/user/resources",
   wrapAsync(async (req, res) => {
@@ -1665,13 +1546,16 @@ app.get(
     const allExams = await Examination.find({
       department: departmentName,
     });
-    console.log(allExams);
     res.render("examinations/userShow.ejs", { allExams });
   })
 );
 
-// error handling method
+// 404 Page Not Found Middleware
+app.all("*", (req, res, next) => {
+  next({ status: 404, message: "Page Not Found!" });
+});
 
+// error handling method
 app.use((err, req, res, next) => {
   let { status = 500, message = "Some error occurred!" } = err;
   res.status(status).render("error.ejs", { message });
@@ -1688,7 +1572,23 @@ async function deleteExpiredExams() {
   }
 }
 
+// Function to check if today is July 1st and update experience
+async function updateFacultyExperience() {
+  const today = new Date();
+  if (today.getDate() === 1 && today.getMonth() === 6) { // July is month index 6
+    console.log("Updating faculty experience for the new academic year...");
+
+    try {
+      await Faculty.updateMany({}, { $inc: { experience: 1 } });
+      console.log("Faculty experience updated successfully!");
+    } catch (error) {
+      console.error("Error updating faculty experience:", error);
+    }
+  }
+}
+
 app.listen(3000, () => {
   deleteExpiredExams();
+  updateFacultyExperience();
   console.log("server running on port 3000");
 });

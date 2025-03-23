@@ -69,30 +69,34 @@
       </div>
 
       <!-- Projects Content -->
-      <% for (const department in allProjects) { %>
-      <h2><%= department %> Department</h2>
-      <ul>
-        <% allProjects[department].forEach(project => { %>
-        <li>
-          <strong>Project Name:</strong> <span><%= project.projectDetails.projectName %></span><br />
-          <strong>Description:</strong> <span><%= project.projectDetails.description %></span><br />
-          <strong>GitHub Link:</strong>
-          <a href="<%= project.projectDetails.githubLink %>">View Project</a><br />
-          <strong>Submission Date:</strong> <span><%= project.projectDetails.submissionDate.toDateString() %></span><br />
-          <strong>Status:</strong> <span><%= project.projectDetails.status %></span><br />
-          <strong>Student Names:</strong>
+       <% if(allProjects.length === 0){ %>
+        <h2>No Projects Found</h2>
+       <% }else{ %>
+        <% for (const department in allProjects) { %>
+          <h2><%= department %> Department</h2>
           <ul>
-            <% project.studentName.forEach(name => { %>
-            <li><%= name %></li>
+            <% allProjects[department].forEach(project => { %>
+            <li>
+              <strong>Project Name:</strong> <span><%= project.projectDetails.projectName %></span><br />
+              <strong>Description:</strong> <span><%= project.projectDetails.description %></span><br />
+              <strong>GitHub Link:</strong>
+              <a href="<%= project.projectDetails.githubLink %>">View Project</a><br />
+              <strong>Submission Date:</strong> <span><%= project.projectDetails.submissionDate.toDateString() %></span><br />
+              <strong>Status:</strong> <span><%= project.projectDetails.status %></span><br />
+              <strong>Student Names:</strong>
+              <ul>
+                <% project.studentName.forEach(name => { %>
+                <li><%= name %></li>
+                <% }) %>
+              </ul>
+              <strong>Graduation Year:</strong> <span><%= project.graduationYear %></span>
+            </li>
+            <br />
             <% }) %>
           </ul>
-          <strong>Graduation Year:</strong> <span><%= project.graduationYear %></span>
-        </li>
-        <br />
-        <% }) %>
-      </ul>
-      <hr />
-      <% } %>
+          <hr />
+          <% } %>
+       <% } %>
     </div>
 
     <div class="footer">

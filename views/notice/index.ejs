@@ -6,11 +6,15 @@
     <h1 class="notices-title">Notices</h1>
     
     <div class="notices-grid">
-        <% for(let notice of allNotices){ %>
-            <a href="/admin/notices/<%= notice._id %>" class="notice-card">
-                <i class="fas fa-bell" style="margin-right: 12px;"></i>
-                <%= notice.title %>
-            </a>
+        <% if(allNotices.length === 0){ %>
+            <h2 class="no-notices">No notices found</h2>
+        <% }else{ %>
+            <% for(let notice of allNotices){ %>
+                <a href="/admin/notices/<%= notice._id %>" class="notice-card">
+                    <i class="fas fa-bell" style="margin-right: 12px;"></i>
+                    <%= notice.title %>
+                </a>
+            <% } %>
         <% } %>
     </div>
 

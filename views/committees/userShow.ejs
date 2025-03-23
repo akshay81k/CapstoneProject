@@ -45,31 +45,35 @@
     <div class="committees-content">
         <h2 class="committees-title">Committees</h2>
         <div class="tables">
-            <% for(committee of committees){ %>
-            <div class="committee-table">
-                <div class="title-section">
-                    <h3><%=committee.committeeName%></h3>
-                    <p class="subtitle"><%=committee.description%></p>
-                </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>SR.NO</th>
-                            <th>NAME</th>
-                            <th>ROLE</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% committee.members.forEach((member, index)=>{ %>
-                        <tr>
-                            <td><%=index + 1%></td>
-                            <td><%=member.name%></td>
-                            <td><%=member.role%></td>
-                        </tr>
-                        <% }) %>
-                    </tbody>
-                </table>
-            </div>
+            <% if(committees.length === 0){ %>
+            <h3>No Committees Found</h3>
+            <% }else{ %>
+                <% for(committee of committees){ %>
+                    <div class="committee-table">
+                        <div class="title-section">
+                            <h3><%=committee.committeeName%></h3>
+                        </div>
+                        <p class="subtitle"><%=committee.description%></p>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>SR.NO</th>
+                                    <th>NAME</th>
+                                    <th>ROLE</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% committee.members.forEach((member, index)=>{ %>
+                                <tr>
+                                    <td><%=index + 1%></td>
+                                    <td><%=member.name%></td>
+                                    <td><%=member.role%></td>
+                                </tr>
+                                <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                    <% } %>
             <% } %>
         </div>
     </div>

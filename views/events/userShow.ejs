@@ -57,36 +57,40 @@
             </ul>
         </nav>
         <h2 class="events-title">Events</h2>
-        <% for(event of allEvents) { %>
-          <div class="div1">
-            <h1><%= event.name %></h1>
-            <p><b>Description:</b> <%= event.description %></p>
-            <p><b>Date:</b> <%= event.date.toDateString() %></p>
-            <p><b>Organizer:</b> <%= event.organizer %></p>
-            <p><b>Category:</b> <%= event.category %></p>
-            <p><b>Venue:</b> <%= event.venue %></p>
-            <hr />
-            
-            <div class="slider-container">
-                <div class="slider-wrapper">
-                    <% event.imgs.url.forEach((link, index) => { %>
-                        <div class="slide <%= index === 0 ? 'active' : '' %>">
-                            <img src="<%= link %>" alt="Event image <%= index + 1 %>">
-                        </div>
-                    <% }); %>
+        <% if(allEvents.length === 0){ %>
+            <h1>No events to show</h1>
+        <% }else{ %>
+            <% for(event of allEvents) { %>
+                <div class="div1">
+                  <h1><%= event.name %></h1>
+                  <p><b>Description:</b> <%= event.description %></p>
+                  <p><b>Date:</b> <%= event.date.toDateString() %></p>
+                  <p><b>Organizer:</b> <%= event.organizer %></p>
+                  <p><b>Category:</b> <%= event.category %></p>
+                  <p><b>Venue:</b> <%= event.venue %></p>
+                  <hr />
+                  
+                  <div class="slider-container">
+                      <div class="slider-wrapper">
+                          <% event.imgs.url.forEach((link, index) => { %>
+                              <div class="slide <%= index === 0 ? 'active' : '' %>">
+                                  <img src="<%= link %>" alt="Event image <%= index + 1 %>">
+                              </div>
+                          <% }); %>
+                      </div>
+                      
+                      <button class="slider-btn prev-btn">&#8249;</button>
+                      <button class="slider-btn next-btn">&#8250;</button>
+                      
+                      <div class="slider-nav">
+                          <% event.imgs.url.forEach((_, index) => { %>
+                              <div class="slider-dot <%= index === 0 ? 'active' : '' %>" data-index="<%= index %>"></div>
+                          <% }); %>
+                      </div>
+                  </div>
                 </div>
-                
-                <button class="slider-btn prev-btn">&#8249;</button>
-                <button class="slider-btn next-btn">&#8250;</button>
-                
-                <div class="slider-nav">
-                    <% event.imgs.url.forEach((_, index) => { %>
-                        <div class="slider-dot <%= index === 0 ? 'active' : '' %>" data-index="<%= index %>"></div>
-                    <% }); %>
-                </div>
-            </div>
-          </div>
-          <% } %>
+                <% } %>
+        <% } %>
     </div>
 
     <div class="footer">

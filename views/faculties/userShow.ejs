@@ -60,30 +60,34 @@
       <form action="/user/faculties" method="GET">
         <label for="department">Select Department:</label>
         <select name="department" id="department" onchange="this.form.submit()">
-          <option value="">All Departments</option>
-          <option value="Computer Engineering">Computer Engineering</option>
-          <option value="Civil Engineering">Civil Engineering</option>
-          <option value="Mechanical Engineering">Mechanical Engineering</option>
-          <option value="Big Data">Big Data</option>
-          <option value="Artificial Intelligence">Artificial Intelligence</option>
+          <option value="" <%= selectedDepartment === "" ? "selected" : "" %>>All Departments</option>
+          <option value="Computer Engineering" <%= selectedDepartment === "Computer Engineering" ? "selected" : "" %>>Computer Engineering</option>
+          <option value="Civil Engineering" <%= selectedDepartment === "Civil Engineering" ? "selected" : "" %>>Civil Engineering</option>
+          <option value="Mechanical Engineering" <%= selectedDepartment === "Mechanical Engineering" ? "selected" : "" %>>Mechanical Engineering</option>
+          <option value="Big Data" <%= selectedDepartment === "Big Data" ? "selected" : "" %>>Big Data</option>
+          <option value="Artificial Intelligence" <%= selectedDepartment === "Artificial Intelligence" ? "selected" : "" %>>Artificial Intelligence</option>
         </select>
       </form>
 
       <!-- Faculty Content -->
-      <% for(faculty of faculties) { %>
-      <div class="faculty-card">
-        <img src="<%=faculty.photo.url%>" alt="<%= faculty.name %>" class="faculty-image">
-        <div class="faculty-info">
-          <p><b>Name:</b> <span><%= faculty.name %></span></p>
-          <p><b>Department:</b> <span><%= faculty.department %></span></p>
-          <p><b>Designation:</b> <span><%= faculty.designation%></span></p>
-          <p><b>Specialization:</b> <span><%= faculty.specialization %></span></p>
-          <p><b>Qualification:</b> <span><%= faculty.qualification %></span></p>
-          <p><b>Experience:</b> <span><%= faculty.experience %></span></p>
-          <p><b>Date of Joining:</b> <span><%= faculty.date_of_joining.toDateString() %></span></p>
-        </div>
-      </div>
-      <% } %>
+       <% if(faculties.length === 0){ %>
+        <h2>No Faculties Available</h2>
+       <% }else{ %>
+        <% for(faculty of faculties) { %>
+          <div class="faculty-card">
+            <img src="<%=faculty.photo.url%>" alt="<%= faculty.name %>" class="faculty-image">
+            <div class="faculty-info">
+              <p><b>Name:</b> <span><%= faculty.name %></span></p>
+              <p><b>Department:</b> <span><%= faculty.department %></span></p>
+              <p><b>Designation:</b> <span><%= faculty.designation%></span></p>
+              <p><b>Specialization:</b> <span><%= faculty.specialization %></span></p>
+              <p><b>Qualification:</b> <span><%= faculty.qualification %></span></p>
+              <p><b>Experience:</b> <span><%= faculty.experience %></span></p>
+              <p><b>Date of Joining:</b> <span><%= faculty.date_of_joining.toDateString() %></span></p>
+            </div>
+          </div>
+          <% } %>
+       <% } %>
     </div>
 
     <div class="footer">

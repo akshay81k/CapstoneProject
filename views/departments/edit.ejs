@@ -88,38 +88,78 @@
             </div>
 
             <h2 class="section-title">
+                <i class="fas fa-bullseye" style="margin-right: 8px;"></i>
+                Departmental Advisory Board
+            </h2>
+
+            <% department.departmentalAdvisoryBoard.forEach((member, index) => { %>
+                <div class="form-group">
+                    <label>Member <%= index + 1 %> Name:</label>
+                    <input type="text" name="department[departmentalAdvisoryBoard][<%= index %>][name]" value="<%= member.name %>">
+                    <label>Designation:</label>
+                    <input type="text" name="department[departmentalAdvisoryBoard][<%= index %>][designation]" value="<%= member.designation %>">
+                    <label>Role:</label>
+                    <input type="text" name="department[departmentalAdvisoryBoard][<%= index %>][role]" value="<%= member.role %>">
+                </div>
+            <% }); %>
+
+            <h2 class="section-title">
                 <i class="fas fa-star" style="margin-right: 8px;"></i>
-                Additional Information
+                Program Educational Objectives (PEOs)
             </h2>
 
             <div class="form-group">
-                <label for="scope">
-                    <i class="fas fa-chart-line" style="margin-right: 8px;"></i>
-                    Scope:
-                </label>
-                <textarea id="scope" name="department[scope]" required><%= department.scope %></textarea>
+                <textarea id="programEducationalObjectives" name="department[programEducationalObjectives]" placeholder="Enter PEOs separated by commas" required><%= department.programEducationalObjectives ? department.programEducationalObjectives.join(", ") : "" %></textarea>
             </div>
 
-            <div class="form-group">
-                <label for="careerOpportunities">
-                    <i class="fas fa-briefcase" style="margin-right: 8px;"></i>
-                    Career Opportunities:
-                </label>
-                <textarea id="careerOpportunities" name="department[careerOpportunities]" placeholder="Enter opportunities separated by commas" required><%= department.careerOpportunities ? department.careerOpportunities.join(", ") : "" %></textarea>
-            </div>
+            <h2 class="section-title">
+                <i class="fas fa-trophy" style="margin-right: 8px;"></i>
+                Program Outcomes (POs)
+            </h2>
 
-            <div class="form-group">
-                <label for="departmentFeatures">
-                    <i class="fas fa-list-ul" style="margin-right: 8px;"></i>
-                    Department Features:
-                </label>
-                <textarea id="departmentFeatures" name="department[departmentFeatures]" placeholder="Enter features separated by commas" required><%= department.departmentFeatures ? department.departmentFeatures.join(", ") : "" %></textarea>
-            </div>
+            <% department.programOutcomes.forEach((po, index) => { %>
+                <div class="form-group">
+                    <label>PO <%= index + 1 %> Title:</label>
+                    <input type="text" name="department[programOutcomes][<%= index %>][title]" value="<%= po.title %>">
+                    <label>Description:</label>
+                    <textarea name="department[programOutcomes][<%= index %>][description]" required><%= po.description %></textarea>
+                </div>
+            <% }); %>
+
+            <h2 class="section-title">
+                <i class="fas fa-lightbulb" style="margin-right: 8px;"></i>
+                Program Specific Outcomes (PSOs)
+            </h2>
+
+            <% department.programSpecificOutcomes.forEach((pso, index) => { %>
+                <div class="form-group">
+                    <label>PSO <%= index + 1 %> Title:</label>
+                    <input type="text" name="department[programSpecificOutcomes][<%= index %>][title]" value="<%= pso.title %>">
+                    <label>Description:</label>
+                    <textarea name="department[programSpecificOutcomes][<%= index %>][description]" required><%= pso.description %></textarea>
+                </div>
+            <% }); %>
+
+            <h2 class="section-title">
+                <i class="fas fa-file-alt" style="margin-right: 8px;"></i>
+                Syllabus
+            </h2>
+
+            <% department.syllabus.forEach((syll, index) => { %>
+                <div class="form-group">
+                    <label>Semester:</label>
+                    <input type="number" name="department[syllabus][<%= index %>][semester]" value="<%= syll.semester %>">
+                    <label>File Name:</label>
+                    <input type="text" name="department[syllabus][<%= index %>][fileName]" value="<%= syll.fileName %>">
+                    <label>File URL:</label>
+                    <input type="text" name="department[syllabus][<%= index %>][fileUrl]" value="<%= syll.fileUrl %>">
+                </div>
+            <% }); %>
 
             <button type="submit" class="update-btn">
                 <i class="fas fa-save" style="margin-right: 8px;"></i>
                 Update Department
             </button>
-  </form>
+        </form>
     </div>
 </div>

@@ -6,10 +6,14 @@
     <h1 class="departments-title">Departments</h1>
     
     <div class="departments-grid">
-        <% for(let department of allDepartments){ %>
-            <a href="/admin/departments/<%= department._id %>" class="department-card">
-                <%= department.departmentName %>
-            </a>
+        <% if(allDepartments.length === 0){ %>
+            <h1 class="no-departments">No Departments Found</h1>
+        <% }else{ %>
+            <% for(let department of allDepartments){ %>
+                <a href="/admin/departments/<%= department._id %>" class="department-card">
+                    <%= department.departmentName %>
+                </a>
+            <% } %>
         <% } %>
     </div>
 

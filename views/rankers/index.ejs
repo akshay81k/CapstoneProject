@@ -22,16 +22,20 @@
                 </thead>
                 <tbody>
                     <% let rank = 1; %>
-                    <% for (let ranker of coRankers) { %>
-                    <tr>
-                        <td><img src="<%= ranker.photo.url %>" alt="Photo of <%= ranker.name %>"></td>
-                        <td><%= ranker.name %></td>
-                        <td><%= ranker.percentage %>%</td>
-                        <td><%= rank %></td>
-                        <td><%= ranker.year %></td>
-                        <td><a href="/admin/rankers/<%= ranker._id %>/edit" class="edit-link">Edit</a></td>
-                    </tr>
-                    <% rank++; %>
+                    <% if(coRankers.length === 0){ %>
+                        <h1 class="no-rankers">No rankers found</h1>
+                    <% }else{ %>
+                        <% for (let ranker of coRankers) { %>
+                            <tr>
+                                <td><img src="<%= ranker.photo.url %>" alt="Photo of <%= ranker.name %>"></td>
+                                <td><%= ranker.name %></td>
+                                <td><%= ranker.percentage %>%</td>
+                                <td><%= rank %></td>
+                                <td><%= ranker.year %></td>
+                                <td><a href="/admin/rankers/<%= ranker._id %>/edit" class="edit-link">Edit</a></td>
+                            </tr>
+                            <% rank++; %>
+                            <% } %>
                     <% } %>
                 </tbody>
             </table>
@@ -56,17 +60,21 @@
                 </thead>
                 <tbody>
                     <% rank = 1; %>
-                    <% for (let ranker of ciRankers) { %>
-                    <tr>
-                        <td><img src="<%= ranker.photo.url %>" alt="Photo of <%= ranker.name %>"></td>
-                        <td><%= ranker.name %></td>
-                        <td><%= ranker.percentage %>%</td>
-                        <td><%= rank %></td>
-                        <td><%= ranker.year %></td>
-                        <td><a href="/admin/rankers/<%= ranker._id %>/edit" class="edit-link">Edit</a></td>
-                    </tr>
-                    <% rank++; %>
-                    <% } %>
+                    <% if(ciRankers){ %>
+                        <h1 class="no-rankers">No rankers found</h1>
+                    <% }else{ %>
+                        <% for (let ranker of ciRankers) { %>
+                            <tr>
+                                <td><img src="<%= ranker.photo.url %>" alt="Photo of <%= ranker.name %>"></td>
+                                <td><%= ranker.name %></td>
+                                <td><%= ranker.percentage %>%</td>
+                                <td><%= rank %></td>
+                                <td><%= ranker.year %></td>
+                                <td><a href="/admin/rankers/<%= ranker._id %>/edit" class="edit-link">Edit</a></td>
+                            </tr>
+                            <% rank++; %>
+                            <% } %>
+                    <% }%>
                 </tbody>
             </table>
             <form action="/admin/rankers/delete?department=Civil Engineering&_method=DELETE" method="POST" style="text-align: right; margin-top: 10px;">
@@ -90,16 +98,20 @@
                 </thead>
                 <tbody>
                     <% rank = 1; %>
-                    <% for (let ranker of meRankers) { %>
-                    <tr>
-                        <td><img src="<%= ranker.photo.url %>" alt="Photo of <%= ranker.name %>"></td>
-                        <td><%= ranker.name %></td>
-                        <td><%= ranker.percentage %>%</td>
-                        <td><%= rank %></td>
-                        <td><%= ranker.year %></td>
-                        <td><a href="/admin/rankers/<%= ranker._id %>/edit" class="edit-link">Edit</a></td>
-                    </tr>
-                    <% rank++; %>
+                    <% if(meRankers.length === 0){ %>
+                        <h1 class="no-rankers">No rankers found</h1>
+                    <% }else{ %>
+                        <% for (let ranker of meRankers) { %>
+                            <tr>
+                                <td><img src="<%= ranker.photo.url %>" alt="Photo of <%= ranker.name %>"></td>
+                                <td><%= ranker.name %></td>
+                                <td><%= ranker.percentage %>%</td>
+                                <td><%= rank %></td>
+                                <td><%= ranker.year %></td>
+                                <td><a href="/admin/rankers/<%= ranker._id %>/edit" class="edit-link">Edit</a></td>
+                            </tr>
+                            <% rank++; %>
+                            <% } %>
                     <% } %>
                 </tbody>
             </table>
@@ -124,17 +136,22 @@
                 </thead>
                 <tbody>
                     <% rank = 1; %>
-                    <% for (let ranker of bdRankers) { %>
-                    <tr>
-                        <td><img src="<%= ranker.photo.url %>" alt="Photo of <%= ranker.name %>"></td>
-                        <td><%= ranker.name %></td>
-                        <td><%= ranker.percentage %>%</td>
-                        <td><%= rank %></td>
-                        <td><%= ranker.year %></td>
-                        <td><a href="/admin/rankers/<%= ranker._id %>/edit" class="edit-link">Edit</a></td>
-                    </tr>
-                    <% rank++; %>
+                    <% if(bdRankers.length === 0){ %>
+                        <h1 class="no-rankers">No rankers found</h1>
+                    <% }else{ %>
+                        <% for (let ranker of bdRankers) { %>
+                            <tr>
+                                <td><img src="<%= ranker.photo.url %>" alt="Photo of <%= ranker.name %>"></td>
+                                <td><%= ranker.name %></td>
+                                <td><%= ranker.percentage %>%</td>
+                                <td><%= rank %></td>
+                                <td><%= ranker.year %></td>
+                                <td><a href="/admin/rankers/<%= ranker._id %>/edit" class="edit-link">Edit</a></td>
+                            </tr>
+                            <% rank++; %>
+                            <% } %>
                     <% } %>
+
                 </tbody>
             </table>
             <form action="/admin/rankers/delete?department=Big Data&_method=DELETE" method="POST" style="text-align: right; margin-top: 10px;">
@@ -158,16 +175,20 @@
                 </thead>
                 <tbody>
                     <% rank = 1; %>
-                    <% for (let ranker of aiRankers) { %>
-                    <tr>
-                        <td><img src="<%= ranker.photo.url %>" alt="Photo of <%= ranker.name %>"></td>
-                        <td><%= ranker.name %></td>
-                        <td><%= ranker.percentage %>%</td>
-                        <td><%= rank %></td>
-                        <td><%= ranker.year %></td>
-                        <td><a href="/admin/rankers/<%= ranker._id %>/edit" class="edit-link">Edit</a></td>
-                    </tr>
-                    <% rank++; %>
+                    <%if(aiRankers.length === 0){ %>
+                        <h1 class="no-rankers">No rankers found</h1>
+                    <% }else{ %>
+                        <% for (let ranker of aiRankers) { %>
+                            <tr>
+                                <td><img src="<%= ranker.photo.url %>" alt="Photo of <%= ranker.name %>"></td>
+                                <td><%= ranker.name %></td>
+                                <td><%= ranker.percentage %>%</td>
+                                <td><%= rank %></td>
+                                <td><%= ranker.year %></td>
+                                <td><a href="/admin/rankers/<%= ranker._id %>/edit" class="edit-link">Edit</a></td>
+                            </tr>
+                            <% rank++; %>
+                            <% } %>
                     <% } %>
                 </tbody>
             </table>

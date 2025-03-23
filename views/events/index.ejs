@@ -6,11 +6,15 @@
     <h1 class="events-title">Events</h1>
     
     <div class="events-grid">
-        <% for(let event of allEvents){ %>
-            <a href="/admin/events/<%= event._id %>" class="event-card">
-                <i class="fas fa-calendar-alt" style="margin-right: 12px;"></i>
-                <%= event.name %>
-            </a>
+        <% if(allEvents.length === 0){ %>
+            <h2 class="no-events">No events found</h2>
+        <% }else{ %>
+            <% for(let event of allEvents){ %>
+                <a href="/admin/events/<%= event._id %>" class="event-card">
+                    <i class="fas fa-calendar-alt" style="margin-right: 12px;"></i>
+                    <%= event.name %>
+                </a>
+            <% } %>
         <% } %>
     </div>
 

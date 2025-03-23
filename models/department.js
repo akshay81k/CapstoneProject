@@ -41,6 +41,35 @@ const departmentSchema = new mongoose.Schema({
       ref: "Resource",
     },
   ],
+  departmentalAdvisoryBoard: [
+    {
+      name: String, // Name of the member
+      designation: String, // Designation of the member
+      role: String, // Role in DAB (e.g., Chairman, Member, Parent, Alumni)
+    },
+  ],
+  programEducationalObjectives: [String], // List of PEOs
+
+  programOutcomes: [
+    {
+      title: String, // Example: "PO 1. Basic knowledge"
+      description: String, // Example: "Apply knowledge of mathematics..."
+    },
+  ],
+
+  programSpecificOutcomes: [
+    {
+      title: String, // Example: "PSO 1. Computer Software and Hardware Usage"
+      description: String, // Example: "Use state-of-the-art technologies..."
+    },
+  ],
+  syllabus: [
+    {
+      semester: Number, // e.g., 1, 2, 3, 4, 5, 6
+      fileName: String, // e.g., "syllabus_sem1.pdf"
+      fileUrl: String, 
+    },
+  ],
 });
 
 departmentSchema.post("findOneAndDelete", async (department) => {

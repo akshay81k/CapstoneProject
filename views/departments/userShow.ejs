@@ -58,75 +58,120 @@
       </nav>
 
       <% for(department of allDepartments) { %>
-      <div class="department-card">
-        <h2><%= department.departmentName %></h2>
-        <div class="department-info">
-          <div class="basic-info">
-            <p><b>HOD:</b> <%= department.hod %></p>
-            <p><b>Contact:</b> <%= department.contactEmail %></p>
-            <div class="courses-section">
-              <p><b>Courses:</b></p>
+        <div class="department-card">
+          <h2><%= department.departmentName %></h2>
+          <div class="department-info">
+            <div class="basic-info">
+              <p><b>HOD:</b> <%= department.hod %></p>
+              <p><b>Contact:</b> <%= department.contactEmail %></p>
+              <div class="courses-section">
+                <p><b>Courses:</b></p>
+                <ul>
+                  <% department.courses.forEach(course => { %>
+                    <li><%= course %></li>
+                  <% }); %>
+                </ul>
+              </div>
+            </div>
+        
+            <div class="vision-mission">
+              <div class="vision">
+                <h3>Vision</h3>
+                <p><%= department.vision %></p>
+              </div>
+              <div class="mission">
+                <h3>Mission</h3>
+                <ul>
+                  <% department.mission.forEach(point => { %>
+                    <li><%= point %></li>
+                  <% }); %>
+                </ul>
+              </div>
+            </div>
+        
+            <div class="program-details">
+              <h3>Program Details</h3>
+              <table>
+                <tr>
+                  <th>Program</th>
+                  <th>Intake</th>
+                  <th>Duration</th>
+                </tr>
+                <tr>
+                  <td><%= department.departmentName %></td>
+                  <td><%= department.programDetails.intake %></td>
+                  <td><%= department.programDetails.duration %></td>
+                </tr>
+              </table>
+            </div>
+        
+            <div class="scope">
+              <h3>Scope</h3>
+              <p><%= department.scope %></p>
+              <p>Career opportunities are available in:</p>
               <ul>
-                <% department.courses.forEach(course => { %>
-                <li><%=course%></li>
-                <%}); %>
+                <% department.careerOpportunities.forEach(opportunity => { %>
+                  <li><%= opportunity %></li>
+                <% }); %>
               </ul>
             </div>
-          </div>
-
-          <div class="vision-mission">
-            <div class="vision">
-              <h3>Vision</h3>
-              <p><%= department.vision %></p>
-            </div>
-            <div class="mission">
-              <h3>Mission</h3>
+        
+            <div class="department-features">
+              <h3>Department Features</h3>
               <ul>
-                <% department.mission.forEach(point => { %>
-                  <li><%= point %></li>
+                <% department.departmentFeatures.forEach(feature => { %>
+                  <li><%= feature %></li>
+                <% }); %>
+              </ul>
+            </div>
+        
+            <div class="departmental-advisory-board">
+              <h3>Departmental Advisory Board</h3>
+              <ul>
+                <% department.departmentalAdvisoryBoard.forEach(member => { %>
+                  <li><b><%= member.name %></b> - <%= member.designation %> (<%= member.role %>)</li>
+                <% }); %>
+              </ul>
+            </div>
+        
+            <div class="program-objectives">
+              <h3>Program Educational Objectives (PEOs)</h3>
+              <ul>
+                <% department.programEducationalObjectives.forEach(peo => { %>
+                  <li><%= peo %></li>
+                <% }); %>
+              </ul>
+            </div>
+        
+            <div class="program-outcomes">
+              <h3>Program Outcomes (POs)</h3>
+              <ul>
+                <% department.programOutcomes.forEach(po => { %>
+                  <li><b><%= po.title %></b>: <%= po.description %></li>
+                <% }); %>
+              </ul>
+            </div>
+        
+            <div class="program-specific-outcomes">
+              <h3>Program Specific Outcomes (PSOs)</h3>
+              <ul>
+                <% department.programSpecificOutcomes.forEach(pso => { %>
+                  <li><b><%= pso.title %></b>: <%= pso.description %></li>
+                <% }); %>
+              </ul>
+            </div>
+        
+            <div class="syllabus">
+              <h3>Syllabus</h3>
+              <ul>
+                <% department.syllabus.forEach(syll => { %>
+                  <li>Semester <%= syll.semester %>: <a href="<%= syll.fileUrl %>" target="_blank"><%= syll.fileName %></a></li>
                 <% }); %>
               </ul>
             </div>
           </div>
-
-          <div class="program-details">
-            <h3>Program Details</h3>
-            <table>
-              <tr>
-                <th>Program</th>
-                <th>Intake</th>
-                <th>Duration</th>
-              </tr>
-              <tr>
-                <td><%= department.departmentName %></td>
-                <td><%= department.programDetails.intake %></td>
-                <td><%= department.programDetails.duration %></td>
-              </tr>
-            </table>
-          </div>
-
-          <div class="scope">
-            <h3>Scope</h3>
-            <p><%= department.scope %>.</p>
-            <p>Career opportunities are available in:</p>
-            <ul>
-              <% department.careerOpportunities.forEach(opportunity => { %>
-                <li><%= opportunity %></li>
-              <% }); %>
-            </ul>
-          </div>
-
-          <div class="department-features">
-            <h3>Department Features</h3>
-            <ul>
-              <% department.departmentFeatures.forEach(feature => { %>
-                <li><%= feature %></li>
-              <% }); %>
-            </ul>
-          </div>
         </div>
-      </div>
-      <% } %>
+        <% } %>        
     </div>
 
     <div class="footer">

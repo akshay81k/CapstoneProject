@@ -1,33 +1,242 @@
 <% layout("/layouts/admin_boilerplate.ejs") %>
 <head>
   <link rel="stylesheet" href="/styles/admin/adddepartment.css">
-</head> 
-        <img src="/images/blob1.png" class="blob1">
-        <div class="department-container">
-            <h3>Add Department</h3>
-            <form action="/admin/departments" method="POST">
-                <label for="departmentName">
-                    Department Name:
-                    <input type="text" id="departmentName" name="department[departmentName]" placeholder="Enter department name" required />
+</head>
+
+<img src="/images/blob1.png" class="blob1">
+
+<div class="department-container">
+    <h3>Add Department</h3>
+    <form action="/admin/departments" method="POST" enctype="multipart/form-data">
+        <label for="departmentName">
+            Department Name:
+            <input type="text" id="departmentName" name="department[departmentName]" placeholder="Enter department name" required />
+        </label>
+
+        <label for="hod">
+            Head of Department:
+            <input type="text" id="hod" name="department[hod]" placeholder="Enter name of HOD" required />
+        </label>
+
+        <label for="contactEmail">
+            Contact Email:
+            <input type="email" id="contactEmail" name="department[contactEmail]" placeholder="Enter HOD's email address" required />
+        </label>
+
+        <label for="courses">
+            Courses Offered (Comma separated):
+            <textarea id="courses" name="department[courses]" placeholder="Enter courses offered by the department" required></textarea>
+        </label>
+
+        <label for="vision">
+            Vision:
+            <textarea id="vision" name="department[vision]" placeholder="Enter vision of department" required></textarea>
+        </label>
+
+        <label for="mission">
+            Mission (Comma separated):
+            <textarea id="mission" name="department[mission]" placeholder="Enter department mission points" required></textarea>
+        </label>
+        <fieldset>
+            <legend>Departmental Advisory Board</legend>
+            <div id="dab-container">
+                <div class="dab-entry">
+                    <label>
+                        Name:
+                        <input type="text" name="department[departmentalAdvisoryBoard][0][name]" placeholder="Enter member name" required />
+                    </label>
+                    <label>
+                        Designation:
+                        <input type="text" name="department[departmentalAdvisoryBoard][0][designation]" placeholder="Enter designation" required />
+                    </label>
+                    <label>
+                        Role:
+                        <input type="text" name="department[departmentalAdvisoryBoard][0][role]" placeholder="Enter role (e.g., Chairman, Member)" required />
+                    </label>
+                </div>
+            </div>
+            <button type="button" onclick="addDAB()">+ Add Another Member</button>
+        </fieldset>
+        <fieldset>
+            <legend>Program Details</legend>
+            <label for="intake">
+                Intake:
+                <input type="number" id="intake" name="department[programDetails][intake]" placeholder="Enter intake capacity" required />
+            </label>
+
+            <label for="duration">
+                Duration:
+                <input type="text" id="duration" name="department[programDetails][duration]" placeholder="Enter duration (e.g., 4 years)" required />
+            </label>
+        </fieldset>
+
+        <label for="scope">
+            Scope:
+            <textarea id="scope" name="department[scope]" placeholder="Describe the scope of the department" required></textarea>
+        </label>
+
+        <label for="careerOpportunities">
+            Career Opportunities (Comma separated):
+            <textarea id="careerOpportunities" name="department[careerOpportunities]" placeholder="List career opportunities" required></textarea>
+        </label>
+
+        <label for="departmentFeatures">
+            Department Features (Comma separated):
+            <textarea id="departmentFeatures" name="department[departmentFeatures]" placeholder="List department features" required></textarea>
+        </label>
+
+        <fieldset>
+            <legend>Program Outcomes (PO)</legend>
+            <div id="po-container">
+                <div class="po-entry">
+                    <label>
+                        Title:
+                        <input type="text" name="department[programOutcomes][0][title]" placeholder="Enter PO title" required />
+                    </label>
+                    <label>
+                        Description:
+                        <textarea name="department[programOutcomes][0][description]" placeholder="Describe the PO" required></textarea>
+                    </label>
+                </div>
+            </div>
+            <button type="button" onclick="addPO()">+ Add PO</button>
+        </fieldset>
+
+        <fieldset>
+            <legend>Program Educational Objectives (PEO)</legend>
+            <div id="peo-container">
+                <div class="peo-entry">
+                    <label>
+                        Objective:
+                        <input type="text" name="department[programEducationalObjectives][]" placeholder="Enter PEO" required />
+                    </label>
+                </div>
+            </div>
+            <button type="button" onclick="addPEO()">+ Add Another PEO</button>
+        </fieldset>
+
+        <fieldset>
+            <legend>Program Specific Outcomes (PSO)</legend>
+            <div id="pso-container">
+                <div class="pso-entry">
+                    <label>
+                        Title:
+                        <input type="text" name="department[programSpecificOutcomes][0][title]" placeholder="Enter PSO title" required />
+                    </label>
+                    <label>
+                        Description:
+                        <textarea name="department[programSpecificOutcomes][0][description]" placeholder="Describe the PSO" required></textarea>
+                    </label>
+                </div>
+            </div>
+            <button type="button" onclick="addPSO()">+ Add PSO</button>
+        </fieldset>
+
+        <fieldset>
+            <legend>Syllabus Upload</legend>
+            <div id="syllabus-container">
+                <div class="syllabus-entry">
+                    <label>
+                        Semester:
+                        <input type="number" name="department[syllabus][0][semester]" placeholder="Enter semester number" required />
+                    </label>
+                    <label>
+                        Upload Syllabus:
+                        <input type="file" name="syllabusFiles" accept=".pdf" required />
+                    </label>
+                </div>
+            </div>
+            <button type="button" onclick="addSyllabus()">+ Add Another Syllabus</button>
+        </fieldset>
+
+        <button type="submit">Add Department</button>
+    </form>
+</div>
+
+<img src="/images/blob2.png" class="blob2">
+
+<script>
+    function addDAB() {
+        const index = document.querySelectorAll(".dab-entry").length;
+        const container = document.getElementById("dab-container");
+
+        container.insertAdjacentHTML('beforeend', `
+            <div class="dab-entry">
+                <label>
+                    Name:
+                    <input type="text" name="department[departmentalAdvisoryBoard][${index}][name]" placeholder="Enter member name" required />
                 </label>
-
-                <label for="hod">
-                    Head of Department:
-                    <input type="text" id="hod" name="department[hod]" placeholder="Enter name of HOD" required />
+                <label>
+                    Designation:
+                    <input type="text" name="department[departmentalAdvisoryBoard][${index}][designation]" placeholder="Enter designation" required />
                 </label>
-
-                <label for="contactEmail">
-                    Contact Email:
-                    <input type="email" id="contactEmail" name="department[contactEmail]" placeholder="Enter HOD's email address" required />
+                <label>
+                    Role:
+                    <input type="text" name="department[departmentalAdvisoryBoard][${index}][role]" placeholder="Enter role (e.g., Chairman, Member)" required />
                 </label>
-
-                <label for="courses">
-                    Courses Offered:
-                    <textarea id="courses" name="department[courses]" placeholder="Enter courses offered by the department (one per line)" required></textarea>
+            </div>
+        `);
+    }
+    function addPEO() {
+        const container = document.getElementById("peo-container");
+        container.insertAdjacentHTML('beforeend', `
+            <div class="peo-entry">
+                <label>
+                    Objective:
+                    <input type="text" name="department[programEducationalObjectives][]" placeholder="Enter PEO" required />
                 </label>
+            </div>
+        `);
+    }
 
-                <button type="submit">Add Department</button>
-            </form>
-        </div>
-        <img src="/images/blob2.png" class="blob2">
+    function addPO() {
+        const index = document.querySelectorAll(".po-entry").length;
+        const container = document.getElementById("po-container");
+        container.insertAdjacentHTML('beforeend', `
+            <div class="po-entry">
+                <label>
+                    Title:
+                    <input type="text" name="department[programOutcomes][${index}][title]" placeholder="Enter PO title" required />
+                </label>
+                <label>
+                    Description:
+                    <textarea name="department[programOutcomes][${index}][description]" placeholder="Describe the PO" required></textarea>
+                </label>
+            </div>
+        `);
+    }
 
+    function addPSO() {
+        const index = document.querySelectorAll(".pso-entry").length;
+        const container = document.getElementById("pso-container");
+        container.insertAdjacentHTML('beforeend', `
+            <div class="pso-entry">
+                <label>
+                    Title:
+                    <input type="text" name="department[programSpecificOutcomes][${index}][title]" placeholder="Enter PSO title" required />
+                </label>
+                <label>
+                    Description:
+                    <textarea name="department[programSpecificOutcomes][${index}][description]" placeholder="Describe the PSO" required></textarea>
+                </label>
+            </div>
+        `);
+    }
+
+    function addSyllabus() {
+        const index = document.querySelectorAll(".syllabus-entry").length;
+        const container = document.getElementById("syllabus-container");
+        container.insertAdjacentHTML('beforeend', `
+            <div class="syllabus-entry">
+                <label>
+                    Semester:
+                    <input type="number" name="department[syllabus][${index}][semester]" placeholder="Enter semester number" required />
+                </label>
+                <label>
+                    Upload Syllabus:
+                    <input type="file" name="syllabusFiles" accept=".pdf" required />
+                </label>
+            </div>
+        `);
+    }
+</script>

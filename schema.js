@@ -56,6 +56,38 @@ module.exports.departmentSchema = Joi.object({
     scope: Joi.string().required(),
     careerOpportunities: Joi.array().items(Joi.string()).required(),
     departmentFeatures: Joi.array().items(Joi.string()).required(),
+    departmentalAdvisoryBoard: Joi.array().items(
+      Joi.object({
+        name: Joi.string().required(), // Name of the member
+        designation: Joi.string().required(), // Designation of the member
+        role: Joi.string().required(), // Role in DAB (e.g., Chairman, Member, Parent, Alumni)
+      })
+    ).required(),
+     // Validation for Program Educational Objectives (PEO)
+     programEducationalObjectives: Joi.array().items(Joi.string()).required(),
+
+     // Validation for Program Outcomes (PO)
+     programOutcomes: Joi.array().items(
+       Joi.object({
+         title: Joi.string().required(),
+         description: Joi.string().required(),
+       })
+     ).required(),
+ 
+     // Validation for Program Specific Outcomes (PSO)
+     programSpecificOutcomes: Joi.array().items(
+       Joi.object({
+         title: Joi.string().required(),
+         description: Joi.string().required(),
+       })
+     ).required(),
+     syllabus: Joi.array().items(
+      Joi.object({
+        semester: Joi.number().integer().min(1).max(8), // Semester (1-8)
+        fileName: Joi.string().optional(), // Syllabus file name (optional)
+        fileUrl: Joi.string().uri().optional(), // Syllabus file URL (optional)
+      })
+    ).optional(),
   }).required(),
 });
 

@@ -11,8 +11,102 @@
             <li><strong>Name:</strong> <%= department.departmentName %></li>
             <li><strong>HOD:</strong> <%= department.hod %></li>
             <li><strong>Email:</strong> <%= department.contactEmail %></li>
-            <li><strong>Courses:</strong> <%= department.courses %></li>
+            <li><strong>Courses Offered:</strong> <%= department.courses.join(", ") %></li>
         </ul>
+
+        <h2 class="section-title">Vision</h2>
+        <p><%= department.vision %></p>
+
+        <h2 class="section-title">Mission</h2>
+        <ul>
+            <% department.mission.forEach(missionPoint => { %>
+                <li><%= missionPoint %></li>
+            <% }) %>
+        </ul>
+
+        <h2 class="section-title">Program Details</h2>
+        <ul>
+            <li><strong>Intake Capacity:</strong> <%= department.programDetails.intake %></li>
+            <li><strong>Duration:</strong> <%= department.programDetails.duration %></li>
+        </ul>
+
+        <h2 class="section-title">Scope</h2>
+        <p><%= department.scope %></p>
+
+        <h2 class="section-title">Career Opportunities</h2>
+        <ul>
+            <% department.careerOpportunities.forEach(opportunity => { %>
+                <li><%= opportunity %></li>
+            <% }) %>
+        </ul>
+
+        <h2 class="section-title">Department Features</h2>
+        <ul>
+            <% department.departmentFeatures.forEach(feature => { %>
+                <li><%= feature %></li>
+            <% }) %>
+        </ul>
+
+        <h2 class="section-title">Departmental Advisory Board</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Designation</th>
+                    <th>Role</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% department.departmentalAdvisoryBoard.forEach(member => { %>
+                    <tr>
+                        <td><%= member.name %></td>
+                        <td><%= member.designation %></td>
+                        <td><%= member.role %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+
+        <h2 class="section-title">Program Educational Objectives (PEOs)</h2>
+        <ul>
+            <% department.programEducationalObjectives.forEach(peo => { %>
+                <li><%= peo %></li>
+            <% }) %>
+        </ul>
+
+        <h2 class="section-title">Program Outcomes</h2>
+        <ul>
+            <% department.programOutcomes.forEach(po => { %>
+                <li><strong><%= po.title %>:</strong> <%= po.description %></li>
+            <% }) %>
+        </ul>
+
+        <h2 class="section-title">Program Specific Outcomes (PSOs)</h2>
+        <ul>
+            <% department.programSpecificOutcomes.forEach(pso => { %>
+                <li><strong><%= pso.title %>:</strong> <%= pso.description %></li>
+            <% }) %>
+        </ul>
+
+        <h2 class="section-title">Syllabus</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Semester</th>
+                    <th>File Name</th>
+                    <th>Download</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% department.syllabus.forEach(syllabus => { %>
+                    <tr>
+                        <td>Semester <%= syllabus.semester %></td>
+                        <td><%= syllabus.fileName %></td>
+                        <td><a href="<%= syllabus.fileUrl %>" target="_blank">Download</a></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
 
         <h2 class="section-title">Faculty Members</h2>
         <div class="faculty-list">
@@ -30,8 +124,8 @@
                 <div class="exam-card">
                     <div class="exam-card-info"><strong>Name:</strong> <%= exam.examName %></div>
                     <div class="exam-card-info"><strong>Type:</strong> <%= exam.examType %></div>
-                    <div class="exam-card-info"><strong>Start Date:</strong> <%= exam.startDate.toDateString() %></div>
-                    <div class="exam-card-info"><strong>End Date:</strong> <%= exam.endDate.toDateString() %></div>
+                    <div class="exam-card-info"><strong>Start Date:</strong> <%= new Date(exam.startDate).toDateString() %></div>
+                    <div class="exam-card-info"><strong>End Date:</strong> <%= new Date(exam.endDate).toDateString() %></div>
                     <a href="<%= exam.timetable.url %>" target="_blank" class="timetable-link">
                         <i class="fas fa-calendar-alt" style="margin-right: 8px;"></i>View Timetable
                     </a>

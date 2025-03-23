@@ -7,33 +7,6 @@ cloudinary.config({
   api_secret: process.env.CLOUD_API_SECRET,
 });
 
-// define path where to upload files in cloud
-// const storage = new CloudinaryStorage({
-//   cloudinary: cloudinary,
-//   params: {
-//     folder: "bvp_storage",
-//     allowedFormats: ["png", "jpg", "jpeg","pdf","mp4"], // supports promises as well
-//   },
-// });
-
-// const storage = new CloudinaryStorage({
-//   cloudinary: cloudinary,
-//   params: async (req, file) => {
-//     let resourceType = "image";
-
-//     // Set resource type to 'raw' for PDFs and other non-image files
-//     if (file.mimetype === "application/pdf" || file.mimetype === "video/mp4") {
-//       resourceType = "raw";
-//     }
-
-//     return {
-//       folder: "bvp_storage",
-//       allowedFormats: ["png", "jpg", "jpeg", "pdf", "mp4"],
-//       resource_type: resourceType,
-//     };
-//   },
-// });
-
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: async (req, file) => {

@@ -65,25 +65,29 @@
 
     <!-- Notices Section -->
     <div class="notice-container">
-      <% for(notice of allNotices) { %>
-        <div class="notice-card">
-          <h1 class="notice-title"><%= notice.title %></h1>
-          <div class="notice-info">
-            <div class="notice-description">
-              <%= notice.description %>
+      if(allNotices.length === 0) {
+        <h1>No notices found</h1>
+      }else{
+        <% for(notice of allNotices) { %>
+          <div class="notice-card">
+            <h1 class="notice-title"><%= notice.title %></h1>
+            <div class="notice-info">
+              <div class="notice-description">
+                <%= notice.description %>
+              </div>
+              <p><b><i class="far fa-calendar-alt"></i> Date:</b> 
+                <%= notice.datePosted ? new Date(notice.datePosted).toLocaleDateString() : "N/A" %>
+              </p>
+              <p><b><i class="far fa-user"></i> Posted by:</b> 
+                <%= notice.postedBy %>
+              </p>
+              <p><b><i class="far fa-folder"></i> Category:</b> 
+                <%= notice.category %>
+              </p>
             </div>
-            <p><b><i class="far fa-calendar-alt"></i> Date:</b> 
-              <%= notice.datePosted ? new Date(notice.datePosted).toLocaleDateString() : "N/A" %>
-            </p>
-            <p><b><i class="far fa-user"></i> Posted by:</b> 
-              <%= notice.postedBy %>
-            </p>
-            <p><b><i class="far fa-folder"></i> Category:</b> 
-              <%= notice.category %>
-            </p>
           </div>
-        </div>
-      <% } %>
+        <% } %>
+      }
     </div>
 
     <!-- Footer Section -->

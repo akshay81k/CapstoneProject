@@ -61,36 +61,41 @@
       <div class="facilities-container">
         <h1>College Facilities</h1>
         <div class="facilities-grid">
-          <% for(facility of allFacilities) { %>
-          <div class="facility-card">
-            <div class="facility-image">
-              <img src="<%=facility.img.url%>" alt="<%= facility.facilityName %>">
-            </div>
-            <div class="facility-content">
-              <h2><%= facility.facilityName %></h2>
-              <div class="facility-details">
-                <div class="detail-item">
-                  <i class="fas fa-info-circle"></i>
-                  <span><%= facility.description %></span>
+          <% if(allFacilities.length === 0){ %>
+            <h2>No Facilities Available</h2>
+        <% }else{ %>
+            <% for(facility of allFacilities) { %>
+              <div class="facility-card">
+                <div class="facility-image">
+                  <img src="<%=facility.img.url%>" alt="<%= facility.facilityName %>">
                 </div>
-                <div class="detail-item">
-                  <i class="fas fa-map-marker-alt"></i>
-                  <span><%= facility.location %></span>
-                </div>
-                <div class="detail-item">
-                  <i class="fas fa-clock"></i>
-                  <span><%= facility.timing %></span>
-                </div>
-                <div class="contact-info">
-                  <h3>Contact Person</h3>
-                  <p><i class="fas fa-user"></i> <%= facility.contact.name %></p>
-                  <p><i class="fas fa-envelope"></i> <%= facility.contact.email %></p>
-                  <p><i class="fas fa-phone"></i> <%= facility.contact.phone %></p>
+                <div class="facility-content">
+                  <h2><%= facility.facilityName %></h2>
+                  <div class="facility-details">
+                    <div class="detail-item">
+                      <i class="fas fa-info-circle"></i>
+                      <span><%= facility.description %></span>
+                    </div>
+                    <div class="detail-item">
+                      <i class="fas fa-map-marker-alt"></i>
+                      <span><%= facility.location %></span>
+                    </div>
+                    <div class="detail-item">
+                      <i class="fas fa-clock"></i>
+                      <span><%= facility.timing %></span>
+                    </div>
+                    <div class="contact-info">
+                      <h3>Contact Person</h3>
+                      <p><i class="fas fa-user"></i> <%= facility.contact.name %></p>
+                      <p><i class="fas fa-envelope"></i> <%= facility.contact.email %></p>
+                      <p><i class="fas fa-phone"></i> <%= facility.contact.phone %></p>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-          <% } %>
+              <% } %>
+        <% } %>
+          
         </div>
       </div>
     </div>

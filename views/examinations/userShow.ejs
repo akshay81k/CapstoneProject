@@ -61,34 +61,38 @@
       <div class="examination-container">
         <h1>Examination Schedule</h1>
         <div class="exam-grid">
-          <% for (exam of allExams) { %>
-          <div class="exam-card">
-            <div class="exam-header">
-              <h2><%= exam.examName %></h2>
-              <span class="exam-type"><%= exam.examType %></span>
-            </div>
-            <div class="exam-details">
-              <div class="detail-item">
-                <i class="fas fa-building"></i>
-                <span><%= exam.department %></span>
+          <% if(allExams.length === 0) { %>
+              <h2>No Examinations Scheduled</h2>
+          <% } else { %> 
+            <% for (exam of allExams) { %>
+              <div class="exam-card">
+                <div class="exam-header">
+                  <h2><%= exam.examName %></h2>
+                  <span class="exam-type"><%= exam.examType %></span>
+                </div>
+                <div class="exam-details">
+                  <div class="detail-item">
+                    <i class="fas fa-building"></i>
+                    <span><%= exam.department %></span>
+                  </div>
+                  <div class="detail-item">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>Semester <%= exam.semester %></span>
+                  </div>
+                  <div class="detail-item">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Start: <%= exam.startDate.toDateString() %></span>
+                  </div>
+                  <div class="detail-item">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>End: <%= exam.endDate.toDateString() %></span>
+                  </div>
+                </div>
+                <a href="<%= exam.timetable.url %>" target="_blank" class="timetable-link">
+                  <i class="fas fa-file-alt"></i> View Timetable
+                </a>
               </div>
-              <div class="detail-item">
-                <i class="fas fa-graduation-cap"></i>
-                <span>Semester <%= exam.semester %></span>
-              </div>
-              <div class="detail-item">
-                <i class="fas fa-calendar-alt"></i>
-                <span>Start: <%= exam.startDate.toDateString() %></span>
-              </div>
-              <div class="detail-item">
-                <i class="fas fa-calendar-check"></i>
-                <span>End: <%= exam.endDate.toDateString() %></span>
-              </div>
-            </div>
-            <a href="<%= exam.timetable.url %>" target="_blank" class="timetable-link">
-              <i class="fas fa-file-alt"></i> View Timetable
-            </a>
-          </div>
+              <% } %>
           <% } %>
         </div>
       </div>
