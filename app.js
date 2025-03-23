@@ -96,6 +96,8 @@ app.use(express.urlencoded({ limit: "80mb", extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 
+
+// TODO: Admin Root 
 app.get("/admin", isLoggedIn,(req, res) => {
   res.render("main/index.ejs");
 });

@@ -65,9 +65,9 @@
 
     <!-- Notices Section -->
     <div class="notice-container">
-      if(allNotices.length === 0) {
+      <%if(allNotices.length === 0) { %>
         <h1>No notices found</h1>
-      }else{
+      <% }else{ %> 
         <% for(notice of allNotices) { %>
           <div class="notice-card">
             <h1 class="notice-title"><%= notice.title %></h1>
@@ -87,7 +87,7 @@
             </div>
           </div>
         <% } %>
-      }
+      <% } %>
     </div>
 
     <!-- Footer Section -->
