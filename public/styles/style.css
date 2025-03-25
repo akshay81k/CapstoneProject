@@ -849,6 +849,10 @@ nav{
 
 .carousel .ecard {
     scroll-snap-align: start;
+    background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), 
+                url(/images/card-img1.jpeg) !important;
+    background-size: cover;
+    background-position: center;
     list-style: none;
     background: #fff;
     border-radius: 8px;
