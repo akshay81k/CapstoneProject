@@ -1,8 +1,8 @@
 var swiper = new Swiper(".slide-content", {
     slidesPerView: 3,
-    spaceBetween: 50,
+    spaceBetween: 25,
     loop: true,
-    centerSlide: true,
+    centerSlide: false,
     fade: true,
     grabCursor: true,
     pagination: {
@@ -18,12 +18,14 @@ var swiper = new Swiper(".slide-content", {
         0: {
             slidesPerView: 1,
         },
-        520: {
+        768: {
             slidesPerView: 2,
+            spaceBetween: 20,
         },
-        950: {
+        1024: {
             slidesPerView: 3,
-        },
+            spaceBetween: 25,
+        }
     }
 });
 
@@ -159,3 +161,60 @@ document.addEventListener("mouseup", dragStop);
 carousel.addEventListener("scroll", infiniteScroll);
 wrapper.addEventListener("mouseenter", () => clearTimeout(timeoutId));
 wrapper.addEventListener("mouseleave", autoPlay);
+
+// Hamburger menu functionality
+const hamburger = document.querySelector('.hamburger');
+const navLinks = document.querySelector('.nav-links');
+const dropdowns = document.querySelectorAll('.dropdown');
+
+hamburger.addEventListener('click', () => {
+    // Toggle hamburger menu
+    hamburger.classList.toggle('active');
+    navLinks.classList.toggle('active');
+});
+
+// Handle dropdowns in mobile menu
+dropdowns.forEach(dropdown => {
+    dropdown.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768) {
+            e.preventDefault();
+            dropdown.classList.toggle('active');
+            
+            // Close other dropdowns
+            dropdowns.forEach(other => {
+                if (other !== dropdown) {
+                    other.classList.remove('active');
+                }
+            });
+        }
+    });
+});
+
+// Close menu when clicking outside
+document.addEventListener('click', (e) => {
+    if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) {
+        navLinks.classList.remove('active');
+        hamburger.classList.remove('active');
+        dropdowns.forEach(dropdown => dropdown.classList.remove('active'));
+    }
+});
+
+// Close menu when clicking a link
+const navbarLinks = document.querySelectorAll('.nav-links a');
+navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+            hamburger.classList.remove('active');
+            navbarLinks.classList.remove('active');
+        }
+    });
+});
+
+// Handle window resize
+window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) {
+        hamburger.classList.remove('active');
+        navbarLinks.classList.remove('active');
+        dropdowns.forEach(dropdown => dropdown.classList.remove('active'));
+    }
+});
