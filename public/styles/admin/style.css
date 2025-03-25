@@ -39,6 +39,7 @@ body::-webkit-scrollbar {
     height: 100px;
     background: linear-gradient(to bottom, #1864E0, #FFF);
 }
+
 header {
     margin-top: 1%;
     display: flex;
@@ -52,12 +53,14 @@ header {
     position: relative;
     top: 0;
     z-index: 10;
+    transition: all 0.3s ease;
 }
 
 .lcontainer {
     display: flex;
     align-items: center;
     font-weight: bold;
+    transition: all 0.3s ease;
 }
 
 .lcontainer #logo {
@@ -65,28 +68,28 @@ header {
     height: auto;
     margin-right: 2%;
     margin-left: 2%;
+    transition: all 0.3s ease;
 }
 
 .lcontainer #clg {
     font-size: 1rem;
     line-height: 1.5;
     color: #053165;
+    transition: all 0.3s ease;
 }
 
 .icontainer {
     position: relative;
     display: inline; 
-    margin-top: 1.5%;  
+    margin-top: 1.5%;
+    transition: all 0.3s ease;
 }
 
 .icontainer img {
     width: 60%;
     height: auto;
-    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0));
-    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0));
-    -webkit-mask-size: 100% 100%;
-    mask-size: 100% 100%;
     border-radius: 25%;
+    transition: all 0.3s ease;
 }
 
 #clg h2 {
@@ -197,19 +200,20 @@ nav {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 40px 20px;
+    padding: 40px 20px 40px;
     position: relative;
     background: rgba(255, 255, 255, 0.7);
     overflow: hidden;
 }
 
 .quote-container {
+    
     width: 100%;
     max-width: 1300px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 60px;
+    padding: 0 60px 20px;
     position: relative;
     overflow: hidden;
 }
@@ -322,6 +326,16 @@ nav {
 }
 
 @media (max-width: 768px) {
+
+    nav {
+        position: absolute;
+    }
+    .quote-container {
+        flex-direction: column;
+    }
+    .main-content {
+        padding: 0px 10px 10px;
+    }
     .boxes-container {
         transform: rotate(0) translate(0, 0);
         width: 300px;
@@ -481,5 +495,237 @@ nav {
 
     .social-icons {
         margin-left: 0;
+    }
+}
+
+/* Hamburger menu styles */
+.hamburger {
+    display: none;
+    cursor: pointer;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: white;
+    padding: 12px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.bar {
+    width: 25px;
+    height: 3px;
+    background-color: #053165;
+    margin: 5px 0;
+    transition: all 0.3s ease;
+}
+
+/* Update navigation styles for mobile */
+@media screen and (max-width: 768px) {
+    .hamburger {
+        display: block;
+    }
+
+    nav {
+        margin-top: 0;
+    }
+
+    .nav-links {
+        position: fixed;
+        right: -100%;  /* Changed from left to right to match user side */
+        top: 0;
+        width: 70%;
+        height: 100vh;
+        background: white;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 70px 20px;
+        transition: 0.3s ease-in-out;
+        box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+        z-index: 999;
+        margin-top: 0;
+    }
+
+    .nav-links.active {
+        right: 0;  /* Changed from left to right to match user side */
+    }
+
+    .nav {
+        margin: 10px 0;
+        width: 100%;
+        text-align: left;
+        padding: 10px 0;
+    }
+
+    .nav a {
+        padding: 8px 0;
+        display: block;
+        width: 100%;
+    }
+
+    /* Hamburger animation */
+    .hamburger.active .bar:nth-child(1) {
+        transform: rotate(45deg) translate(8px, 6px);
+    }
+
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active .bar:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -5px);
+    }
+
+    /* Remove hover effects on mobile */
+    .nav:before,
+    .nav:after {
+        display: none;
+    }
+
+    /* Adjust main content */
+    .main-content {
+        padding-top: 60px;
+    }
+}
+
+/* Adjust for smaller screens */
+@media screen and (max-width: 576px) {
+    .nav-links {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .nav-links {
+        width: 90%;
+    }
+
+    .nav {
+        font-size: 14px;
+    }
+}
+
+/* Add responsive styles for header */
+@media screen and (max-width: 1024px) {
+    .lcontainer #logo {
+        width: 10%;
+    }
+
+    .lcontainer #clg {
+        font-size: 0.9rem;
+    }
+
+    #clg h2 {
+        font-size: 1.2rem;
+    }
+
+    #clg h4 {
+        font-size: 0.9rem;
+    }
+
+    .icontainer img {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    header {
+        height: auto;
+        flex-direction: column;
+        padding: 15px 10px;
+        margin-top: 0;
+    }
+
+    .lcontainer {
+        flex-direction: column;
+        text-align: center;
+        width: 100%;
+    }
+
+    .lcontainer #logo {
+        width: 15%;
+        margin: 10px auto;
+    }
+
+    .lcontainer #clg {
+        text-align: center;
+        margin: 10px 0;
+    }
+
+    #clg h2 {
+        font-size: 1rem;
+        margin: 5px 0;
+    }
+
+    #clg h4 {
+        font-size: 0.8rem;
+    }
+
+    .icontainer {
+        margin: 10px 0;
+        text-align: center;
+    }
+
+    .icontainer img {
+        width: 30%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    header {
+        padding: 10px 5px;
+    }
+
+    .lcontainer #logo {
+        width: 20%;
+    }
+
+    .lcontainer #clg {
+        font-size: 0.8rem;
+    }
+
+    #clg h2 {
+        font-size: 0.9rem;
+    }
+
+    #clg h4 {
+        font-size: 0.75rem;
+    }
+
+    .icontainer img {
+        width: 25%;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .lcontainer #logo {
+        width: 25%;
+    }
+
+    .lcontainer #clg {
+        font-size: 0.7rem;
+    }
+
+    #clg h2 {
+        font-size: 0.8rem;
+    }
+
+    #clg h4 {
+        font-size: 0.7rem;
+    }
+
+    .icontainer img {
+        width: 20%;
+    }
+}
+
+/* Update page1 styles for better header integration */
+@media screen and (max-width: 768px) {
+    .page1::after {
+        height: 150px; /* Adjust the gradient height for mobile */
+    }
+
+    .main-content {
+        padding-top: 80px; /* Adjust padding to account for stacked header */
     }
 }
