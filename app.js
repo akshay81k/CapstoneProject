@@ -1176,9 +1176,10 @@ app.post(
     // Upload each paper link file to Google Drive and add it to paperLinks array
     if (files["resource[materials][0][paperLinks][]"]) {
       for (let file of files["resource[materials][0][paperLinks][]"]) {
-        const {fileURL} = await uploadFile(file);
+        const {fileUrl} = await uploadFile(file);
+        console.log("File URL:", fileUrl); // Log the file URL for debugging
         material.paperLinks.push({
-          url: fileURL,
+          url: fileUrl,
           fileName: file.originalname,
         });
       }

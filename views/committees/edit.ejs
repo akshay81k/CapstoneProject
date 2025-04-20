@@ -86,50 +86,5 @@
 </div>
 
 <body>
-  <form action="/admin/committees/<%= committee._id %>?_method=PUT" method="POST">
-    <!-- Committee Name -->
-    <label for="committeeName">Committee Name:</label>
-    <input
-      type="text"
-      id="committeeName"
-      name="committeeEdit[committeeName]"
-      value="<%= committee.committeeName %>"
-      required
-    /><br />
 
-    <!-- Committee Description -->
-    <label for="description">Description:</label>
-    <textarea id="description" name="committeeEdit[description]" required><%= committee.description %></textarea><br />
-
-    <h3>Members:</h3>
-    <% if (committee.members && committee.members.length > 0) { %>
-      <% committee.members.forEach((member, index) => { %>
-        <div>
-          <label for="memberName_<%= index %>">Name:</label>
-          <input
-            type="text"
-            id="memberName_<%= index %>"
-            name="committeeEdit[members][<%= index %>][name]"
-            value="<%= member.name %>"
-            required
-          />
-
-          <label for="memberRole_<%= index %>">Role:</label>
-          <input
-            type="text"
-            id="memberRole_<%= index %>"
-            name="committeeEdit[members][<%= index %>][role]"
-            value="<%= member.role %>"
-            required
-          />
-        </div>
-        <br />
-      <% }); %>
-    <% } else { %>
-      <p>No members found.</p>
-    <% } %>
-
-    <!-- Submit Button -->
-    <button type="submit">Update Committee</button>
-  </form>
 </body>
