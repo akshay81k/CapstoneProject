@@ -101,6 +101,7 @@ header {
 h4 {
     font-family: 'Lexend Deca';
     color: #053165;
+    overflow: hidden;
 }
 
 .lcontainer #clg, #clg h2, h4 {

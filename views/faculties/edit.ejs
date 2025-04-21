@@ -1,57 +1,129 @@
-<% layout("/layouts/boilerplate.ejs") %>
+<% layout("/layouts/admin_boilerplate.ejs") %>
+<head>
+    <link rel="stylesheet" href="/styles/admin/editfaculties.css">
+</head>
 
-<body>
-  <h3>Edit Faculty</h3>
+<div class="faculty-edit-container">
+    <h1 class="faculty-edit-title">Edit Faculty</h1>
+    
+    <div class="faculty-edit-form">
+        <form action="/admin/faculties/<%= faculty._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="name">
+                    <i class="fas fa-user" style="margin-right: 8px;"></i>
+                    Faculty Name:
+                </label>
+                <input type="text" id="name" name="faculty[name]" value="<%= faculty.name %>" required />
+            </div>
 
-  <form
-    action="/admin/faculties/<%= faculty._id %>?_method=PUT"
-    method="POST"
-    enctype="multipart/form-data"
-  >
-    <!-- Faculty Name -->
-    <input type="text" name="faculty[name]" value="<%= faculty.name %>" required /><br />
+            <div class="form-group">
+                <label for="address">
+                    <i class="fas fa-map-marker-alt" style="margin-right: 8px;"></i>
+                    Address:
+                </label>
+                <input type="text" id="address" name="faculty[address]" value="<%= faculty.address %>" required />
+            </div>
 
-    <!-- Address -->
-    <input type="text" name="faculty[address]" value="<%= faculty.address %>" required /><br />
+            <div class="form-group">
+                <label for="adharNo">
+                    <i class="fas fa-id-card" style="margin-right: 8px;"></i>
+                    Aadhar Number:
+                </label>
+                <input type="text" id="adharNo" name="faculty[adharNo]" value="<%= faculty.adharNo %>" required />
+            </div>
 
-    <!-- Aadhar Number -->
-    <input type="text" name="faculty[adharNo]" value="<%= faculty.adharNo %>" required /><br />
+            <div class="form-group">
+                <label for="date_of_birth">
+                    <i class="fas fa-birthday-cake" style="margin-right: 8px;"></i>
+                    Date of Birth:
+                </label>
+                <input type="date" id="date_of_birth" name="faculty[date_of_birth]" value="<%= faculty.date_of_birth ? faculty.date_of_birth.toISOString().slice(0, 10) : '' %>" required />
+            </div>
 
-    <!-- Date of Birth -->
-    <input type="date" name="faculty[date_of_birth]" value="<%= faculty.date_of_birth ? faculty.date_of_birth.toISOString().slice(0, 10) : '' %>" required /><br />
+            <div class="form-group">
+                <label for="qualification">
+                    <i class="fas fa-graduation-cap" style="margin-right: 8px;"></i>
+                    Qualification:
+                </label>
+                <input type="text" id="qualification" name="faculty[qualification]" value="<%= faculty.qualification %>" required />
+            </div>
 
-    <!-- Qualification -->
-    <input type="text" name="faculty[qualification]" value="<%= faculty.qualification %>" required /><br />
+            <div class="form-group">
+                <label for="department">
+                    <i class="fas fa-building" style="margin-right: 8px;"></i>
+                    Department:
+                </label>
+                <input type="text" id="department" name="faculty[department]" value="<%= faculty.department %>" required />
+            </div>
 
-    <!-- Department -->
-    <input type="text" name="faculty[department]" value="<%= faculty.department %>" required /><br />
+            <div class="form-group">
+                <label for="designation">
+                    <i class="fas fa-briefcase" style="margin-right: 8px;"></i>
+                    Designation:
+                </label>
+                <input type="text" id="designation" name="faculty[designation]" value="<%= faculty.designation %>" required />
+            </div>
 
-    <!-- Designation -->
-    <input type="text" name="faculty[designation]" value="<%= faculty.designation %>" required /><br />
+            <div class="form-group">
+                <label for="email">
+                    <i class="fas fa-envelope" style="margin-right: 8px;"></i>
+                    Email:
+                </label>
+                <input type="email" id="email" name="faculty[email]" value="<%= faculty.email %>" required />
+            </div>
 
-    <!-- Email -->
-    <input type="email" name="faculty[email]" value="<%= faculty.email %>" required /><br />
+            <div class="form-group">
+                <label for="phone">
+                    <i class="fas fa-phone" style="margin-right: 8px;"></i>
+                    Phone:
+                </label>
+                <input type="tel" id="phone" name="faculty[phone]" value="<%= faculty.phone %>" required />
+            </div>
 
-    <!-- Phone -->
-    <input type="tel" name="faculty[phone]" value="<%= faculty.phone %>" required /><br />
+            <div class="form-group">
+                <label for="specialization">
+                    <i class="fas fa-star" style="margin-right: 8px;"></i>
+                    Specialization:
+                </label>
+                <input type="text" id="specialization" name="faculty[specialization]" value="<%= faculty.specialization %>" required />
+            </div>
 
-    <!-- Specialization -->
-    <input type="text" name="faculty[specialization]" value="<%= faculty.specialization %>" required /><br />
+            <div class="form-group">
+                <label for="experience">
+                    <i class="fas fa-clock" style="margin-right: 8px;"></i>
+                    Experience:
+                </label>
+                <input type="text" id="experience" name="faculty[experience]" value="<%= faculty.experience %>" required />
+            </div>
 
-    <!-- Experience -->
-    <input type="text" name="faculty[experience]" value="<%= faculty.experience %>" required /><br />
+            <div class="form-group">
+                <label for="date_of_joining">
+                    <i class="fas fa-calendar-check" style="margin-right: 8px;"></i>
+                    Date of Joining:
+                </label>
+                <input type="date" id="date_of_joining" name="faculty[date_of_joining]" value="<%= faculty.date_of_joining ? faculty.date_of_joining.toISOString().slice(0, 10) : '' %>" required />
+            </div>
 
-    <!-- Date of Joining -->
-    <input type="date" name="faculty[date_of_joining]" value="<%= faculty.date_of_joining ? faculty.date_of_joining.toISOString().slice(0, 10) : '' %>" required /><br />
+            <div class="image-section">
+                <h3><i class="fas fa-image" style="margin-right: 8px;"></i>Faculty Photo</h3>
+                <% if (faculty.photo && faculty.photo.url) { %>
+                    <div class="image-preview">
+                        <img src="<%= faculty.photo.url %>" alt="Faculty Image">
+                    </div>
+                <% } %>
+                <div class="form-group">
+                    <label for="photo">
+                        <i class="fas fa-upload" style="margin-right: 8px;"></i>
+                        Upload New Photo:
+                    </label>
+                    <input type="file" id="photo" name="faculty[photo]" accept="image/*" />
+                </div>
+            </div>
 
-    <!-- Existing Image Preview -->
-    <% if (faculty.photo && faculty.photo.url) { %>
-      <img src="<%= faculty.photo.url %>" alt="Faculty Image" width="150" height="150"><br>
-    <% } %>
-
-    <!-- Upload New Image -->
-    <input type="file" name="faculty[photo]"><br />
-
-    <button>Update Faculty</button>
-  </form>
-</body>
+            <button type="submit" class="update-btn">
+                <i class="fas fa-save" style="margin-right: 8px;"></i>
+                Update Faculty
+            </button>
+        </form>
+    </div>
+</div>
